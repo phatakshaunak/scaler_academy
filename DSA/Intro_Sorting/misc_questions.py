@@ -417,3 +417,4 @@ class Solution:
         return min_arr[:len(A)-1]
 
 # time O(n^2), space O(1) for insertion sort
+
