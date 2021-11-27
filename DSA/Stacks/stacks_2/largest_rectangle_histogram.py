@@ -115,5 +115,3 @@ class Solution:
             ans = max(ans, area)
         
         return ans
-
-
