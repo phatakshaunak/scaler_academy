@@ -133,5 +133,23 @@ class Solution:
         right = self.get_ht(A.right)
 
         return 1 + max(left, right)
-    
-    # More concise version (no need to track the height separately): https://leetcode.com/problems/binary-tree-level-order-traversal/discuss/1219331/Binary-Tree-Level-Order-Traversal-or-Easy-Solutions-using-BFS-and-DFS-Traversals
+
+# More concise version (no need to track the height separately): https://leetcode.com/problems/binary-tree-level-order-traversal/discuss/1219331/Binary-Tree-Level-Order-Traversal-or-Easy-Solutions-using-BFS-and-DFS-Traversals
+    # q = deque([A])
+    #     ans = []
+
+    #     while q:
+    #         n = len(q)
+    #         curr_level = []
+    #         for i in range(n):
+    #             top = q.popleft()
+    #             if top.left:
+    #                 q.append(top.left)
+    #             if top.right:
+    #                 q.append(top.right)
+                
+    #             curr_level.append(top.val)
+            
+    #         ans.append(curr_level)
+        
+    #     return ans
