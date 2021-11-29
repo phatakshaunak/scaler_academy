@@ -65,50 +65,91 @@ class Solution:
     # @param A : list of integers
     # @return an integer
     def solve(self, A):
+        
+        if len(A) == 1:
+            return A[0]
+        
+        s, e = 0, (len(A) - 1)
+        
+        #Edge cases when the non-duplicate element occurs at the start or end of the array
+        
+        if A[s] != A[s+1]:
+            return A[s]
+        
+        if A[e] != A[e-1]:
+            return A[e]
+        
+        while s <= e:
+            
+            mid = s + (e - s) // 2
+            
+            # Check if we found the unique element in any place apart from 0 or N-1
+            
+            if A[mid] != A[mid - 1] and A[mid] != A[mid + 1]:
+                return A[mid]
+                
+            '''The observation here is that if duplicates occur to the left of unique element, their first occurence index is even, whereas their first occurence is odd to the right of the unique element. We need two checks for these conditions
+               to decide how to reduce the search space
+            '''
+            # Condition for hitting the first or second occurence of an element on the left of the unique element, then move the start pointer
+            
+            if ((A[mid] == A[mid - 1]) and (mid & 1)) or ((A[mid] == A[mid + 1]) and ((mid - 1) & 1)):
+                s = mid + 1
+            
+            # If we are on the right, then move the end pointer
+            else:
+                e = mid - 1
+        
+        return -1
 
-        def single_occ_bs(A):
+# class Solution:
+#     # @param A : list of integers
+#     # @return an integer
+#     def solve(self, A):
+
+#         def single_occ_bs(A):
     
-            s, e = 0, len(A) - 1
+#             s, e = 0, len(A) - 1
             
-            # Edge cases:
+#             # Edge cases:
             
-            if A[0] != A[1]:
-                return A[0]
+#             if A[0] != A[1]:
+#                 return A[0]
             
-            if A[e] != A[e-1]:
-                return A[e]
+#             if A[e] != A[e-1]:
+#                 return A[e]
             
-            while s <= e:
+#             while s <= e:
                 
-                mid = s + (e - s) // 2
-        #         print('start', s, 'end',e)
-                '''Check for single occurence element'''
+#                 mid = s + (e - s) // 2
+#         #         print('start', s, 'end',e)
+#                 '''Check for single occurence element'''
                 
-                '''Conditions when mid occurs at start or end of array'''
+#                 '''Conditions when mid occurs at start or end of array'''
                 
-        #         if mid == 0 and A[mid] != A[mid + 1]:
-        #             return A[mid]
+#         #         if mid == 0 and A[mid] != A[mid + 1]:
+#         #             return A[mid]
                 
-        #         if mid == (len(A) - 1) and A[mid] != A[mid - 1]:
-        #             return A[mid]
+#         #         if mid == (len(A) - 1) and A[mid] != A[mid - 1]:
+#         #             return A[mid]
                 
-                '''Single element occurs anywhere other than start and end'''
-                if A[mid] != A[mid - 1] and A[mid] != A[mid + 1]:
-                    return A[mid]
+#                 '''Single element occurs anywhere other than start and end'''
+#                 if A[mid] != A[mid - 1] and A[mid] != A[mid + 1]:
+#                     return A[mid]
                 
-                '''Next consider how to move the pointers ; We know that the first occurence index of an element to the
-                the left of the unique element is even. Thus if we hit the 1st or 2nd occurence of an element to
-                the left of the unique element, we need to move right.
+#                 '''Next consider how to move the pointers ; We know that the first occurence index of an element to the
+#                 the left of the unique element is even. Thus if we hit the 1st or 2nd occurence of an element to
+#                 the left of the unique element, we need to move right.
                 
-                Else, if we hit the 1st or 2nd occurence of an element to the right, then we move left.
-                '''
+#                 Else, if we hit the 1st or 2nd occurence of an element to the right, then we move left.
+#                 '''
                 
-                if ((A[mid] == A[mid - 1]) and ((mid-1)%2==0)) or ((A[mid] == A[mid + 1]) and ((mid)%2==0)):
+#                 if ((A[mid] == A[mid - 1]) and ((mid-1)%2==0)) or ((A[mid] == A[mid + 1]) and ((mid)%2==0)):
                     
-                    s = mid + 1
+#                     s = mid + 1
                 
-                else:
-                    e = mid - 1
-            return -1
+#                 else:
+#                     e = mid - 1
+#             return -1
     
-        return single_occ_bs(A)
+#         return single_occ_bs(A)
