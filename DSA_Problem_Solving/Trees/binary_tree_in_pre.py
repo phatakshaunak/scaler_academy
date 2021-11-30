@@ -111,4 +111,4 @@ class Solution:
         return recurse(A, pre_s, pre_e, B, in_s, in_e, in_map)
 
 # TC: With map O(N), with loop O(N^2) for finding the index i
-# SC: O(height of tree), worst O(N) where N is the number of nodes for a skewed binary tree
+# SC: For recursion, O(height of tree), worst O(N) where N is the number of nodes for a skewed binary tree, O(N) overall if a map is used
