@@ -83,6 +83,8 @@ class Solution:
         pre_s, pre_e = 0, m - 1
         in_s, in_e = 0, n - 1
         in_map = {}
+
+        # Track indices of inorder elements to avoid looping and increasing the time complexity
         for j in range(n):
             in_map[B[j]] = j
 
