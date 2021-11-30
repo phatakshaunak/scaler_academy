@@ -100,6 +100,7 @@ class Solution:
 
             i = in_map[root.val]
             
+            # Determine the indices for preorder and inorder arrays for left and right subtrees and call the function recursively.
             root.left = recurse(A, pre_s + 1, pre_s + i - in_s, B, in_s, i - 1, in_map)
             root.right = recurse(A, pre_s + i - in_s + 1, pre_e, B, i + 1, in_e, in_map)
 
