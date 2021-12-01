@@ -82,7 +82,8 @@ class Solution:
 	# @param B : integer
 	# @return an integer
 	def kthsmallest(self, A, B):
-
+        # An inorder traversal returns elements in a sorted order in a BST. Simply do the traversal and 
+        # return the Bth smallest element when B hits zero.`
         curr = A
         st = []
 
