@@ -61,7 +61,7 @@ class Solution:
         '''The sum of steps can be represented as sum of N natural numbers
         We can apply a binary search on the max number of natural numbers equalling this sum
         i.e. x*(x+1)/2 = N...find the maximum x
-        We can search between 1 and N and apply binary search to get to a max value <= N
+        Search between 1 and N and apply binary search to get to a max value <= N
         '''
 
         s, e = 1, A
