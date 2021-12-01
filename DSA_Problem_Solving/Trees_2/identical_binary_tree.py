@@ -82,7 +82,7 @@ class Solution:
         if not A and not B:
             return 1
 
-        # When the trees do not match
+        # When one of the trees does not match
         if not A or not B:
             return 0
         
