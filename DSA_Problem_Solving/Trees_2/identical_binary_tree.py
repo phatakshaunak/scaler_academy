@@ -81,9 +81,10 @@ class Solution:
         # When both reach null
         if not A and not B:
             return 1
-            
+
         # When the trees do not match
         if not A or not B:
             return 0
         
+        # Compare the values and recursively call left and right sub trees for both. Return and of these operations
         return 1 if (A.val == B.val and self.isSameTree(A.left,B.left) and self.isSameTree(A.right, B.right)) else 0
