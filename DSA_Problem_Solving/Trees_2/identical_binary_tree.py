@@ -87,4 +87,6 @@ class Solution:
             return 0
         
         # Compare the values and recursively call left and right sub trees for both. Return and of these operations
-        return 1 if (A.val == B.val and self.isSameTree(A.left,B.left) and self.isSameTree(A.right, B.right)) else 0
+        left = self.isSameTree(A.left,B.left)
+        right = self.isSameTree(A.right, B.right)
+        return 1 if (A.val == B.val and left and right) else 0
