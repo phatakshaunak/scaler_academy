@@ -12,7 +12,7 @@ Your aim is to perform ATMOST one operation such that in final string number of 
 
 If you don't want to perform the operation, return an empty array. Else, return an array consisting of two elements denoting L and R. If there are multiple solutions, return the lexicographically smallest pair of L and R.
 
-NOTE: Pair (a, b) is lexicographically smaller than pair (c, d) if a < c or, if a == c and b < d.
+note: Pair (a, b) is lexicographically smaller than pair (c, d) if a < c or, if a == c and b < d.
 
 
 
@@ -97,17 +97,8 @@ class Solution:
                 s = i+1
                 curr = 0
         
-        max_val = -1
-        
-        for val in A:
-            if val == '0':
-                max_val = max(max_val, 1)
-            else:
-                max_val = max(max_val, -1)
-        
-        if max_val == -1:
+        if max_sum == 0:
             return []
-        
         else:
             return [start+1, end+1]
             
