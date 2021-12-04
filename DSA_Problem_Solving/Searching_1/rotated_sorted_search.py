@@ -93,7 +93,7 @@ class Solution:
             if A[mid] == B:
                 return mid # If you find the target, return the index
                 
-            if A[mid] >= A[s]: # If the left side is sorted, apply usual binary search pointer moves
+            if A[mid] >= A[s]: # If the left side is sorted, apply regular binary search
                 
                 # Check if target is in the left range
                 
@@ -171,3 +171,42 @@ class Solution:
     #             s = mid + 1
         
     #     return -1
+
+    # class Solution:
+    # # @param A : tuple of integers
+    # # @param B : integer
+    # # @return an integer
+    # def search(self, A, B):
+
+    #     s, e = 0, len(A) - 1
+
+    #     while s <= e:
+            
+    #         mid = s + (e - s) // 2
+    #         #If B found
+    #         if A[mid] == B:
+    #             return mid
+            
+    #         # Check if left half is sorted
+    #         if A[mid] >= A[s]:
+    #             # If target is within range, move left
+    #             if A[s] <= B < A[mid]:
+    #                 e = mid - 1
+    #             else:
+    #                 # Move right
+    #                 s = mid + 1
+            
+    #         # Right half is sorted
+    #         else:
+    #             # If target in range, move right
+    #             if A[mid] <= B < A[e]:
+    #                 s = mid + 1
+    #             else:
+    #                 # Move left
+    #                 e = mid - 1
+            
+    #     return -1
+    
+    # The algorithm tries to find a sorted section and whether the target lies in that range, If yes, move in that direction else move to the other direction.
+    # This condition applies for both left and right halves
+    # Another way would be to find the minimum and apply binary search on it's left and right
