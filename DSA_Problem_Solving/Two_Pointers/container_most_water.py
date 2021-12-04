@@ -72,23 +72,40 @@ class Solution:
 	# @param A : list of integers
 	# @return an integer
 	def maxArea(self, A):
-	    
-	    i, j, ans = 0, len(A)-1, 0
-	    
-	    while i < j:
-	        curr = (j-i) * min(A[i], A[j])
-	        ans = max(ans, curr)
-	        
-            if A[i] == A[j]:
-                i += 1
-                j -= 1
-            elif A[i] < A[j]:
+
+        i, j = 0, len(A) - 1
+
+        ans = 0
+        while i < j:
+
+            curr = min(A[i], A[j]) * (j - i)
+
+            ans = max(ans, curr)
+
+            # Move min pointer
+            if A[i] <= A[j]:
                 i += 1
             else:
                 j -= 1
-	        # if A[i] <= A[j]:
-	        #     i += 1
-	        # else:
-	        #     j -= 1
+        
+        return ans
 	    
-	    return ans
+	    # i, j, ans = 0, len(A)-1, 0
+	    
+	    # while i < j:
+	    #     curr = (j-i) * min(A[i], A[j])
+	    #     ans = max(ans, curr)
+	        
+        #     if A[i] == A[j]:
+        #         i += 1
+        #         j -= 1
+        #     elif A[i] < A[j]:
+        #         i += 1
+        #     else:
+        #         j -= 1
+	    #     # if A[i] <= A[j]:
+	    #     #     i += 1
+	    #     # else:
+	    #     #     j -= 1
+	    
+	    # return ans
