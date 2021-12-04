@@ -57,7 +57,7 @@ class Solution:
         
         start, s = 0, 0
         curr, max_sum = 0, 0
-        end = None
+        end = 0
         
         for i in range(len(A)):
             
@@ -73,21 +73,16 @@ class Solution:
                 end = i
             
             elif max_sum == curr:
-                
-                #If end is not defined and we encounter the first value as zero itself.
-                if not end:
-                    start = s
-                    end = i
-                
-                if (end - start + 1) < (s - i + 1) or start > s:
+
+                # Check if length exceeds current answer (Not necessary to check if start index is minimum as that condition maybe redundant)                
+                if (end - start + 1) < (i - s + 1):
                     start = s
                     end = i
         
         if max(A) < 0:
             return []
-            
+        
         return A[start:end+1]
         
-            
 #Time O(N), space O(1) ; applied Kadane'e algorithm with a tweaked condition to shift the start if encountering a negative values instead of shifting if the current sum becomes zero as in the original max subarray sum problem
             
