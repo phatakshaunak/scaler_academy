@@ -96,6 +96,7 @@ class Solution:
     def helper(self, root, ans):
 
         if not root:
+            # Empty node is a valid BST
             return info(float('inf'), float('-inf'), 0, True)
         
         left = self.helper(root.left, ans)
