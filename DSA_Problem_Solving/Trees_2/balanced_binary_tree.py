@@ -74,31 +74,35 @@ Difference = 2 > 1.'''
 #		self.left = None
 #		self.right = None
 
+class info:
+    def __init__(self, is_bal, height):
+        self.is_bal = is_bal
+        self.height = height
+
 class Solution:
 	# @param A : root node of tree
 	# @return an integer
-	def isBalanced(self, A):
 
-        def post_order(root):
+    def isBalanced(self, A):
 
-            # Base condition, if null return -1 denoting height and True as empty node is balanced
-            if not root:
-                return info(-1, True)
-
-            left = post_order(root.left)
-            right = post_order(root.right)
-
-            # Check if heights condition is satisfied as well as left and right sub trees are balanced
-            if abs(left.h - right.h) <= 1 and left.bal and right.bal:
-                return info(1 + max(left.h, right.h), True)
-            
-            # Else return height and False as condition is violated
-            return info(1 + max(left.h, right.h), False)
+        return self.check_ht_bal(A).is_bal
         
-        return 1 if post_order(A).bal else 0
-
-class info:
-    
-    def __init__(self, h, bal):
-        self.h = h
-        self.bal = bal
+    def check_ht_bal(self, root):
+        # Again do a post order to get results from children. Two things needed, if child node itself is balanced
+        # as well as the height from left and right children. Store them in the the class info
+        
+        # Base condition, if a node is null, it is balanced and we can return -1 as done in the height function
+        if not root:
+            return info(1, -1)
+        
+        # Process left and right subtree as done in post order traversals
+        left = self.check_ht_bal(root.left)
+        right = self.check_ht_bal(root.right)
+        
+        # Now check two things, whether left and right are balanced as well as if the current node is height balanced
+        if abs(left.height - right.height) <= 1 and left.is_bal and right.is_bal:
+            # Now return an info class with true for the node being balanced and usual height calculation
+            return info(1, 1 + max(left.height, right.height))
+        
+        # Now return False for node not balanced and usual height calculation
+        return info(0, 1 + max(left.height, right.height))
