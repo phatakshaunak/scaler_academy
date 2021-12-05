@@ -85,34 +85,50 @@ class Solution:
 	# @return an integer
 	def isValidBST(self, A):
 
-        is_valid = [1]
-
-        self.helper(is_valid, A)
-
-        return is_valid[0]
+        return 1 if self.preorder(A, min_ = float('-inf'), max_ = float('inf')) else 0
     
-    def helper(self, is_valid, root):
+    def preorder(self, A, min_ = float('-inf'), max_ = float('inf')):
 
-        if not root:
-            return info(float('inf'), float('-inf'))
+        # In order approach
 
-        if is_valid[0]:
-
-            left = self.helper(is_valid, root.left)
-            right = self.helper(is_valid, root.right)
-
-            # Check if not valid (assuming unique elements in a binary tree)
-            if root.val <= left.max_ or root.val >= right.min_:
-                is_valid[0] = 0
-            
-            return info(min(root.val, left.min_), max(root.val, right.max_))
+        if not A:
+            return True # Null is a valid BST
         
-        else:
-            # Return anything, it won't be checked
-            return info(-1,-1)
+        # Check for invalid condition
+        if A.val <= min_ or A.val >= max_:
+            return False
+        
+        # Check both trees
+        return self.preorder(A.left, min_, A.val) and self.preorder(A.right, A.val, max_)
+
+#         is_valid = [1]
+
+#         self.helper(is_valid, A)
+
+#         return is_valid[0]
+    
+#     def helper(self, is_valid, root):
+
+#         if not root:
+#             return info(float('inf'), float('-inf'))
+
+#         if is_valid[0]:
+
+#             left = self.helper(is_valid, root.left)
+#             right = self.helper(is_valid, root.right)
+
+#             # Check if not valid (assuming unique elements in a binary tree)
+#             if root.val <= left.max_ or root.val >= right.min_:
+#                 is_valid[0] = 0
+            
+#             return info(min(root.val, left.min_), max(root.val, right.max_))
+        
+#         else:
+#             # Return anything, it won't be checked
+#             return info(-1,-1)
 
 
-class info:
-    def __init__(self, min_, max_):
-        self.min_ = min_
-        self.max_ = max_
+# class info:
+#     def __init__(self, min_, max_):
+#         self.min_ = min_
+#         self.max_ = max_
