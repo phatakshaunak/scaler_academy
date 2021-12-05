@@ -80,6 +80,13 @@ Satisfies all conditions.'''
 #		self.left = None
 #		self.right = None
 
+# Definition for a  binary tree node
+# class TreeNode:
+#	def __init__(self, x):
+#		self.val = x
+#		self.left = None
+#		self.right = None
+
 class Solution:
 	# @param A : root node of tree
 	# @return an integer
@@ -95,7 +102,7 @@ class Solution:
             return True # Null is a valid BST
         
         # Check for invalid condition
-        if A.val <= min_ or A.val >= max_:
+        if A.val < min_ or A.val >= max_:
             return False
         
         # Check both trees
@@ -118,7 +125,7 @@ class Solution:
 #             right = self.helper(is_valid, root.right)
 
 #             # Check if not valid (assuming unique elements in a binary tree)
-#             if root.val <= left.max_ or root.val >= right.min_:
+#             if root.val < left.max_ or root.val >= right.min_:
 #                 is_valid[0] = 0
             
 #             return info(min(root.val, left.min_), max(root.val, right.max_))
@@ -132,3 +139,5 @@ class Solution:
 #     def __init__(self, min_, max_):
 #         self.min_ = min_
 #         self.max_ = max_
+    
+
