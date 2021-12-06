@@ -139,5 +139,53 @@ class Solution:
 #     def __init__(self, min_, max_):
 #         self.min_ = min_
 #         self.max_ = max_
+
+# Definition for a  binary tree node
+# class TreeNode:
+#	def __init__(self, x):
+#		self.val = x
+#		self.left = None
+#		self.right = None
+
+class Solution:
+	# @param A : root node of tree
+	# @return an integer
+	def isValidBST(self, A):
+
+        return 1 if self.post_order_bst(A).valid else 0
+
+        # return 1 if self.valid_bst(A, float('-inf'), float('inf')) else 0
+
+    def valid_bst(self, root, min_val, max_val):
+
+        # Base condition: If empty, it is a valid BST
+        if not root:
+            return True
+        
+        # Check if root follows valid BST properties (preorder, i.e root, left, right)
+        if root.val > min_val and root.val < max_val:
+            return self.valid_bst(root.left, min_val, root.val) and self.valid_bst(root.right, root.val, max_val)
+        else:
+            return False
     
+    def post_order_bst(self, root):
+        if not root:
+            return info(float('inf'), float('-inf'), True)
+        
+        left = self.post_order_bst(root.left)
+        right = self.post_order_bst(root.right)
+
+        if left.valid and right.valid and root.val > left.max_ and root.val < right.min_:
+            return info(min(root.val, left.min_), max(root.val, right.max_), True)
+        
+        else:
+            return info(-1, -1, False)
+    
+class info:
+
+    def __init__(self, min_, max_, valid):
+        self.min_ = min_
+        self.max_ = max_
+        self.valid = valid
+
 
