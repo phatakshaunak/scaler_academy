@@ -90,29 +90,53 @@ Explanation 2:
 #        self.left = None
 #        self.right = None
 
+# Definition for a  binary tree node
+# class TreeNode:
+#	def __init__(self, x):
+#		self.val = x
+#		self.left = None
+#		self.right = None
+
 class Solution:
-    # @param A : root node of tree
-    # @return an integer
-    def solve(self, A):
-        
-        return 1 if self.post(A).valid else 0
+	# @param A : root node of tree
+	# @param B : integer
+	# @return an integer
+	def hasPathSum(self, A, B):
+
+        if not A:
+            return 0
+
+        # return 1 if self.helper(A, B, 0) else 0
+
+        return 1 if self.helper_1(A, B) else 0
     
-    def post(self, root):
+    def helper_1(self, A, B):
 
-        if not root:
-            return info(0, True)
+        # If null node, return 0 as that is not equal to the target
+        if not A:
+            return False
         
-        left = self.post(root.left)
-        right = self.post(root.right)
+        # If at the leaf node, check if value is equal to the target
+        if not A.left and not A.right:
+            return A.val == B
+        
+        # Check both sides subtracting A.val when calling left or right from B
+        return self.helper_1(A.left, B - A.val) or self.helper_1(A.right, B - A.val)
 
-        # Condition that checks if left and right trees are sum trees (special condition for leaf nodes)
-        if left.valid and right.valid and ((left.node + right.node) == root.val or (left.node == 0 and right.node == 0)):
-            return info(root.val + left.node + right.node, True)
+    def helper(self, A, B, curr):
+
+        # If either root node has no child nodes or at leaf node
+        if not A.left and not A.right:
+            return curr + A.val == B
         
+        # If both left and right are present
+        elif A.left and A.right:
+            return self.helper(A.left, B, curr + A.val) or self.helper(A.right, B, curr + A.val)
+        
+        # If only left present
+        elif A.left and not A.right:
+            return self.helper(A.left, B, curr + A.val)
+        
+        # Only right present
         else:
-            return info(-1, False)
-
-class info:
-    def __init__(self, node, valid):
-        self.node = node
-        self.valid = valid
+            return self.helper(A.right, B, curr + A.val)
