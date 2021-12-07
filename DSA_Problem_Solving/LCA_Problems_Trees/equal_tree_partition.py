@@ -96,6 +96,28 @@ class Solution:
 
         return 1 if flag[0] else 0
 
+        # st = []
+        # global_sum = self.sum_(A, st)
+        # st.pop()
+
+        # if global_sum // 2 in st:
+        #     return 1
+        
+        # return 0
+    
+    # More concise approach that involves storing all node sums
+    # def sum_(self, root, st):
+
+    #     if not root:
+    #         return 0
+        
+    #     left = self.sum_(root.left, st)
+    #     right = self.sum_(root.right, st)
+
+    #     st.append(root.val + left + right)
+
+    #     return root.val + left + right
+
     def getSum(self, root):
 
         if not root:
