@@ -147,4 +147,16 @@ class Solution:
         # Only right present
         else:
             return self.helper(A.right, B, curr + A.val)
-            
+    
+    def helper_2(self, A, B, curr):
+
+        # If null node, return 0 as that is not equal to the target
+        if not A:
+            return False
+        
+        # If at the leaf node, check if value is equal to the target
+        if not A.left and not A.right:
+            return A.val + curr == B
+        
+        # Check both sides subtracting A.val from B when calling left or right
+        return self.helper_2(A.left, B, curr + A.val) or self.helper_2(A.right, B, curr + A.val)
