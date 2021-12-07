@@ -95,19 +95,6 @@ class Solution:
         # return 1 if self.helper(A, B, 0) else 0
 
         return 1 if self.helper_1(A, B) else 0
-    
-    def helper_1(self, A, B):
-
-        # If null node, return 0 as that is not equal to the target
-        if not A:
-            return False
-        
-        # If at the leaf node, check if value is equal to the target
-        if not A.left and not A.right:
-            return A.val == B
-        
-        # Check both sides subtracting A.val from B when calling left or right
-        return self.helper_1(A.left, B - A.val) or self.helper_1(A.right, B - A.val)
 
     def helper(self, A, B, curr):
 
@@ -127,6 +114,19 @@ class Solution:
         else:
             return self.helper(A.right, B, curr + A.val)
     
+    def helper_1(self, A, B):
+
+        # If null node, return 0 as that is not equal to the target
+        if not A:
+            return False
+        
+        # If at the leaf node, check if value is equal to the target
+        if not A.left and not A.right:
+            return A.val == B
+        
+        # Check both sides subtracting A.val from B when calling left or right
+        return self.helper_1(A.left, B - A.val) or self.helper_1(A.right, B - A.val)
+    
     def helper_2(self, A, B, curr):
 
         # If null node, return 0 as that is not equal to the target
@@ -137,5 +137,5 @@ class Solution:
         if not A.left and not A.right:
             return A.val + curr == B
         
-        # Check both sides subtracting A.val from B when calling left or right
+        # Check both sides
         return self.helper_2(A.left, B, curr + A.val) or self.helper_2(A.right, B, curr + A.val)

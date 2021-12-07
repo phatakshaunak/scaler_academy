@@ -82,13 +82,6 @@ Explanation 2:
 #		self.left = None
 #		self.right = None
 
-# Definition for a  binary tree node
-# class TreeNode:
-#	def __init__(self, x):
-#		self.val = x
-#		self.left = None
-#		self.right = None
-
 class Solution:
 	# @param A : root node of tree
 	# @param B : integer
