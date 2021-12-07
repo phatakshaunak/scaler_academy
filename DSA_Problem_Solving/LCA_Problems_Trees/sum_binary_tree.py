@@ -97,6 +97,13 @@ Explanation 2:
 #		self.left = None
 #		self.right = None
 
+# Definition for a  binary tree node
+# class TreeNode:
+#	def __init__(self, x):
+#		self.val = x
+#		self.left = None
+#		self.right = None
+
 class Solution:
 	# @param A : root node of tree
 	# @param B : integer
@@ -120,7 +127,7 @@ class Solution:
         if not A.left and not A.right:
             return A.val == B
         
-        # Check both sides subtracting A.val when calling left or right from B
+        # Check both sides subtracting A.val from B when calling left or right
         return self.helper_1(A.left, B - A.val) or self.helper_1(A.right, B - A.val)
 
     def helper(self, A, B, curr):
@@ -140,3 +147,4 @@ class Solution:
         # Only right present
         else:
             return self.helper(A.right, B, curr + A.val)
+            
