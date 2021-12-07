@@ -83,6 +83,13 @@ Explanation 2:
 #        self.left = None
 #        self.right = None
 
+# Definition for a  binary tree node
+# class TreeNode:
+#    def __init__(self, x):
+#        self.val = x
+#        self.left = None
+#        self.right = None
+
 class Solution:
     # @param A : root node of tree
     # @return an integer
@@ -98,6 +105,7 @@ class Solution:
         left = self.post(root.left)
         right = self.post(root.right)
 
+        # Condition that checks if left and right trees are sum trees (special condition for leaf nodes)
         if left.valid and right.valid and ((left.node + right.node) == root.val or (left.node == 0 and right.node == 0)):
             return info(root.val + left.node + right.node, True)
         
