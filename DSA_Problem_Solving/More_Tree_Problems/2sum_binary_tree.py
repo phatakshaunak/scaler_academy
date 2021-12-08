@@ -85,22 +85,24 @@ class Solution:
 	# @return an integer
 	def t2Sum(self, A, B):
 
-        arr = []
+        return 1 if self.traverse1(A, set(), B) else 0
 
-        self.traverse(A, arr)
+        # arr = []
 
-        # Do the 2 sum hash map approach
-        hm = {}
+        # self.traverse(A, arr)
 
-        for i in range(len(arr)):
+        # # Do the 2 sum hash map approach
+        # hm = {}
 
-            if B - arr[i] in hm:
-                return 1
+        # for i in range(len(arr)):
+
+        #     if B - arr[i] in hm:
+        #         return 1
             
-            if arr[i] not in hm:
-                hm[arr[i]] = 1
+        #     if arr[i] not in hm:
+        #         hm[arr[i]] = 1
         
-        return 0
+        # return 0
     
     def traverse(self, root, arr):
         
@@ -110,3 +112,15 @@ class Solution:
         arr.append(root.val)
         self.traverse(root.left, arr)
         self.traverse(root.right, arr)
+
+    def traverse1(self, root, set_, target):
+
+        if not root:
+            return False
+        
+        if target - root.val in set_:
+            return True
+        
+        set_.add(root.val)
+
+        return self.traverse1(root.left, set_, target) or self.traverse1(root.right, set_, target)

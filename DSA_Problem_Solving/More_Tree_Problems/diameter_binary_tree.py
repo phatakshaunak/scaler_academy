@@ -82,6 +82,7 @@ class Solution:
 
         nodes = self.helper(A, ans)
 
+        # As we are counting total nodes in a path, return nodes - 1 for the edges
         return ans[0] - 1
     
     def helper(self, root, ans):
