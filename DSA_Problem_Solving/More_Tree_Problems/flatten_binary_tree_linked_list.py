@@ -95,7 +95,7 @@ class Solution:
         if not A:
             return None
         
-        # Accumulate answer from left and right subtrees
+        # Accumulate flattened left and right subtrees
         left = self.flatten(A.left)
         right = self.flatten(A.right)
 
