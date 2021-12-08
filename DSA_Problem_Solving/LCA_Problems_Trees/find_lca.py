@@ -114,6 +114,7 @@ class Solution:
             i += 1
             j += 1
         
+        # Last matching element
         return path2[i-1]
 
         # Iterate to find first matching element
