@@ -92,27 +92,65 @@ class Solution:
 
         path1, path2 = [], []
 
-        u = self.find(A, path1, B)
+        # u = self.find(A, path1, B)
 
-        v = self.find(A, path2, C)
+        # v = self.find(A, path2, C)
 
+        u = self.root_to_node(A, B, path1)
+
+        v = self.root_to_node(A, C, path2)
+
+        # One or both of them are not present
         if not u or not v:
             return -1
+        
+        # Iterate to find matching element
+        i, j = 0, 0
 
-        # Iterate to find first matching element
-        m, n = len(path1), len(path2)
-
-        i, j = m-1, n-1
-
-        while i >= 0 and j >= 0:
+        while i < len(path1) and j < len(path2):
 
             if path1[i] != path2[j]:
                 break
-            
-            i -= 1
-            j -= 1
+            i += 1
+            j += 1
         
-        return path1[i+1]
+        return path2[i-1]
+
+        # Iterate to find first matching element
+        # m, n = len(path1), len(path2)
+
+        # i, j = m-1, n-1
+
+        # while i >= 0 and j >= 0:
+
+        #     if path1[i] != path2[j]:
+        #         break
+            
+        #     i -= 1
+        #     j -= 1
+        
+        # return path1[i+1]
+
+    def root_to_node(self, root, key, path):
+    
+        # If null, that means key not present in the path
+        if not root:
+            return False
+        
+        # Add root data to path
+        path.append(root.val)
+        # Check if current node is the target
+        if root.val == key:
+            # Return a boolean
+            return True
+        # Call on left and right subtrees
+        if self.root_to_node(root.left, key, path) or self.root_to_node(root.right, key, path):
+            # Node present in either left or right sub tree
+            return True
+
+        # Node not present in the current root's lst or rst. Pop the node and return False
+        path.pop()
+        return False
 
     def find(self, root, path, key):
 
@@ -135,6 +173,7 @@ class Solution:
         
         return False
         
+            
     #     flag, ans = [True], []
     
     #     placeholder = self.helper(A, flag, ans, B, C)
