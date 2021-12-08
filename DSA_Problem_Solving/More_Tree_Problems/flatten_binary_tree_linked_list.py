@@ -91,22 +91,25 @@ class Solution:
     # @return the root node in the tree
     def flatten(self, A):
 
+        return self.helper(A)
+
+    def helper(self, root):
         # Base condition (Return null if node is None)
-        if not A:
+        if not root:
             return None
         
         # Accumulate flattened left and right subtrees
-        left = self.flatten(A.left)
-        right = self.flatten(A.right)
+        left = self.flatten(root.left)
+        right = self.flatten(root.right)
 
         # Now point root's right to left
-        A.right = left
+        root.right = left
 
         # Make root's left as null
-        A.left = None
+        root.left = None
 
         # Get to the end of the root and point it to R
-        curr = A
+        curr = root
         while curr.right:
             curr = curr.right
         
@@ -114,4 +117,4 @@ class Solution:
         curr.right = right
 
         # Return flattened tree
-        return A
+        return root
