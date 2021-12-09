@@ -120,3 +120,37 @@ class Solution:
             
         return ans
         # return count
+
+    def solve1(self, A, B):
+
+        # Find count of values <= B
+        count = 0
+        for val in A:
+            if val <= B:
+                count += 1
+        
+        # Slide window of size count across the array, and find a window that requires minimum changes, i.e min. elements
+        # in that window violate the condition of > B
+
+        ans = float('inf')
+        curr = 0
+        for i in range(len(A)):
+
+            # Condition for first window
+            if i <= count - 1:
+                if A[i] > B:
+                    curr += 1
+            
+            else:
+                # For all others, remove count - ith element, and add ith element
+                if A[i-count] > B:
+                    curr -= 1
+                # Add ith element if > B
+                if A[i] > B:
+                    curr += 1
+            
+            # Check for possible answer if i >= count - 1
+            if i >= count - 1:
+                ans = min(ans, curr)
+        
+        return ans
