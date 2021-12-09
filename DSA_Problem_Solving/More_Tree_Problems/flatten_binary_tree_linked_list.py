@@ -86,6 +86,13 @@ Explanation 2:
 #         self.left = None
 #         self.right = None
 
+# Definition for a  binary tree node
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
 class Solution:
     # @param A : root node of tree
     # @return the root node in the tree
@@ -99,8 +106,8 @@ class Solution:
             return None
         
         # Accumulate flattened left and right subtrees
-        left = self.flatten(root.left)
-        right = self.flatten(root.right)
+        left = self.helper(root.left)
+        right = self.helper(root.right)
 
         # Now point root's right to left
         root.right = left
