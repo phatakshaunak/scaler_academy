@@ -65,7 +65,7 @@ Explanation 2:
 
 The above binary tree is not symmetric.'''
 
-## Definition for a  binary tree node
+# Definition for a  binary tree node
 # class TreeNode:
 #	def __init__(self, x):
 #		self.val = x
@@ -92,8 +92,8 @@ class Solution:
         if not tree1 or not tree2:
             return False
         
-        # For symmetry, root values should match as well as tree's left and right and vice versa
-        # also match
+        # For symmetry, root values should match as should tree's left and right and vice versa
+        
         left = self.helper(tree1.left, tree2.right)
         right = self.helper(tree1.right, tree2.left)
 
