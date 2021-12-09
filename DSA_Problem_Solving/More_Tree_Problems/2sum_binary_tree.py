@@ -85,12 +85,27 @@ class Solution:
 	# @return an integer
 	def t2Sum(self, A, B):
 
-        return 1 if self.traverse1(A, set(), B) else 0
+        # return 1 if self.traverse1(A, set(), B) else 0
 
-        # arr = []
+        arr = []
 
-        # self.traverse(A, arr)
+        self.traverse(A, arr)
+        
+        # In order returns sorted array, follow 2 pointer apprach
+        i, j = 0, len(arr) - 1
 
+        while i < j:
+
+            if arr[i] + arr[j] == B:
+                return 1
+            
+            elif arr[i] + arr[j] > B:
+                j -= 1
+            
+            else:
+                i += 1
+        
+        return 0
         # # Do the 2 sum hash map approach
         # hm = {}
 
@@ -109,8 +124,8 @@ class Solution:
         if not root:
             return
         
-        arr.append(root.val)
         self.traverse(root.left, arr)
+        arr.append(root.val)
         self.traverse(root.right, arr)
 
     def traverse1(self, root, set_, target):
