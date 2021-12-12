@@ -140,6 +140,45 @@ class Solution:
                 st.pop()
         
         return ans
+    
+    def morris_inorder(self, root, ans):
+    
+    curr = root
+    
+    while curr:
+        
+        if curr.left:
+            # First find predecessor
+            pred = self.find_inpred(curr)
+            # Check if it is not already linked
+            if not pred.right:
+                # Create the link and move left
+                pred.right = curr
+                curr = curr.left
+            else:
+                #print root, cut the link and go right
+                pred.right = None
+                ans.append(curr.val)
+                curr = curr.right
+        else:
+            # Print data and go right
+            ans.append(curr.val)
+            curr = curr.right
+
+        # TC: O(3N) --> O(N) (Visit each node at most thrice, once during traversal when inorder predecessor is not linked to root, second when we go to the inorder predecessors right and third when we again try to find the inorder predecessor)
+    
+    return ans
+
+    def find_inpred(self, root):
+        tmp = root.left
+        prev = None
+        
+        # First condition when inorder predecessor is not linked, second condition when its linked and
+        # we reach the root node again.
+        while tmp and tmp.right != root:
+            prev = tmp
+            tmp = tmp.right
+        return prev
 
     # def postorderTraversal(self, A):
     #     ans = []
