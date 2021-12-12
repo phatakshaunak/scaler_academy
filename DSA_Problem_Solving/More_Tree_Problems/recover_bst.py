@@ -158,3 +158,27 @@ class Solution:
         if root:
             arr.append(root.val)
         self.inorder(root.right, arr)
+
+    #O(H) recursive space (storing 4 nodes in a list)
+    def recoverTree(self, A):
+
+        # curr = A
+        miss = []
+        prev = [TreeNode(float('-inf'))]
+
+        self.inorder_recurse(A, prev, miss)
+
+        return [miss[-1][1].val, miss[0][0].val]
+    
+    def inorder_recurse(self, root, prev, miss):
+        
+        if not root:
+            return
+        
+        self.inorder_recurse(root.left, prev, miss)
+        
+        if root.val < prev[0].val:
+            miss.append([prev[0], root])
+        prev[0] = root
+        
+        self.inorder_recurse(root.right, prev, miss)
