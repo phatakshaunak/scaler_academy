@@ -119,11 +119,7 @@ class Solution:
             ans[0] = root
             return True
         
-        if root.val > u and root.val > v:
-            return self.find_lca(root.left, u, v, ans)
-        
-        if root.val < u and root.val < v:
-            return self.find_lca(root.right, u, v, ans)
+        return self.find_lca(root.left, u, v, ans) or self.find_lca(root.right, u, v, ans)
     
     def find_dist(self, root, key, dist):
 
