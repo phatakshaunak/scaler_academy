@@ -41,7 +41,7 @@ class Solution:
             # Simply add results from left and right if root.val != B or root.val != C
             sum_ = left + right
         
-        # If the sum is 2 and lca node is not set, the current node is the lca. Then simply update the ans. This case will then not be checked again as lca_node[0] will not be None
+        # If the sum is 2 and lca node is not set, the current node is the lca. Then simply update the ans. This case will not be checked again as lca_node[0] will not be None
         if sum_ == 2 and not lca_node[0]:
             lca_node[0] = root
         
