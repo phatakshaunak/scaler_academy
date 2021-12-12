@@ -172,15 +172,11 @@ class Solution:
 
     def find_inpred(self, root):
         tmp = root.left
-        prev = None
         # First condition when inorder predecessor is not linked, second condition when its linked and
         # we reach the root node again.
-        while tmp and tmp.right != root:
-            prev = tmp
+        while tmp.right and tmp.right != root:
             tmp = tmp.right
-        if tmp:
-            return tmp
-        return prev
+        return tmp
 
     # def postorderTraversal(self, A):
     #     ans = []
