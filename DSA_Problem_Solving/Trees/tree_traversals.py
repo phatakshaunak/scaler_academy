@@ -166,6 +166,7 @@ class Solution:
             curr = curr.right
 
         # TC: O(3N) --> O(N) (Visit each node at most thrice, once during traversal when inorder predecessor is not linked to root, second when we go to the inorder predecessors right and third when we again try to find the inorder predecessor)
+        # SC: O(1) no recursion or iteration stack space is being used
     
     return ans
 
