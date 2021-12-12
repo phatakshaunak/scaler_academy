@@ -86,17 +86,13 @@ class Solution:
             root = dummy
             # Loop over characters
             for char in word:
-                if char in root.children:
-                    # If character is present, point root to that character
-                    root = root.children[char]
-                    # Increment counter for the root node
-                    root.prefix_count += 1
-                else:
-                    # Add a new TrieNode for the new character to root's children and increment it's counter
-                    new_node = TrieNode(char)
-                    new_node.prefix_count += 1
-                    root.children[char] = new_node
-                    root = root.children[char]
+
+                if char not in root.children:
+                    root.children[char] = TrieNode(char)
+                
+                root = root.children[char]
+                root.prefix_count += 1
+
             root.isEnd = True
         
         # Now we need to check if the given words are present in the dictionary.
