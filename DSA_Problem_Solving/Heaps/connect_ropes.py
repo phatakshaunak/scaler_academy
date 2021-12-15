@@ -123,12 +123,15 @@ class Solution:
             p = (idx - 1) // 2
     
     def get_min(self, arr):
+
+        # Removing the min element
         arr[0], arr[-1] = arr[-1], arr[0]
         ret = arr.pop()
         self.down_heapify(arr, 0)
         return ret
     
     def down_heapify(self, arr, idx):
+        # Down heapify
         flag = True
         n = len(arr)
 
