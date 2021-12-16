@@ -100,6 +100,11 @@ class Solution:
         ans.append(tmp[0])
 
         for i in range(A, len(B)):
+
+            # If a larger than the current Ath larger element is seen, then the top will not remain Ath largest.
+            # Hence it should be removed and then heapify the array
+            # If a smaller value is encountered, it will be A+xth largest and won't affect the answer. Hence do 
+            # nothing in that case
             if B[i] > tmp[0]:
                 heapq.heappop(tmp)
                 heapq.heappush(tmp, B[i])
