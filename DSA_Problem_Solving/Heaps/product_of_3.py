@@ -80,6 +80,10 @@ class Solution:
     # @return a list of integers
     def solve(self, A):
 
+        # If array length < 3
+        if len(A) < 3:
+            return [-1 for i in range(len(A))]
+
         ans = []
         ans.append(-1)
         ans.append(-1)
