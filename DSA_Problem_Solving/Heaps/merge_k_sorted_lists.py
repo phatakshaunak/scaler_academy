@@ -92,25 +92,21 @@ class Solution:
             if t1.val < t2.val:
                 dummy.next = t1
                 dummy = dummy.next
-                
                 t1 = t1.next
             
             else:
                 dummy.next = t2
                 dummy = dummy.next
-                
                 t2 = t2.next
         
         while t1:
             dummy.next = t1
             dummy = dummy.next
-            
             t1 = t1.next
 
         while t2:
             dummy.next = t2
             dummy = dummy.next
-            
             t2 = t2.next    
 
         return ans.next
