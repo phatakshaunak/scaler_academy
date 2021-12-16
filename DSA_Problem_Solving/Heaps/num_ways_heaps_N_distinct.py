@@ -82,7 +82,7 @@ class Solution:
 
     def main_helper(self, N, memo, m):
 
-        # Base condition for nodes <= 2, only one possible configuration possible
+        # Base condition for nodes <= 2, only one possible configuration
         if N <= 2:
             if N not in memo:
                 memo[N] = 1
