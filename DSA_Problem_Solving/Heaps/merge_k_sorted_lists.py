@@ -110,3 +110,51 @@ class Solution:
             t2 = t2.next    
 
         return ans.next
+
+class Solution:
+    # @param A : list of linked list
+    # @return the head node in the linked list
+    def mergeKLists(self, A):
+
+        head = A[0]
+
+        for i in range(1, len(A)):
+            head = self.merge_2_lists(head, A[i])
+        
+        return head
+    
+    # Non heap solution
+    def merge_2_lists(self, l1, l2):
+
+        ans = ListNode(-1)
+        dummy = ans
+
+        t1, t2 = l1, l2
+
+        while t1 and t2:
+
+            if t1.val < t2.val:
+                dummy.next = t1
+                dummy = dummy.next
+                t1 = t1.next
+                dummy.next = None
+            
+            else:
+                dummy.next = t2
+                dummy = dummy.next
+                t2 = t2.next
+                dummy.next = None
+        
+        while t1:
+            dummy.next = t1
+            dummy = dummy.next
+            t1 = t1.next
+            dummy.next = None
+
+        while t2:
+            dummy.next = t2
+            dummy = dummy.next
+            t2 = t2.next    
+            dummy.next = None
+
+        return ans.next
