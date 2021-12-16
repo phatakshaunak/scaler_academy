@@ -106,6 +106,7 @@ class Solution:
         # Calculate leaves in the right subtree
         R = N - 1 - L
 
+        # Store answer for redundant calls
         memo[N] = self.ncr(N - 1, L, m) * self.main_helper(L, memo, m) * self.main_helper(R, memo, m)
 
         return memo[N]
