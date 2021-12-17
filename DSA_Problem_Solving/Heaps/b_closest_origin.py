@@ -82,16 +82,16 @@ class Solution:
     # @return a list of list of integers
     def solve(self, A, B):
 
-        tmp = []
+        
         ans = []
         for i in range(len(A)):
             e = (A[i][0] * A[i][0] + A[i][1] * A[i][1])
-            tmp.append((e, A[i]))
+            A[i] = (e, A[i])
         
-        heapq.heapify(tmp)
+        heapq.heapify(A)
 
         while B:
-            top = heapq.heappop(tmp)
+            top = heapq.heappop(A)
             ans.append(top[1])
             B -= 1
         
