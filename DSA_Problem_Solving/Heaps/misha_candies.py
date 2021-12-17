@@ -88,7 +88,7 @@ class Solution:
 
         heapq.heapify(A)
 
-        while A[0] <= B:
+        while A and A[0] <= B:
             
             # If minimum is zero, that box won't contribute to the answer, as it will add zero to the next answer
             if A[0] == 0:
