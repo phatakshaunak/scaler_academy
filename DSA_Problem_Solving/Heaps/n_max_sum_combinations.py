@@ -102,3 +102,6 @@ class Solution:
             ops -= 1
         
         return ans
+    
+    # TC: O(NlogN) to sort, O(N) for getting combinations, O(logN) to push and pop N times --> O(NlogN)
+    # SC: O(N)
