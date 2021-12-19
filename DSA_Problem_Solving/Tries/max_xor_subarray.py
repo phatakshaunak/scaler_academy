@@ -126,9 +126,12 @@ class trie:
         dummy = root
         
         for i in range(31, -1, -1):
+            
             bit = 1 if (num & (1 << i)) else 0
+            
             if bit not in dummy.children:
                 dummy.children[bit] = self.get_node(bit)
+            
             dummy = dummy.children[bit]
 
         dummy.index = idx
@@ -137,6 +140,7 @@ class trie:
         ans, dummy = 0, root
 
         for i in range(31, -1, -1):
+            
             bit = 1 if (num & (1 << i)) else 0
             cbit = bit ^ 1
 
