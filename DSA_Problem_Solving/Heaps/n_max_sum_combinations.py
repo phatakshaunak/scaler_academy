@@ -84,7 +84,7 @@ class Solution:
         heapq.heapify(tmp)
         seen = set()
         seen.add((i, j))
-        while N > 0:
+        while ops > 0:
             
             top, i, j = heapq.heappop(tmp)
 
@@ -99,6 +99,6 @@ class Solution:
                     heapq.heappush(tmp, (-1*(A[i] + B[j-1]), i, j - 1))
                 
             ans.append(-1*top)
-            N -= 1
+            ops -= 1
         
         return ans
