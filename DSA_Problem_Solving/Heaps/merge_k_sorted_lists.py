@@ -126,16 +126,10 @@ class Solution:
                 t2 = t2.next
                 dummy.next = None
         
-        while t1:
+        if t1:
             dummy.next = t1
-            dummy = dummy.next
-            t1 = t1.next
-            dummy.next = None
-
-        while t2:
+        
+        if t2:
             dummy.next = t2
-            dummy = dummy.next
-            t2 = t2.next    
-            dummy.next = None
 
         return ans.next
