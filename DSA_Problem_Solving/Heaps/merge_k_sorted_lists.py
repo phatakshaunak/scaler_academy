@@ -61,68 +61,49 @@ Explanation 2:
 
  The resulting sorted Linked List formed after merging is 5 -> 6 -> 10 -> 12 ->13.'''
 
+import heapq
+
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 class Solution:
     # @param A : list of linked list
     # @return the head node in the linked list
     def mergeKLists(self, A):
 
-        head = A[0]
+        # head = A[0]
 
-        for i in range(1, len(A)):
-            head = self.merge_2_lists(head, A[i])
+        # for i in range(1, len(A)):
+        #     head = self.merge_2_lists(head, A[i])
         
-        return head
-    
-    # Non heap solution
-    def merge_2_lists(self, l1, l2):
+        # return head
+        return self.merge_lists_minheap(A)
+   
+    # Heap solution
+    def merge_lists_minheap(self, arr):
+        root = ListNode(-1)
+        tmp = []
 
-        ans = ListNode(-1)
-        dummy = ans
+        for i in range(len(arr)):
 
-        t1, t2 = l1, l2
-
-        while t1 and t2:
-
-            if t1.val < t2.val:
-                dummy.next = t1
-                dummy = dummy.next
-                t1 = t1.next
+            # Use the index i as a tie breaker for comparison when node values are the same
+            tmp.append((arr[i].val, i, arr[i]))
+        
+        heapq.heapify(tmp)
+        dummy = root
+        while len(tmp) != 0:
             
-            else:
-                dummy.next = t2
-                dummy = dummy.next
-                t2 = t2.next
-        
-        while t1:
-            dummy.next = t1
+            _, i, node = heapq.heappop(tmp)
+            dummy.next = node
             dummy = dummy.next
-            t1 = t1.next
-
-        while t2:
-            dummy.next = t2
-            dummy = dummy.next
-            t2 = t2.next    
-
-        return ans.next
-
-class Solution:
-    # @param A : list of linked list
-    # @return the head node in the linked list
-    def mergeKLists(self, A):
-
-        head = A[0]
-
-        for i in range(1, len(A)):
-            head = self.merge_2_lists(head, A[i])
+            if node.next:
+                heapq.heappush(tmp, (node.next.val, i, node.next))
         
-        return head
-    
+        return root.next
+
     # Non heap solution
     def merge_2_lists(self, l1, l2):
 
