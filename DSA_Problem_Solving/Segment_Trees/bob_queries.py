@@ -128,7 +128,7 @@ class Solution:
         
         # Complete overlap
         if s >= L and e <= R:
-            # Here return the value at index
+            # Here return the value at index (i.e. # number of ones at the index which lies inside the range L to R)
             return T[idx]
         
         # Else, make left and right calls for partial overlap
@@ -142,14 +142,16 @@ class Solution:
             left = self.query(s, mid, l, L, R, T)
             right = self.query(mid + 1, e, r, L, R, T)
 
-            # Return min of left and right
+            # Return sum of set bits returned from left and right calls
             return left + right
     
     def update(self, s, e, idx, idx1, arr, T, q):
 
+        # Here simply update values in the original array, then calculate the set bits for that index and update the corresponding index value in the segment tree array
+
         #Base case, when s and e are the same
         if s == e:
-
+            
             if q == 1:
                 arr[idx1] = 2 * arr[idx1] + 1
             
@@ -175,9 +177,10 @@ class Solution:
         else:
             self.update(mid + 1, e, r, idx1, arr, T, q)
         
-        # Update idx after left and right calls
+        # After any left, right calls, update the answer at the idx value of the segment tree array by summing contributions from left and right children nodes
         T[idx] = T[l] + T[r]
-        
+    
+    # Utility to calculate set bits
     def get_ones(self, num):
         # ans = ''
         ans = 0
