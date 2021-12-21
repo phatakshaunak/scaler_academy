@@ -189,3 +189,88 @@ class Solution:
                 ans += 1
             num = num >> 1
         return ans
+    
+# class Solution:
+#     # @param A : integer
+#     # @param B : list of list of integers
+#     # @return a list of integers
+#     def solve(self, A, B):
+        
+#         # Initialize segment tree
+#         T = [0] * (4 * A)
+#         arr = [0] * A
+#         ans = []
+
+#         for q in B:
+#             x = q[0]
+#             y = q[1]
+#             z = q[2]
+
+#             if x != 3:
+#                 self.update(0, A - 1, 0, y - 1, arr, T, x)
+            
+#             else:
+#                 curr = self.query(0, A - 1, 0, y-1, z-1, T)
+#                 ans.append(curr)
+            
+#         return ans
+
+#     def query(self, s, e, idx, L, R, T):
+
+#         # Three cases, no overlap, complete overlap else partial overlap
+#         # No overlap
+#         if s > R or e < L:
+#             # Return 0 to avoid being used in the calculation
+#             return 0
+        
+#         # Complete overlap
+#         if s >= L and e <= R:
+#             # Here return the value at index (i.e. # number of ones at the index which lies inside the range L to R)
+#             return T[idx]
+        
+#         # Else, make left and right calls for partial overlap
+#         else:
+#             # Similar to mid calculation and calls
+#             mid = (s + e) // 2
+#             l  = 2 * idx + 1
+#             r = l + 1
+
+#             # Get left and right calls
+#             left = self.query(s, mid, l, L, R, T)
+#             right = self.query(mid + 1, e, r, L, R, T)
+
+#             # Return sum of set bits returned from left and right calls
+#             return left + right
+    
+#     def update(self, s, e, idx, idx1, arr, T, q):
+
+#         # Here simply update values in the original array, then calculate the set bits for that index and update the corresponding index value in the segment tree array
+
+#         #Base case, when s and e are the same
+#         if s == e:
+            
+#             if q == 1:
+#                 # Bits increase by 1
+#                 arr[idx1] = 2 * arr[idx1] + 1
+#                 T[idx] = T[idx] + 1
+            
+#             if q == 2:
+#                 # Bits decrease by 1 (keep zero if going negative)
+#                 arr[idx1] = arr[idx1] // 2
+#                 T[idx] = max(T[idx] - 1, 0)
+                
+#             return
+        
+#         # Calculate mid, check where to call
+#         mid = (s + e) // 2
+#         l = 2 * idx + 1
+#         r = l + 1
+
+#         if idx1 <= mid:
+#             self.update(s, mid, l, idx1, arr, T, q)
+        
+#         else:
+#             self.update(mid + 1, e, r, idx1, arr, T, q)
+        
+#         # After any left, right calls, update the answer at the idx value of the segment tree array by summing contributions from left and right children nodes
+#         T[idx] = T[l] + T[r]
