@@ -84,36 +84,74 @@ class Solution:
     # @param B : list of integers
     # @return an integer
     def solve(self, A, B):
+
         tmp = []
-        n = len(A)
-        tmp1 = [[A[i], B[i], i] for i in range(n)]
-
-        # Sort by buying time
-        tmp1.sort()
-
-        # Rearrange for heapifying. If profits are the same, sort on index, as time and profit can have duplicates)
-        tmp1 = [[t[1], t[2], t[0]] for t in tmp1]
-
         T = 0
 
-        for val in tmp1:
+        # Create a tuple of buying time and profits.
+        A = [(A[i], B[i]) for i in range(len(A))]
 
-            p, idx, t = val
-
-            # Valid time to buy a car
-            if T <= t - 1:
-                heapq.heappush(tmp, val)
-                T += 1
-            
-            #Find if incoming value is greater than min element in heap. Replace if true
-            else:
-                top = tmp[0]
-                if top[0] < p:
-                    heapq.heappop(tmp)
-                    heapq.heappush(tmp, val)
-        
+        # Sort based on buying time
+        A.sort()
         ans = 0
-        for tup in tmp:
-            ans += tup[0]
+        for t in A:
+            
+            # Add to heap if a valid time to buy
+            if T <= t[0] - 1:
+                heapq.heappush(tmp, (t[1], t[0]))
+                # Increment answer with pushed value
+                ans = ans + t[1]
+                T += 1
+            else:
+                # Find if the heap's minimum value < incoming element. If true, remove min, add incoming and heapify
+                if tmp[0][0] < t[1]:
+
+                    # Decrement min value to be popped
+                    ans = ans - tmp[0][0]
+                    top = heapq.heappop(tmp)
+
+                    # Increment answer with pushed value
+                    heapq.heappush(tmp, (t[1], t[0]))
+                    ans = ans + t[1]
         
         return ans % int(1e9+7)
+        
+# import heapq
+# class Solution:
+#     # @param A : list of integers
+#     # @param B : list of integers
+#     # @return an integer
+#     def solve(self, A, B):
+#         tmp = []
+#         n = len(A)
+#         tmp1 = [[A[i], B[i], i] for i in range(n)]
+
+#         # Sort by buying time
+#         tmp1.sort()
+
+#         # Rearrange for heapifying. If profits are the same, sort on index, as time and profit can have duplicates)
+#         tmp1 = [[t[1], t[2], t[0]] for t in tmp1]
+
+#         T = 0
+
+#         for val in tmp1:
+
+#             p, idx, t = val
+
+#             # Valid time to buy a car
+#             if T <= t - 1:
+#                 heapq.heappush(tmp, val)
+#                 T += 1
+            
+#             #Find if incoming value is greater than min element in heap. Replace if true
+#             else:
+#                 top = tmp[0]
+#                 if top[0] < p:
+#                     heapq.heappop(tmp)
+#                     heapq.heappush(tmp, val)
+        
+#         ans = 0
+#         for tup in tmp:
+#             ans += tup[0]
+        
+#         return ans % int(1e9+7)
