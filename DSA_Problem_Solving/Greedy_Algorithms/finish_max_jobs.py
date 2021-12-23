@@ -75,6 +75,8 @@ class Solution:
         n = len(A)
         p = [[B[i], A[i]] for i in range(n)]
 
+        # Sort on the basis of finish time. We want to choose the job that finishes the earliest
+        # to be able to potentially select more jobs to finish
         p.sort()
 
         start = p[0]
