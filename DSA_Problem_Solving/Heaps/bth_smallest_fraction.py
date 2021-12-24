@@ -79,6 +79,7 @@ class Solution:
     # @return a list of integers
     def solve(self, A, B):
 
+        # Assume array A is sorted
         tmp = []
         n = len(A)
 
