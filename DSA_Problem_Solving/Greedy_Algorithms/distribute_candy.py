@@ -72,24 +72,24 @@ class Solution:
 
         n = len(A)
 
-        l = [0] * n
-        r = [0] * n
+        l = [1] * n
+        r = [1] * n
 
-        l[0] = 1
-        r[n-1] = 1
+        # l[0] = 1
+        # r[n-1] = 1
         # Consider left neighbors
         for i in range(1, n):
             if A[i] > A[i-1]:
                 l[i] = l[i-1] + 1
-            else:
-                l[i] = 1
+            # else:
+            #     l[i] = 1
         
         # Consider right neighbors
         for i in range(n-2, -1, -1):
             if A[i] > A[i+1]:
                 r[i] = r[i+1] + 1
-            else:
-                r[i] = 1
+            # else:
+            #     r[i] = 1
         
         ans = 0
         for i in range(n):
