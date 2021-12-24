@@ -86,6 +86,11 @@ class Solution:
 
         n = len(A)
         for i in range(n):
+
+            # if not r or r[0] < A[i]:
+            #     heapq.heappush(r, A[i])
+            # else:
+            #     heapq.heappush(l, -1 * A[i])
             
             # Add to min heap
             heapq.heappush(r, A[i])
