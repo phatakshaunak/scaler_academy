@@ -82,7 +82,7 @@ class Solution:
         A.sort()
         B.sort()
 
-        ans = float('-inf')
+        ans = 0
         n = len(A)
 
         for i in range(n):
