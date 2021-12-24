@@ -87,6 +87,7 @@ class Solution:
             p = ((A[i] / A[n-1]), i, (n - 1))
             tmp.append(p)
         
+        # O(N) down-heapify (considering non leaf nodes)
         heapq.heapify(tmp)
 
         while B > 0:
@@ -101,3 +102,5 @@ class Solution:
             B -= 1
         
         return [A[top[1]], A[top[2]]]
+
+        # TC: O(BlogN), SC: O(N)
