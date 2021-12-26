@@ -100,6 +100,7 @@ class Solution:
         
         return state
         
+        # TC O(B*logN) SC O(N)
         # max_ = float('-inf')
         # for val in state:
         #     max_ = max(max_,val)
