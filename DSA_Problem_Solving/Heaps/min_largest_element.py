@@ -79,22 +79,29 @@ class Solution:
     # @return an integer
     def solve(self, A, B):
 
-        # To minimize maximum element, use a min heap pair with the updated and original value
-        # Increment based on the updated min element and return max value after B updates
+        # Keep a state array to store new state (or a variable)
+        # Make a min heap of twice the original values to choose the best possible value.
+        # Change the value in the state array to the current heap min
+        # Increment the current heap min with original value and push to heap
+        # Repeat B times and get max value from state array
 
         tmp = [[2*A[i], i] for i in range(len(A))]
-        state = [i for i in A]
+        # state = [i for i in A]
+        state = max(A)
         heapq.heapify(tmp)
         while B:
             # print(tmp)
             top = heapq.heappop(tmp)
-            state[top[1]] = top[0]
+            state = max(state, top[0])
+            # state[top[1]] = top[0]
             top[0] = top[0] + A[top[1]]
             heapq.heappush(tmp, top)
             B -= 1
         
-        max_ = float('-inf')
-        for val in state:
-            max_ = max(max_,val)
+        return state
         
-        return max_
+        # max_ = float('-inf')
+        # for val in state:
+        #     max_ = max(max_,val)
+        
+        # return max_
