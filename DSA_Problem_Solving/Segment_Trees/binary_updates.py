@@ -190,7 +190,7 @@ class Solution:
         r_c = l_c + 1
         
         if T[l_c] < k:
-            # Go right and search root - K ones
+            # Go right and search K - T[l_c] ones
             return self.query(r_c, mid + 1, e, k - T[l_c], T, A)
         
         else:
