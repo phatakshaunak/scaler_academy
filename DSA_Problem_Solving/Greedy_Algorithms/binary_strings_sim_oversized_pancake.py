@@ -97,7 +97,7 @@ class Solution:
         flag = 0
         ct = 0
         for i in range(n - B + 1):
-            # XOR flag with tmp element to decide if flipping is needed
+            # XOR flag with tmp element to decide if flipping needs to be stopped
             flag = flag ^ tmp[i]
             # Two conditions: if A[i] == 0 and flag == 0 or A[i] == 1 and flag == 1 (In both cases, bits are unset)
             if (A[i] == '0' and flag == 0) or (A[i] == '1' and flag == 1):
