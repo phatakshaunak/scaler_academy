@@ -67,7 +67,7 @@ class Solution:
         while A:
             ans = ans + (A % 5)
             A //= 5
-        
+
         return ans
         # # p = 0
         # pw = 1
