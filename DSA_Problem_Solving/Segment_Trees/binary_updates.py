@@ -92,8 +92,6 @@ class Solution:
 
         self.build(0, 0, A - 1, T, arr)
 
-        # return T
-
         ans = []
         for i in range(len(B)):
             
@@ -108,7 +106,34 @@ class Solution:
                     v = self.query(0, 0, A-1, b, T, arr)
                     ans.append(v)
         
+        # for i in range(len(B)):
+            
+        #     a, b = B[i][0], B[i][1]
+            
+        #     if a == 0:
+        #         self.update(0, 0, A-1, b-1, T, arr)
+        #     else:
+
+        #         val_ = -1
+        #         st, en = 0, len(arr) - 1
+
+        #         while st <= en:
+        #             mid = st + (en - st) // 2
+
+        #             curr = self.range_query(0, 0, len(arr) - 1, 0, mid, T, A)
+
+        #             if curr >= b:
+        #                 val_ = mid + 1
+        #                 en = mid - 1
+                    
+        #             else:
+        #                 st = mid + 1
+
+        #         ans.append(val_)
+
         return ans
+    
+    # Traversing the tree to search for the kth one takes logN time, whereas a binary search approach takes (logN)^2 time (logN for binary search and logN for the range query)
 
     def build(self, idx, s, e, T, A):
 
@@ -171,3 +196,29 @@ class Solution:
         else:
             # Go left
             return self.query(l_c, s, mid, k, T, A)
+    
+    def range_query(self, idx, s, e, L, R, T, A):
+
+        # Three cases, complete overlap, partial overlap or no overlap
+
+        # Complete overlap
+        if s >= L and e <= R:
+            # Get the value at the index
+            return T[idx]
+        
+        # No overlap
+        elif L > e or R < s:
+            return 0
+        
+        # Partial overlap
+        else:
+            # Check both halfs
+            mid = s + (e - s) // 2
+            l_c = 2 * idx + 1
+            r_c = 2 * idx + 2
+
+            left = self.range_query(l_c, s, mid, L, R, T, A)
+            right = self.range_query(r_c, mid + 1, e, L, R, T, A)
+
+        # Return sum of left and right
+        return (left + right)
