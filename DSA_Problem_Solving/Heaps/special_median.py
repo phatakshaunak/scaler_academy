@@ -84,6 +84,8 @@ class Solution:
 
         right.reverse()
 
+        # Can avoid storing the median values and check while calculating the median on each iteration.
+        
         for i in range(len(A)):
 
             if i == 0:
