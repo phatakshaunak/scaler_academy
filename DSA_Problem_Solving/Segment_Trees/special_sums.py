@@ -107,7 +107,7 @@ class Solution:
         
         n = len(A)
 
-        # Refer to lecture notes for the logic on creating the second segment tree
+        # Refer to lecture notes for the logic to create the second segment tree
         '''
         1 * a[L] + 2 * a[L+1]...(R - L + 1)*A[R] = sum_from_L_R((i-L+1) * a[i])
         = sum_from_L_R((i*a[i])) - (L - 1) * sum_from_L_R(a[i])
