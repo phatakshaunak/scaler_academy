@@ -107,6 +107,18 @@ class Solution:
         
         n = len(A)
 
+        # Refer to lecture notes for the logic on creating the second segment tree
+        '''
+        1 * a[L] + 2 * a[L+1]...(R - L + 1)*A[R] = sum_from_L_R((i-L+1) * a[i])
+        = sum_from_L_R((i*a[i])) - (L - 1) * sum_from_L_R(a[i])
+
+        The first term is a range query for an array of the form [i*A[i] for i in range(len(A))]
+        Second term is simply a regular segment tree
+
+        Creating both trees and then calculating with the above formula gives the special sum
+        '''
+
+
         # Create new array for second segment tree
         A1 = [(i + 1) * A[i] for i in range(n)]
 
