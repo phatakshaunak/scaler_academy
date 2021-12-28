@@ -168,7 +168,16 @@ class Solution:
         left = self.query(s, mid, l_c, L, R, T, A)
         right = self.query(mid + 1, e, r_c, L, R, T, A)
 
-        bits = min(e-mid, R - mid)
-        bits = max(0, bits)
-
+        # bits = min(e-mid, R - mid)
+        # bits = max(0, bits)
+        if R < e:
+            bits = max(0, R - mid)
+        else:
+                bits = e - mid
+        
         return (left << (bits)) + right
+
+        # Left shiftings bits has a number of cases
+        # 1 When R < e and R >= mid... Here positions only until R are needed, hence only left shift by R - mid
+        # 2 When R < e and R < mid...Here mid is out of bounds of the L-R range, hence only use 0
+        # 3 When e < R (possibly when the call is in the left subtree, then e can be within the L-R range, bits only until e in that call can be chosen)
