@@ -119,7 +119,7 @@ class Solution:
         '''
 
 
-        # Create new array for second segment tree
+        # Create new array for the second segment tree
         A1 = [(i + 1) * A[i] for i in range(n)]
 
         t = 4 * n
