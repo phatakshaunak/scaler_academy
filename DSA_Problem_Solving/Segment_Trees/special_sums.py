@@ -113,7 +113,7 @@ class Solution:
         = sum_from_L_R((i*a[i])) - (L - 1) * sum_from_L_R(a[i])
 
         The first term is a range query for an array of the form [i*A[i] for i in range(len(A))]
-        Second term is simply a regular segment tree
+        Second term is a range query for a regular segment tree
 
         Creating both trees and then calculating with the above formula gives the special sum
         '''
