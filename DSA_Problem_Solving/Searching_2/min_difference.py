@@ -81,3 +81,68 @@ class Solution:
     # @param C : list of list of integers
     # @return an integer
     def solve(self, A, B, C):
+
+        ans = float('inf')
+        
+        # Sort all rows
+        for i in range(A):
+            C[i].sort()
+
+        # Task is to start from row 0 to the second last row and find the upper bound and lower bound for each element in the row. Then calculate both differences and update ans with the min value
+        # Do this for all the rows and return min value, i.e the ans
+
+        # Iterate over rows 0 to A-1
+        for r in range(A-1):
+#             print(r)
+            # Iterate over columns
+            for c in range(B):
+                target = C[r][c]
+
+                # Need to check for upper/lower bounds in the next row
+                row, col = r + 1, B
+                target = C[r][c]
+
+                lb_idx = self.lower_bound(C, target, row, col)
+                # ub_idx = self.upper_bound(C, target, row, col)
+                
+                lb = C[row][lb_idx]
+                # ub = C[row][ub_idx]
+                
+                # print(target, lb, ub)
+                ans = min(ans, abs(target - lb))
+
+                # ans = min(ans, abs(target - lb), abs(target - ub))
+
+        return ans
+
+    def lower_bound(self, arr, target, row, col):
+        s, e = 0, col - 1
+        # If no lower bound (i.e. greatest value <= target, best candidate will be arr[0])
+        ans = 0
+        while s <= e:
+            mid = s + (e - s) // 2
+            
+            if arr[row][mid] > target:
+                e = mid - 1
+            
+            else:
+                ans = mid
+                s = mid + 1
+        
+        return ans
+
+    def upper_bound(self, arr, target, row, col):
+        s, e = 0, col - 1
+        # If no upper bound (i.e. smallest value >= target, best candidate will be arr[-1])
+        ans = e
+        while s <= e:
+            mid = s + (e - s) // 2
+            
+            if arr[row][mid] >= target:
+                ans = mid
+                e = mid - 1
+            
+            else:
+                s = mid + 1
+        
+        return ans
