@@ -110,6 +110,10 @@ class Solution:
                 
                 # print(target, lb, ub)
                 ans = min(ans, abs(target - lb))
+                
+                # if lb_idx < B - 1:
+                #     ub = C[row][lb_idx + 1]
+                #     ans = min(ans, abs(target - ub))
 
                 # ans = min(ans, abs(target - lb), abs(target - ub))
 
