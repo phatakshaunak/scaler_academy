@@ -81,7 +81,7 @@ class Solution:
     def solve(self, A, B):
 
         '''
-        Approach involves sorting the array. Then check for an optimal value of elements that can be transformed to maximize frequency of current element
+        Approach involves first sorting the array. Then check for an optimal value of elements that can be transformed to maximize frequency of current element
         This check can be done with binary search. To check if it can be done under B operations, compute a prefix sum array and check if the difference
         of sum and the max possible sum i.e. frequency * current element is <= B. Do for all elements and update answer
         Sorting ensures a minimum optimal answer is chosen.
