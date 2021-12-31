@@ -80,10 +80,18 @@ class Solution:
     # @return a list of integers
     def solve(self, A, B):
 
+        '''
+        Approach involves sorting the array. Then check for an optimal value of elements that can be transformed to maximize frequency of current element
+        This check can be done with binary search. To check if it can be done under B operations, compute a prefix sum array and check if the difference
+        of sum and the max possible sum i.e. frequency * current element is <= B. Do for all elements and update answer
+        Sorting ensures a minimum optimal answer is chosen.
+        '''
+
         A.sort()
         n = len(A)
         ps = [0] * (n + 1)
-
+        
+        # Calculate prefix sum for check during binary search
         for i in range(n):
             ps[i+1] = ps[i] + A[i]
 
@@ -91,20 +99,24 @@ class Solution:
         ans = -1
 
         for i in range(n):
-
+            
+            # Low is 1 counting A[i], High is the number of elements until A[i]
             s, e = 1, i + 1
 
             while s <= e:
+                # Find mid (here it is the count of elements to check)
                 ct = s + (e - s) // 2
 
+                # Potential operations needed for current count
                 ops = (ct * A[i]) - (ps[i+1] - ps[i + 1 - ct])
 
+                # If operations are <= B, possible answer, update if old frequency is lower and move right to search for a better answer
                 if ops <= B:
                     if ct > freq:
                         freq = ct
                         ans = A[i]
                     s = ct + 1
-                
+                # Smaller count is possible, move left
                 else:
                     e = ct - 1
             
