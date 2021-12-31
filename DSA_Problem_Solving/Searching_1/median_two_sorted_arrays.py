@@ -87,8 +87,8 @@ class Solution:
         half = (n + m) // 2
 
         # Run a while True loop for handling some edge cases
-        while True:
-
+        # while True:
+        while s <= e or mid >= -1
             mid = s + (e - s) // 2
             b = half - mid - 2
 
