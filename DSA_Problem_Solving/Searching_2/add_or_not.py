@@ -79,3 +79,33 @@ class Solution:
     # @param B : integer
     # @return a list of integers
     def solve(self, A, B):
+
+        A.sort()
+        n = len(A)
+        ps = [0] * (n + 1)
+
+        for i in range(n):
+            ps[i+1] = ps[i] + A[i]
+
+        freq = float('-inf')
+        ans = -1
+
+        for i in range(n):
+
+            s, e = 1, i + 1
+
+            while s <= e:
+                ct = s + (e - s) // 2
+
+                ops = (ct * A[i]) - (ps[i+1] - ps[i + 1 - ct])
+
+                if ops <= B:
+                    if ct > freq:
+                        freq = ct
+                        ans = A[i]
+                    s = ct + 1
+                
+                else:
+                    e = ct - 1
+            
+        return [freq, ans]
