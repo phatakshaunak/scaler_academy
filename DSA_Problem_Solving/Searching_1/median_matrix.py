@@ -85,14 +85,18 @@ class Solution:
         # Find min and max bound
         s, e = float('inf'), float('-inf')
 
+        # Define ans variable
+        ans = -1
+
         for j in range(N):
             s = min(s, A[j][0])
             e = max(e, A[j][M-1])
 
         # Binary search between s and e
         ans = -1
-        # Based on median definition, find if if the # of elements in the A <= mid are equal to target. If yes, that is the median
-        target = (N * M) // 2 + 1
+        # Based on median definition, find if the # of elements in the A <= mid are equal to target. If yes, that is the median
+        # target = (N * M) // 2 + 1
+        target = (N * M) // 2
         
         while s <= e:
             mid = s + (e - s) // 2
@@ -100,19 +104,20 @@ class Solution:
             # Find count <= mid
             val = self.find_elems(A, mid, N, M)
 
+            # if val == target:
+            #     ans = mid
+
             # Now find the total number of elements in A equal = target
-            if val >= target:
-                e = mid - 1
-            
-            # elif val > target:
-            #     # We are to the right of a sorted array. Move left
-            #     e = mid - 1
+            if val <= target:
+                ans = mid
+                s = mid + 1
             
             else:
                 # We are in the left half of a sorted array. Move right
-                s = mid + 1
-
-        return s
+                # ans = target
+                e = mid - 1
+                
+        return ans
         
     
     def find_elems(self,A, key, N, M):
@@ -126,7 +131,7 @@ class Solution:
             while s <= e:
                 mid = s + (e - s) // 2
 
-                if A[i][mid] <= key:
+                if A[i][mid] < key:
                     # Move right to check if more values are possible.
                     count = mid + 1
                     s = mid + 1
@@ -138,5 +143,72 @@ class Solution:
             ans = ans + count
         
         return ans
+
+# TC O(log(range)*RlogC), SC O(1)
+
+# class Solution:
+#     # @param A : list of list of integers
+#     # @return an integer
+#     def findMedian(self, A):
+
+#         # Assuming N X M is odd. We have to find NXM//2 + 1 elements <= search value (+1 for the element itself)
+
+#         N, M = len(A), len(A[0])
+#         # Find min and max bound
+#         s, e = float('inf'), float('-inf')
+
+#         for j in range(N):
+#             s = min(s, A[j][0])
+#             e = max(e, A[j][M-1])
+
+#         # Binary search between s and e
+#         ans = -1
+#         # Based on median definition, find if if the # of elements in the A <= mid are equal to target. If yes, that is the median
+#         target = (N * M) // 2 + 1
+        
+#         while s <= e:
+#             mid = s + (e - s) // 2
+
+#             # Find count <= mid
+#             val = self.find_elems(A, mid, N, M)
+
+#             # Now find the total number of elements in A equal = target
+#             if val >= target:
+#                 e = mid - 1
+            
+#             # elif val > target:
+#             #     # We are to the right of a sorted array. Move left
+#             #     e = mid - 1
+            
+#             else:
+#                 # We are in the left half of a sorted array. Move right
+#                 s = mid + 1
+
+#         return s
+        
+    
+#     def find_elems(self,A, key, N, M):
+
+#         # Apply binary search on all rows. Iterate on N.
+#         ans = 0
+#         for i in range(N):
+#             # Bounds are the col dimensions
+#             s, e = 0, M - 1
+#             count = 0
+#             while s <= e:
+#                 mid = s + (e - s) // 2
+
+#                 if A[i][mid] <= key:
+#                     # Move right to check if more values are possible.
+#                     count = mid + 1
+#                     s = mid + 1
+                
+#                 else:
+#                     # As values are greater than key, move left.
+#                     e = mid - 1
+            
+#             ans = ans + count
+        
+#         return ans
 
 # TC
