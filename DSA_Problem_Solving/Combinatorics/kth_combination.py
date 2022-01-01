@@ -42,7 +42,7 @@ class Solution:
 
         # return ans[0]
 
-    # Backtracking solution )O(N*N!)
+    # Backtracking solution O(N*N!)
     def dfs_perm(self, N, ans, curr, idx, seen, K):
     
         if len(curr) == N:
