@@ -117,7 +117,7 @@ class Solution:
                         freq = ct
                         ans = A[i]
                     s = ct + 1
-                # Smaller count is possible, move left
+                # Check for smaller count, move left
                 else:
                     e = ct - 1
             
