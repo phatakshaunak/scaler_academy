@@ -112,18 +112,24 @@ class Solution:
 
     def helper(self, root, ht):
 
+        # This function generates a doubly linked list from a binary tree
+
         if not root:
             return
         
         self.helper(root.left, ht)
         
+        # Mark head of the DLL as the left most node in the binary tree
         if not ht.head:
             ht.head = root
         
+        # If head has already been marked, make connections between tail pointer and current node
         else:
             ht.tail.right = root
             root.left = ht.tail
         
+        # Move tail pointer to next node, when head is marked, head and tail point to the same leftmost node in the binary tree
+        # This kind of an inorder traversal will generate a sorted DLL for a BST
         ht.tail = root
 
         self.helper(root.right, ht)
