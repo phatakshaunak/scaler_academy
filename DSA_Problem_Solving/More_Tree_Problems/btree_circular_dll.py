@@ -129,7 +129,7 @@ class Solution:
             root.left = ht.tail
         
         # Move tail pointer to next node, when head is marked, head and tail point to the same leftmost node in the binary tree
-        # This kind of an inorder traversal will generate a sorted DLL for a BST
+        # This inorder traversal will generate a sorted DLL for a BST
         ht.tail = root
 
         self.helper(root.right, ht)
