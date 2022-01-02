@@ -94,7 +94,9 @@ class Solution:
         prev = [None]
         # return self.helper(A)
         # return self.recur_rev_post(A, prev)
-        return self.cons_space(A)
+        # return self.cons_space(A)
+        
+        return self.with_stack(A)
 
     def helper(self, root):
         # Base condition (Return null if node is None)
@@ -155,4 +157,29 @@ class Solution:
             
             curr = curr.right
         
+        return root
+    
+    def with_stack(self, root):
+        
+        st = []
+
+        st.append(root)
+
+        while st:
+
+            top = st.pop()
+
+            if top.right:
+                # Push right first as we need to attach left to the current node's right
+                st.append(top.right)
+            
+            if top.left:
+                st.append(top.left)
+
+            # Check if stack is not empty and attach top's right to stack's top
+            if st:
+                top.right = st[-1]
+                top.left = None
+
+            # This approach in the while loop runs for all nodes in a root-left-right order as left is on top each time
         return root
