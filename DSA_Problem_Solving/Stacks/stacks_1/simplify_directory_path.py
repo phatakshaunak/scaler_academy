@@ -41,11 +41,11 @@ class Solution:
         i, n = 0, len(A)
         st = []
         curr = ''
-        
-        flag = False
+    
         while i < n:
 
-            if A[i].isalpha():
+            # if A[i].isalpha():
+            if 67 <= ord(A[i]) <= 122:
                 # Accumulate folder name and push to stack
                 while i < n and A[i].isalpha():
                     curr += A[i]
@@ -59,6 +59,8 @@ class Solution:
                 # Pop from stack if next element is also a '.'
                 if st and i + 1 < n and A[i + 1] == '.':
                     st.pop()
+
+                # Do nothing if a single '.' as that implies current directory
             
             i += 1
         
