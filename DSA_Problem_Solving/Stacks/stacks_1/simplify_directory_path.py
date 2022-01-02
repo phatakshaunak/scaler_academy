@@ -46,6 +46,7 @@ class Solution:
         while i < n:
 
             if A[i].isalpha():
+                # Accumulate folder name and push to stack
                 while i < n and A[i].isalpha():
                     curr += A[i]
                     i += 1
@@ -54,10 +55,13 @@ class Solution:
                 curr = ''
             
             elif A[i] == '.':
-
+                
+                # Pop from stack if next element is also a '.'
                 if st and i + 1 < n and A[i + 1] == '.':
                     st.pop()
             
             i += 1
         
         return '/' + '/'.join(st)
+
+        # Solution may become easier by using the inbuilt split function
