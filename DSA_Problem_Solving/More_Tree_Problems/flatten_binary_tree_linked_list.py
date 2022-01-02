@@ -86,19 +86,15 @@ Explanation 2:
 #         self.left = None
 #         self.right = None
 
-# Definition for a  binary tree node
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
 class Solution:
     # @param A : root node of tree
     # @return the root node in the tree
     def flatten(self, A):
-
-        return self.helper(A)
+        
+        prev = [None]
+        # return self.helper(A)
+        # return self.recur_rev_post(A, prev)
+        return self.cons_space(A)
 
     def helper(self, root):
         # Base condition (Return null if node is None)
@@ -124,4 +120,39 @@ class Solution:
         curr.right = right
 
         # Return flattened tree
+        return root
+
+# Keep returning right sub tree using a previous pointer TC O(N) and SC O(N)
+    def recur_rev_post(self, root, prev):
+
+        if not root:
+            return
+        
+        self.recur_rev_post(root.right, prev)
+        self.recur_rev_post(root.left, prev)
+
+        root.right = prev[0]
+        root.left = None
+        prev[0] = root
+        return root
+
+# O(1) space , O(1) time...Morris
+
+    def cons_space(self, root):
+        curr = root
+
+        while curr:
+
+            if curr.left:
+                tmp = curr.left
+
+                while tmp.right:
+                    tmp = tmp.right
+                
+                tmp.right = curr.right
+                curr.right = curr.left
+                curr.left = None
+            
+            curr = curr.right
+        
         return root

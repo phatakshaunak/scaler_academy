@@ -118,7 +118,6 @@ class Solution:
         Creating both trees and then calculating with the above formula gives the special sum
         '''
 
-
         # Create new array for the second segment tree
         A1 = [(i + 1) * A[i] for i in range(n)]
 
