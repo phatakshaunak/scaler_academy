@@ -44,8 +44,8 @@ class Solution:
     
         while i < n:
 
-            # if A[i].isalpha():
-            if 67 <= ord(A[i]) <= 122:
+            if A[i].isalpha():
+            # if 67 <= ord(A[i]) <= 122:
                 # Accumulate folder name and push to stack
                 while i < n and A[i].isalpha():
                     curr += A[i]
