@@ -97,8 +97,6 @@ class Solution:
     # @return the root node in the tree
     def solve(self, A):
 
-        p = [None, None]
-
         p = pointers()
 
         self.helper(A, p)
