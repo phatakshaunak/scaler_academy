@@ -50,6 +50,7 @@ class Solution:
                 while i < n and A[i].isalpha():
                     curr += A[i]
                     i += 1
+                # Decrement to prevent skipping next element
                 i -= 1
                 st.append(curr)
                 curr = ''
