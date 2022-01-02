@@ -110,6 +110,27 @@ class Solution:
     
         return p.head
 
+        # self.helper_1(A)
+        
+        # # Get head and tail
+        # head, tail = A, A
+
+        # if head:
+        #     while head.left:
+        #         head = head.left
+        # if tail:
+        #     while tail.right:
+        #         tail = tail.right
+        
+        # # Point head's left and tail's right to each other
+        # if head:
+        #     head.left = tail
+        
+        # if tail:
+        #     tail.right = head
+        
+        # return head
+
     def helper(self, root, ht):
 
         # This function generates a doubly linked list from a binary tree
@@ -133,6 +154,43 @@ class Solution:
         ht.tail = root
 
         self.helper(root.right, ht)
+    
+    def helper_1(self, root):
+
+        # This approach involves connecting inorder predecessor and inorder successor's to root
+        # Predecessor connects to root while traversing left sub tree whereas successor connects while traversing right subtree
+
+        if not root:
+            return
+        
+        left = self.helper_1(root.left)
+
+        # Now get inorder predecessor
+        if left:
+            tmp = left
+            while tmp.right:
+                tmp = tmp.right
+
+            # Connect root and inorder predecessor
+            tmp.right = root
+            root.left = tmp
+
+        right = self.helper_1(root.right)
+
+        # Find inorder successor
+        if right:
+            tmp = right
+            while tmp.left:
+                tmp = tmp.left
+
+            # Connect root and inorder successor
+            tmp.left = root
+            root.right = tmp
+
+        # Return DLL generated at root
+
+        return root 
+
 
 class pointers:
     def __init__(self):
