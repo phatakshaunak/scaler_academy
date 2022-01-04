@@ -97,5 +97,11 @@ class Solution:
         temp = root.left
         root.left = self.helper(root.right)
         root.right = self.helper(temp)
+        # if not root:
+        #     return
+        
+        # self.helper(root.left)
+        # self.helper(root.right)
+        # root.left, root.right = root.right, root.left
 
         return root

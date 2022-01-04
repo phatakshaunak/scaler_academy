@@ -191,7 +191,6 @@ class Solution:
 
         return root 
 
-
 class pointers:
     def __init__(self):
         self.head = None
