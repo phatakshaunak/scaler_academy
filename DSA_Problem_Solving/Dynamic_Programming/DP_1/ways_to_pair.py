@@ -74,6 +74,8 @@ class Solution:
     # @return an integer
     def solve(self, A):
 
+        # Tabulation
+        
         if A <= 2:
             return A
         
@@ -89,6 +91,8 @@ class Solution:
         # memo, mod = {}, 10003
         # return self.helper(A, memo, mod)
     
+    # Recursion + Memoization
+
     # def helper(self, N, memo, mod):
         
     #     if N <= 2:
