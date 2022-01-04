@@ -64,14 +64,16 @@ class Solution:
 	# @return an integer
 	def climbStairs(self, A):
 
-        memo = {1: 1, 2: 2}
+        return self.tab_dp(A)
 
-        return self.cl_dp(A, memo)
+        # memo = {1: 1, 2: 2}
+
+        # return self.cl_dp(A, memo)
 
     def cl_dp(self, N, memo):
         
         if N < 1:
-            return
+            return 1
         # if N == 1:
         #     return 1
         
@@ -80,5 +82,17 @@ class Solution:
         
         if N not in memo:
             memo[N] = self.cl_dp(N-1, memo) + self.cl_dp(N-2, memo)
+        
+        return memo[N]
+    
+    def tab_dp(self, N):
+
+        if N <= 2:
+            return N
+        
+        memo = [0] * (N + 1)
+        memo[1], memo[2] = 1, 2
+        for i in range(3, N + 1):
+            memo[i] = memo[i - 1] + memo[i - 2]
         
         return memo[N]
