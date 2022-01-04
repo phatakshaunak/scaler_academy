@@ -74,27 +74,27 @@ class Solution:
     # @return an integer
     def solve(self, A):
 
-        # if A <= 2:
-        #     return A
+        if A <= 2:
+            return A
         
-        # memo = [0] * (A + 1)
-        # memo[1] = 1
-        # memo[2] = 2
+        memo = [0] * (A + 1)
+        memo[1] = 1
+        memo[2] = 2
 
-        # for i in range(3, A + 1):
-        #     memo[i] = (memo[i-1] + (i-1) * memo[i-2]) % 10003
+        for i in range(3, A + 1):
+            memo[i] = (memo[i-1] + (i-1) * memo[i-2]) % 10003
         
-        # return memo[A]
+        return memo[A]
 
-        memo, mod = {}, 10003
-        return self.helper(A, memo, mod)
+        # memo, mod = {}, 10003
+        # return self.helper(A, memo, mod)
     
-    def helper(self, N, memo, mod):
+    # def helper(self, N, memo, mod):
         
-        if N <= 2:
-            return N
+    #     if N <= 2:
+    #         return N
         
-        if N not in memo:
-            memo[N] = (self.helper(N - 1, memo, mod) % mod + ((N - 1) % mod * self.helper(N - 2, memo, mod) % mod) % mod) % mod
+    #     if N not in memo:
+    #         memo[N] = (self.helper(N - 1, memo, mod) % mod + ((N - 1) % mod * self.helper(N - 2, memo, mod) % mod) % mod) % mod
         
-        return memo[N]
+    #     return memo[N]
