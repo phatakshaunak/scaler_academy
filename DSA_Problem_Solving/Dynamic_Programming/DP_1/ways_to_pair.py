@@ -75,18 +75,27 @@ class Solution:
     def solve(self, A):
 
         # Tabulation
-        
+
         if A <= 2:
             return A
         
-        memo = [0] * (A + 1)
-        memo[1] = 1
-        memo[2] = 2
+        # memo = [0] * (A + 1)
+        # memo[1] = 1
+        # memo[2] = 2
+
+        # for i in range(3, A + 1):
+        #     memo[i] = (memo[i-1] + (i-1) * memo[i-2]) % 10003
+
+        # Tabulation with constant space
+        f, s = 1, 2
 
         for i in range(3, A + 1):
-            memo[i] = (memo[i-1] + (i-1) * memo[i-2]) % 10003
+            tmp = (s + (i - 1) * f) % 10003
+            f, s = s, tmp
         
-        return memo[A]
+        return tmp
+        
+        # return memo[A]
 
         # memo, mod = {}, 10003
         # return self.helper(A, memo, mod)
