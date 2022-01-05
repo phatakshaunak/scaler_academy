@@ -91,6 +91,7 @@ class Solution:
             # Try all possible squares (greedy would pick the largest square root)
             while j * j <= i:
 
+                # Trying all possible transitions (not just largest square root)
                 dp[i] = min(dp[i], 1 + dp[i - j * j])
                 # curr = min(curr, dp[i - j * j])
                 j += 1
