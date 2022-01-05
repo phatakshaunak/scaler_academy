@@ -69,8 +69,6 @@ class Solution:
 	# @param A : integer
 	# @return an integer
 	def countMinSquares(self, A):
-
-        cache = {}
         
         # Initially, the answer can be assumed to be a sum of 1s i times
         dp = [i for i in range(A + 1)]
@@ -87,13 +85,15 @@ class Solution:
 
         for i in range(2, A + 1):
 
-            curr = float('inf')
+            # curr = float('inf')
             j = 1
 
             # Try all possible squares (greedy would pick the largest square root)
             while j * j <= i:
-                curr = min(curr, dp[i - j * j])
+
+                dp[i] = min(dp[i], 1 + dp[i - j * j])
+                # curr = min(curr, dp[i - j * j])
                 j += 1
-            dp[i] = 1 + curr
+            # dp[i] = 1 + curr
         
         return dp[A]
