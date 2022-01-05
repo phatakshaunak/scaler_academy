@@ -98,3 +98,5 @@ class Solution:
             # dp[i] = 1 + curr
         
         return dp[A]
+
+        # TC O(N*N^0.5), SC O(N)
