@@ -86,7 +86,7 @@ class Solution:
         # for i in range(3, A + 1):
         #     memo[i] = (memo[i-1] + (i-1) * memo[i-2]) % 10003
 
-        # Tabulation with constant space
+        # Tabulation with constant space as each state depends only on its previous two states
         f, s = 1, 2
 
         for i in range(3, A + 1):
