@@ -88,7 +88,8 @@ class Solution:
 
             # Iterate rows
             for j in range(2):
-
+                
+                # Edge Cases for i in (0, 1)
                 if i == 0:
                     # print(j, i)
                     dp[j][i] = max(A[0][i], A[1][i])
