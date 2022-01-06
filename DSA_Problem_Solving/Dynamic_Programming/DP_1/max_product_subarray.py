@@ -81,6 +81,8 @@ class Solution:
         for i in range(n):
             
             tmp = max(A[i], A[i] * l_min, A[i] * l_max)
+
+            # Keep track of local minimum in case both A[i] and l_min are negative, they generate a positive result which can be a candidate solution for global maximum product
             l_min = min(A[i], A[i] * l_min, A[i] * l_max)
             l_max = tmp
             
