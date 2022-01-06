@@ -110,6 +110,8 @@ class Solution:
         
         return ans
 
+        # TC O(N), SC O(N)
+
         # dp = [[0 for i in range(n)] for i in range(2)]
         # ans = float('-inf')
         # for i in range(n):
