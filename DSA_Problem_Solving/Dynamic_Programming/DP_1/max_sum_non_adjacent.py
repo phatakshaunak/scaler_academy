@@ -78,37 +78,65 @@ class Solution:
         Extension of the house robber problem
         To store answers, use a dp array of size 2 X N
         If i - 1 or i - 2 < 0 choose the element A[i][n] as the answer
+
+        This is a slight modification of the house robber problem, to reduce it, select the max value in a column and then follow the same logic as in house robber
         '''
 
         n = len(A[0])
 
-        dp = [[0 for i in range(n)] for i in range(2)]
+        dp = [0 for i in range(n)]
+
         ans = float('-inf')
         for i in range(n):
+            
+            # We need to only choose the maximum element of a column
+            curr = max(A[0][i], A[1][i])
 
-            # Iterate rows
-            for j in range(2):
-                
-                # Edge Cases for i in (0, 1)
-                if i == 0:
-                    # print(j, i)
-                    dp[j][i] = max(A[0][i], A[1][i])
-                
-                elif i == 1:
-                    dp[j][i] = max(A[0][i], A[1][i], A[0][i-1], A[1][i-1])
-                    
-                else:
-                    # Select element at A[j][i] and dp[j][i-2]
-                    a1 = A[j][i] + dp[0][i-2]
-                    a2 = A[j][i] + dp[1][i-2]
-                    # Don't select element at A[j][i]
-                    a3 = dp[0][i-1]
-                    a4 = dp[1][i-1]
+            if i == 0:
+                dp[i] = curr
+            
+            elif i == 1:
+                dp[i] = max(curr, dp[i-1])
+            
+            else:
+                # Select element
+                sel = curr + dp[i-2]
+                # Don't select element
+                n_sel = dp[i-1]
 
-                    # Update with maximum value
-                    dp[j][i] = max(a1, a2, a3, a4)
-                    
-                ans = max(ans, dp[j][i])
-            # print(dp, 'storage array')
+                dp[i] = max(sel, n_sel)
+            
+            ans = max(ans, dp[i])
         
         return ans
+
+        # dp = [[0 for i in range(n)] for i in range(2)]
+        # ans = float('-inf')
+        # for i in range(n):
+
+        #     # Iterate rows
+        #     for j in range(2):
+                
+        #         # Edge Cases for i in (0, 1)
+        #         if i == 0:
+        #             # print(j, i)
+        #             dp[j][i] = max(A[0][i], A[1][i])
+                
+        #         elif i == 1:
+        #             dp[j][i] = max(A[0][i], A[1][i], A[0][i-1], A[1][i-1])
+                    
+        #         else:
+        #             # Select element at A[j][i] and dp[j][i-2]
+        #             a1 = A[j][i] + dp[0][i-2]
+        #             a2 = A[j][i] + dp[1][i-2]
+        #             # Don't select element at A[j][i]
+        #             a3 = dp[0][i-1]
+        #             a4 = dp[1][i-1]
+
+        #             # Update with maximum value
+        #             dp[j][i] = max(a1, a2, a3, a4)
+                    
+        #         ans = max(ans, dp[j][i])
+        #     # print(dp, 'storage array')
+        
+        # return ans
