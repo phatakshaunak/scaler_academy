@@ -71,8 +71,8 @@ class Solution:
         '''
         Same as Kadane'e algorithm
         To handle negative values, keep track of local_minimum and local_maximum values ending at A[i]
-        If A[i] is negative, and local_minimum is negative and local_maximum is positive, A[i] * local_minimum generates the largest product
-        So keeping track of minimum and maximum local values until i-1 is necessary to find best candidate
+        If A[i] is negative, local_minimum is negative and local_maximum is positive, A[i] * local_minimum generates the largest product
+        So keeping track of minimum and maximum local values until i-1 is necessary to find the best candidate
         '''
         n = len(A)
 
