@@ -100,6 +100,8 @@ class Solution:
         
         # print(store, idx)
         return len(store)
+
+        # TC: O(NlogN), SC: O(N)
     
     # Upper bound should be the index where key should be inserted. If key is present in the array, return leftmost index for key, else return the index of the smallest larger element
     # If no upper bound, return length of the array
