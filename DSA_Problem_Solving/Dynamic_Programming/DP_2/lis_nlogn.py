@@ -89,7 +89,7 @@ class Solution:
 #         lis = 1
         for i in range(1, n):
 
-            idx = self.upper_bound(store, 0, len(store) - 1, A[i])
+            idx = self.upper_bound(store, A[i])
             
             # print('upper bound', idx, A[i], store)
             if idx == len(store):
@@ -105,8 +105,10 @@ class Solution:
     
     # Upper bound should be the index where key should be inserted. If key is present in the array, return leftmost index for key, else return the index of the smallest larger element
     # If no upper bound, return length of the array
-    def upper_bound(self, arr, s, e, key):
+    def upper_bound(self, arr, key):
         
+        s, e = 0, len(arr) - 1
+
         ans = len(arr)
 
         while s <= e:
