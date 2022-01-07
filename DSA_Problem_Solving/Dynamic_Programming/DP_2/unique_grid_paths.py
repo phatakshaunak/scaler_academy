@@ -81,6 +81,8 @@ class Solution:
 
         return self.helper(A, 0, 0, dp)
 
+        # return self.bottom_up(A)
+
     def helper(self, arr, i, j, dp):
 
         if i == len(arr) or j == len(arr[0]) or arr[i][j] == 1:
@@ -93,3 +95,27 @@ class Solution:
             dp[i][j] = self.helper(arr, i + 1, j, dp) + self.helper(arr, i, j + 1, dp)
 
         return dp[i][j]
+    
+    def bottom_up(self, arr):
+
+        n, m = len(arr), len(arr[0])
+
+        dp = [[0] * m for i in range(n)]
+
+        for i in range(n):
+
+            for j in range(m):
+
+                if arr[i][j]:
+                    continue
+                
+                if not i and not j:
+                    dp[0][0] = 1
+
+                if i > 0:
+                    dp[i][j] += dp[i - 1][j]
+                
+                if j > 0:
+                    dp[i][j] += dp[i][j - 1]
+        
+        return dp[n - 1][m - 1]
