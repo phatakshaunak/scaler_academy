@@ -62,6 +62,8 @@ Explanation 2:
 
  The longest common subsequence is "aaa", which has a length of 3.'''
 
+import sys
+sys.setrecursionlimit(int(1e6))
 class Solution:
     # @param A : string
     # @param B : string
@@ -69,7 +71,7 @@ class Solution:
     def solve(self, A, B):
 
         # State will represented by i and j where i and j are indices for A and B
-        # To follow a bottom up approach,
+        # To follow a bottom up tabulation approach,
         # For transitions, if characters match, we get the answer from i-1, j-1 and add 1 to it
         # Else, we get the max value from decrementing an index on either strings
 
@@ -98,3 +100,28 @@ class Solution:
                 ans = max(ans, dp[j + 1][i + 1])
         
         return ans
+
+        # dp = [[-1 for i in range(len(A))] for j in range(len(B))]
+
+        # return self.rec_mem(A, B, 0, 0, dp)
+    
+    # Getting TLE for recursive/memoization implementation
+    def rec_mem(self, s1, s2, i, j, dp):
+        
+        # Out of bounds on either/both strings
+        if i == len(s1) or j == len(s2):
+            return 0
+        
+        if s1[i] == s2[j]:
+            # Return 1 + one index forward on both
+            if dp[j][i] == -1:
+                dp[j][i] = 1 + self.rec_mem(s1, s2, i + 1, j + 1, dp)
+
+            return dp[j][i]
+        
+        else:
+            
+            if dp[j][i] == -1:
+                dp[j][i] = max(self.rec_mem(s1, s2, i, j + 1, dp), self.rec_mem(s1, s2, i + 1, j, dp))
+
+            return dp[j][i]
