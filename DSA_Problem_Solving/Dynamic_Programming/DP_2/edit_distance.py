@@ -78,7 +78,8 @@ class Solution:
 
         # return self.edit_distance(A, B, dp, 0, 0)
 
-        return self.edit_distance_tab_1(A, B)
+        # return self.edit_distance_space_tab(A, B)
+        return self.edit_distance_tab(A, B)
 
     def edit_distance(self, s1, s2, dp, i, j):
     
@@ -123,8 +124,11 @@ class Solution:
             for j in range(n2):
                 
                 # i + 1 deletions when target string is empty (0th column), j + 1 insertions when input string is empty (0th row)
-                dp[i + 1][0] = i + 1
-                dp[0][j + 1] = j + 1
+                if j == 0:
+                    dp[i + 1][j] = i + 1
+                
+                if i == 0:
+                    dp[i][j + 1] = j + 1
 
                 # if i != 0:
                 #     dp[i][0] = i
