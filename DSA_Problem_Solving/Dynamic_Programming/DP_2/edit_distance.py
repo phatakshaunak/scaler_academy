@@ -187,3 +187,40 @@ class Solution:
             dp1, dp2 = dp2, dp1
         
         return ans
+    
+    def edit_distance_tab_1(self, s1, s2):
+    
+        n1, n2 = len(s1), len(s2)
+        
+        dp = [[0] * (n2 + 1) for i in range(n1 + 1)]
+
+        for i in range(n1 + 1):
+                
+            for j in range(n2 + 1):
+                
+                # Empty input string, j insertions
+                if i == 0:
+                    dp[0][j] = j
+                    
+                # Empty target string, i deletions
+                elif j == 0:
+                    dp[i][j] = i
+                
+                # If characters match, continue with previous edit distance
+                elif s1[i-1] == s2[j-1]:
+                    dp[i][j] = dp[i - 1][j - 1]
+                
+                else:
+                    
+                    # Insertion maintain input string index, get answer from previous column
+                    in_ = dp[i][j - 1]
+                    
+                    # Deletion Maintain target string index, get answer from previous row
+                    del_ = dp[i - 1][j]
+                    
+                    # Replace Continue with previous edit distance
+                    rep_ = dp[i - 1][j - 1]
+                    
+                    dp[i][j] = 1 + min(in_, del_, rep_)
+     
+        return dp[n1][n2]
