@@ -76,9 +76,11 @@ class Solution:
 
         mod, memo = int(1e9 + 7), [-1] * len(A)
 
-        return self.decode_ways(A, 0, mod, memo)
+        # return self.decode_ways(A, 0, mod, memo)
+
+        return self.decode_tab(A)
     
-    # Recursion with memoization
+    # Recursion with memoization (Top to bottom)
     def decode_ways(self, A, idx, m, cache):
     
         if idx == len(A):
@@ -105,3 +107,31 @@ class Solution:
         return cache[idx] % m
     
     # O(2^n) with plain recursion, O(n) with memoization
+
+    # Tabulation bottom up
+    def decode_tab(self, s):
+
+        # Define storage array
+        dp = [0] * len(s)
+
+        # Define number of ways to cut at first index
+        if '1' <= s[0] <= '9':
+            dp[0] = 1
+        
+        else:
+            # No decoding possible if first value is not within 1-9
+            return 0
+        
+        for i in range(1, len(s)):
+
+            if '1' <= s[i] <= '9':
+                dp[i] += dp[i - 1]
+            
+            if '10' <= (s[i - 1] + s[i]) <= '26':
+
+                if i == 1:
+                    dp[i] += 1
+                else:
+                    dp[i] += dp[i - 2]
+        
+        return dp[-1] % int(1e9 + 7)
