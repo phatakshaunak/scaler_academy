@@ -121,7 +121,8 @@ class Solution:
         for i in range(n1):
                 
             for j in range(n2):
-
+                
+                # i + 1 deletions when target string is empty (0th column), j + 1 insertions when input string is empty (0th row)
                 dp[i + 1][0] = i + 1
                 dp[0][j + 1] = j + 1
 
