@@ -193,12 +193,17 @@ class Solution:
             for j in range(1, n2 + 1):
                 
                 # If both alphabets and match
-
-                if s[i - 1] == p[j - 1] or p[j - 1] == '?':
-                    dp2[j] = dp1[j - 1]
+                if s[i - 1].isalpha() and p[j - 1].isalpha():
+                    
+                    if  s[i - 1] == p[j - 1]:
+                        dp2[j] = dp1[j - 1]
+                    
+                    else:
+                        dp2[j] = False
                 
-                elif s[i - 1] != p[j - 1] and p[j - 1].isalpha():
-                    dp2[j] = False
+                # If pattern char is a ?
+                elif p[j - 1] == '?':
+                    dp2[j] = dp1[j - 1]
                 
                 # Else, current pattern char is a *
                 else:
@@ -208,6 +213,8 @@ class Solution:
             
             # Swap arrays
             dp1, dp2 = dp2, dp1
+
+            #dp1 initially has a True value at 0th position, hence change that after the swap
             dp2[0] = False
         
         return ans
