@@ -106,6 +106,7 @@ class Solution:
         # return self.rec_mem(A, B, 0, 0, dp)
 
         # Space optimized solution utilizing only two arrays using the properties of the recurrence relation
+        # return self.lcs_bottom(A, B)
         return self.lcs_bottom_space(A, B)
     
     # Getting TLE for recursive/memoization implementation
@@ -144,19 +145,40 @@ class Solution:
         
         # Iterate over s2 on the outer loop and s1 in the inner loop
         
-        for i in range(n2):
+        for i in range(1, n2 + 1):
             
-            for j in range(n1):
+            for j in range(1, n1 + 1):
                 
-                if s2[i] == s1[j]:
-                    dp2[j + 1] = 1 + dp1[j]
+                if s2[i - 1] == s1[j - 1]:
+                    dp2[j] = 1 + dp1[j - 1]
                 
                 else:
-                    dp2[j + 1] = max(dp1[j + 1], dp2[j])
+                    dp2[j] = max(dp1[j], dp2[j - 1])
                 
-                ans = max(ans, dp2[j + 1])
+                ans = max(ans, dp2[j])
             
             # After comparing one character of s2 with all of s1, swap the rows for the next iteration
             dp1, dp2 = dp2, dp1
+        
+        return ans
+    
+    def lcs_bottom(self, s1, s2):
+
+        n1, n2 = len(s1), len(s2)
+        ans = float('-inf')
+
+        dp = [[0 for i in range(n1 + 1)] for j in range(n2 + 1)]
+
+        for i in range(1, n2 + 1):
+
+            for j in range(1, n1 + 1):
+
+                if s2[i - 1] == s1[j - 1]:
+                    dp[i][j] = 1 + dp[i - 1][j - 1]
+                
+                else:
+                     dp[i][j] = max(dp[i -1][j], dp[i][j - 1])
+                
+                ans = max(ans, dp[i][j])
         
         return ans
