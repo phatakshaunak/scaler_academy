@@ -87,8 +87,6 @@ class Solution:
         if idx in cache:
             return cache[idx]
 
-        one, two = 0, 0
-        
         # Single digit cut
         if '1' <= A[idx] <= '9':
             
