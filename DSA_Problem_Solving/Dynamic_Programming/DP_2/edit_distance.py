@@ -154,7 +154,7 @@ class Solution:
         dp1, dp2 = [i for i in range(len(s2) + 1)], [0] * (len(s2) + 1)
         
 #         print(dp1)
-
+        ans = 0
         # Outer loop iterates over string to be converted and checks with target string character by character
         for i in range(n1):
 
