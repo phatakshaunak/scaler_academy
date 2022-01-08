@@ -74,7 +74,7 @@ class Solution:
 	# @return an integer
 	def numDecodings(self, A):
 
-        mod, memo = int(1e9 + 7), {}
+        mod, memo = int(1e9 + 7), [-1] * len(A)
 
         return self.decode_ways(A, 0, mod, memo)
     
@@ -84,7 +84,7 @@ class Solution:
         if idx == len(A):
             return 1
         
-        if idx in cache:
+        if cache[idx] != -1:
             return cache[idx]
 
         # Single digit cut
@@ -98,7 +98,8 @@ class Solution:
                 cache[idx] += self.decode_ways(A, idx + 2, m, cache)
         
         # If code enters if condition, cuts are not valid at idx, return 0
-        if idx not in cache:
+
+        if cache[idx] == -1:
             cache[idx] = 0
 
         return cache[idx] % m
