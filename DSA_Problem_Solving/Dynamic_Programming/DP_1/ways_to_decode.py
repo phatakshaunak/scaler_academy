@@ -76,9 +76,9 @@ class Solution:
 
         mod, memo = int(1e9 + 7), [-1] * len(A)
 
-        # return self.decode_ways(A, 0, mod, memo)
+        return self.decode_ways(A, 0, mod, memo)
 
-        return self.decode_tab(A)
+        # return self.decode_tab(A)
     
     # Recursion with memoization (Top to bottom)
     def decode_ways(self, A, idx, m, cache):
@@ -96,10 +96,11 @@ class Solution:
         
         # Double digit cut
         if idx + 1 < len(A):
-            if ('1' <= A[idx] < '2' and '0' <= A[idx + 1] <= '9') or (A[idx] == '2' and A[idx + 1] <= '6'):
+
+            if '10' <= (A[idx] + A[idx + 1]) <= '26':
                 cache[idx] += self.decode_ways(A, idx + 2, m, cache)
         
-        # If code enters if condition, cuts are not valid at idx, return 0
+        # If code enters the below if condition, cuts are not valid at idx, return 0
 
         if cache[idx] == -1:
             cache[idx] = 0
@@ -123,12 +124,15 @@ class Solution:
             return 0
         
         for i in range(1, len(s)):
-
+            
+            # If s[i] in range, it can be directly attached to previous combinations, and thus the ways become equal to that at s[i-1]
             if '1' <= s[i] <= '9':
                 dp[i] += dp[i - 1]
             
+            # If double digit is possible, similar to above logic, we add ways at i - 2 to it
             if '10' <= (s[i - 1] + s[i]) <= '26':
-
+                
+                # Handle case when at second index, simply add 1
                 if i == 1:
                     dp[i] += 1
                 else:
