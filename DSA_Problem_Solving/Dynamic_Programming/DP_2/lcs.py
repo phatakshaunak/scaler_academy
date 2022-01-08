@@ -75,35 +75,38 @@ class Solution:
         # For transitions, if characters match, we get the answer from i-1, j-1 and add 1 to it
         # Else, we get the max value from decrementing an index on either strings
 
-        n1, n2 = len(A), len(B)
-        ans = 0
+        # n1, n2 = len(A), len(B)
+        # ans = 0
         
-        # Add an extra row/column 0 padding to avoid many edge cases to store the subsequences
+        # # Add an extra row/column 0 padding to avoid many edge cases to store the subsequences
         
-        dp = [[0 for i in range(n1 + 1)] for j in range(n2 + 1)]
+        # dp = [[0 for i in range(n1 + 1)] for j in range(n2 + 1)]
 
-        for i in range(n1):
+        # for i in range(n1):
 
-            for j in range(n2):
+        #     for j in range(n2):
 
-                if A[i] == B[j]:
+        #         if A[i] == B[j]:
 
-                    # Get answer by decrementing i and j by 1
-                    # Also use j as first indexer as we are iterating down the rows for each column
-                    dp[j + 1][i + 1] = 1 + dp[j][i]
+        #             # Get answer from previous diagonal
+        #             # Also use j as first indexer as we are iterating down the rows for each column
+        #             dp[j + 1][i + 1] = 1 + dp[j][i]
                 
-                else:
-                    # Max value from 1 row or column offset
-                    dp[j + 1][i + 1] = max(dp[j + 1][i], dp[j][i + 1])
+        #         else:
+        #             # Max value from 1 row or column offset
+        #             dp[j + 1][i + 1] = max(dp[j + 1][i], dp[j][i + 1])
                 
-                # Update ans
-                ans = max(ans, dp[j + 1][i + 1])
+        #         # Update ans
+        #         ans = max(ans, dp[j + 1][i + 1])
         
-        return ans
+        # return ans
 
         # dp = [[-1 for i in range(len(A))] for j in range(len(B))]
 
         # return self.rec_mem(A, B, 0, 0, dp)
+
+        # Space optimized solution utilizing only two arrays using the properties of the recurrence relation
+        return self.lcs_bottom_space(A, B)
     
     # Getting TLE for recursive/memoization implementation
     def rec_mem(self, s1, s2, i, j, dp):
@@ -125,3 +128,35 @@ class Solution:
                 dp[j][i] = max(self.rec_mem(s1, s2, i, j + 1, dp), self.rec_mem(s1, s2, i + 1, j, dp))
 
             return dp[j][i]
+    
+    def lcs_bottom_space(self, s1, s2):
+        
+        # Per recurrence relation only two arrays are needed to compute the answer
+        # Define a 2 arrays of column size equal to the length of any of the strings
+        
+        n1, n2 = len(s1), len(s2)
+        ans = float('-inf')
+        # Extra 0 pad to avoid edge case problems
+        
+        # Initially dp1 is filled with zeros and acts as an initializer for the first character comparison from
+        # s2 and all of s1
+        dp1, dp2 = [0] * (n1 + 1), [0] * (n1 + 1)
+        
+        # Iterate over s2 on the outer loop and s1 in the inner loop
+        
+        for i in range(n2):
+            
+            for j in range(n1):
+                
+                if s2[i] == s1[j]:
+                    dp2[j + 1] = 1 + dp1[j]
+                
+                else:
+                    dp2[j + 1] = max(dp1[j + 1], dp2[j])
+                
+                ans = max(ans, dp2[j + 1])
+            
+            # After comparing one character of s2 with all of s1, swap the rows for the next iteration
+            dp1, dp2 = dp2, dp1
+        
+        return ans
