@@ -113,12 +113,6 @@ class Solution:
         
         dp = [[0] * (n2 + 1) for i in range(n1 + 1)]
         
-        # for i in range(1, n1 + 1):
-        #     dp[i][0] = i
-        
-        # for j in range(1, n2 + 1):
-        #     dp[0][j] = j 
-
         for i in range(n1):
                 
             for j in range(n2):
@@ -129,12 +123,6 @@ class Solution:
                 
                 if i == 0:
                     dp[i][j + 1] = j + 1
-
-                # if i != 0:
-                #     dp[i][0] = i
-                
-                # if j != 0:
-                #     dp[0][j] = j
                 
                 if s1[i] == s2[j]:
                     dp[i + 1][j + 1] = dp[i][j]
@@ -166,9 +154,6 @@ class Solution:
                 
                 if j == 0:
                     dp2[j] = i+1
-#                     print(dp1)
-#                     print(dp2)
-#                     print()
 
                 if s1[i] == s2[j]:
                     # Previous diagonal's answer from dp1 into dp2
