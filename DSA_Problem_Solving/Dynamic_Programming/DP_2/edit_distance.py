@@ -78,7 +78,7 @@ class Solution:
 
         # return self.edit_distance(A, B, dp, 0, 0)
 
-        return self.edit_distance_tab(A, B)
+        return self.edit_distance_space_tab(A, B)
 
     def edit_distance(self, s1, s2, dp, i, j):
     
@@ -141,5 +141,49 @@ class Solution:
                     rep_ = dp[i][j]
                     
                     dp[i +1][j + 1] = 1 + min(in_, del_, rep_)
-        
+     
         return dp[n1][n2]
+    
+    def edit_distance_space_tab(self, s1, s2):
+
+        # Convert s1 to s2
+        # Define two arrays of size len(s2) + 1
+
+        n1, n2 = len(s1), len(s2)
+
+        dp1, dp2 = [i for i in range(len(s2) + 1)], [0] * (len(s2) + 1)
+        
+#         print(dp1)
+
+        # Outer loop iterates over string to be converted and checks with target string character by character
+        for i in range(n1):
+
+            for j in range(n2):
+                
+                if j == 0:
+                    dp2[j] = i+1
+#                     print(dp1)
+#                     print(dp2)
+#                     print()
+
+                if s1[i] == s2[j]:
+                    # Previous diagonal's answer from dp1 into dp2
+                    dp2[j + 1] = dp1[j]
+                
+                else:
+                    # Insertion count
+                    in_ = dp2[j]
+
+                    # Deletion count
+                    del_ = dp1[j + 1]
+
+                    # Replace count
+                    rep_ = dp1[j]
+
+                    dp2[j + 1] = 1 + min(in_, del_, rep_)
+            
+            ans = dp2[-1]
+            # Swap arrays to move to next row
+            dp1, dp2 = dp2, dp1
+        
+        return ans
