@@ -74,9 +74,11 @@ class Solution:
     # @return an integer
     def minDistance(self, A, B):
 
-        dp = [[-1] * len(B) for i in range(len(A))]
+        # dp = [[-1] * len(B) for i in range(len(A))]
 
-        return self.edit_distance(A, B, dp, 0, 0)
+        # return self.edit_distance(A, B, dp, 0, 0)
+
+        return self.edit_distance_tab(A, B)
 
     def edit_distance(self, s1, s2, dp, i, j):
     
@@ -103,3 +105,31 @@ class Solution:
                 dp[i][j] = 1 + min(in_, del_, rep_)
         
         return dp[i][j]
+    
+    def edit_distance_tab(self, s1, s2):
+    
+        n1, n2 = len(s1), len(s2)
+        
+        dp = [[0] * (n2 + 1) for i in range(n1 + 1)]
+        
+        for i in range(1, n1 + 1):
+            dp[i][0] = i
+        
+        for j in range(1, n2 + 1):
+            dp[0][j] = j 
+
+        for i in range(n1):
+                
+            for j in range(n2):
+                
+                if s1[i] == s2[j]:
+                    dp[i + 1][j + 1] = dp[i][j]
+                
+                else:
+                    in_ = dp[i + 1][j]
+                    del_ = dp[i][j + 1]
+                    rep_ = dp[i][j]
+                    
+                    dp[i +1][j + 1] = 1 + min(in_, del_, rep_)
+        
+        return dp[n1][n2]
