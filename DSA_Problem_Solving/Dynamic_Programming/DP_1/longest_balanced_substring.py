@@ -92,7 +92,6 @@ class Solution:
                 if i > 0 and mapping[A[i]] == A[i - 1]:
                     if i - 2 >= 0:
                         dp[i] = dp[i] + 2 + dp[i - 2]
-                    
                     else:
                         dp[i] = dp[i] + 2
                 
@@ -104,7 +103,7 @@ class Solution:
                     if start >= 0:
                         # Opening and closing brackets match
                         if A[start] == mapping[A[i]]:
-                            # Add previous answer if valid
+                            # Add previous answer if valid index
                             if start - 1 >= 0:
                                 dp[i] = dp[i] + dp[i - 1] + 2 + dp[start - 1]
                             else:
@@ -113,3 +112,5 @@ class Solution:
             ans = max(ans, dp[i])
         
         return ans
+    
+    # Stack solution: Reference: https://leetcode.com/problems/longest-valid-parentheses/discuss/1139974/PythonGo-O(n)-by-stack-w-Comment
