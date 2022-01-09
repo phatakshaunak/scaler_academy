@@ -80,11 +80,23 @@ class Solution:
     # @return an integer
     def solve(self, A, B, C, D):
 
-        l1, l2, l3 = float('-inf'), float('-inf'), float('-inf')
+        # l1, l2, l3 = float('-inf'), float('-inf'), float('-inf')
 
-        for val in A:
-            l1 = max(l1, B * val)
-            l2 = max(l2, l1 + C * val)
-            l3 = max(l3, l2 + D * val)
+        # for val in A:
+        #     l1 = max(l1, B * val)
+        #     l2 = max(l2, l1 + C * val)
+        #     l3 = max(l3, l2 + D * val)
         
-        return l3
+        # return l3
+
+        p1, p2, p3 = [float('-inf')] * (len(A) + 1), [float('-inf')] * (len(A) + 1), [float('-inf')] * (len(A) + 1)
+
+        for i in range(len(A)):
+
+            p1[i + 1] = max(p1[i], A[i] * B)
+
+            p2[i + 1] = max(p2[i], p1[i + 1] + A[i] * C)
+
+            p3[i + 1] = max(p3[i], p2[i + 1] + A[i] * D)
+
+        return p3[-1]
