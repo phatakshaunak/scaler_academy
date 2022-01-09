@@ -114,3 +114,4 @@ class Solution:
         return ans
     
     # Stack solution: Reference: https://leetcode.com/problems/longest-valid-parentheses/discuss/1139974/PythonGo-O(n)-by-stack-w-Comment
+    # https://leetcode.com/problems/longest-valid-parentheses/discuss/1428168/C%2B%2B-Simple-and-Short-Stack-Solution-With-Explanation
