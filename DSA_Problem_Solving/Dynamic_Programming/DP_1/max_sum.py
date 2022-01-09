@@ -89,7 +89,9 @@ class Solution:
         
         # return l3
 
-        p1, p2, p3 = [float('-inf')] * (len(A) + 1), [float('-inf')] * (len(A) + 1), [float('-inf')] * (len(A) + 1)
+        p1 = [float('-inf')] * (len(A) + 1)
+        p2 = [float('-inf')] * (len(A) + 1)
+        p3 = [float('-inf')] * (len(A) + 1)
 
         for i in range(len(A)):
 
