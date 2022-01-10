@@ -64,11 +64,37 @@ class Solution:
     # @return an integer
     def solve(self, A):
 
-        rev = ''.join([A[i] for i in range(len(A) - 1, -1, -1)])
+        # rev = ''.join([A[i] for i in range(len(A) - 1, -1, -1)])
 
         # Apply LCS algorithm on the given string and it's reverse (Method won't work on longest palindromic substring)
-        return self.lcs_bottom_space(A, rev)
-    
+        # return self.lcs_bottom_space(A, rev)
+
+        n = len(A)
+
+        dp = [[-1 for i in range(n)] for j in range(n)]
+
+        return self.l_pal_sub_rec(A, dp, 0, n - 1)
+
+    def l_pal_sub_rec(self, s, dp, i, j):
+        
+        # Out of bounds
+        if i > j:
+            return 0
+        
+        # Single character is a palindrome
+        if i == j:
+            return 1
+        
+        if s[i] == s[j]:
+            if dp[i][j] == -1:
+                dp[i][j] = 2 + self.l_pal_sub_rec(s, dp, i + 1, j - 1)
+        
+        else:
+            if dp[i][j] == -1:
+                dp[i][j] = max(self.l_pal_sub_rec(s, dp, i, j - 1), self.l_pal_sub_rec(s, dp, i + 1, j))
+        
+        return dp[i][j]
+
     def lcs_bottom_space(self, s1, s2):
         
         # Per recurrence relation only two arrays are needed to compute the answer
