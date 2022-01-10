@@ -85,8 +85,7 @@ class Solution:
         if i == j:
             return 1
         
-        if s[i] == s[j]:
-            if dp[i][j] == -1:
+        if s[i] == s[j] and dp[i][j] == -1:
                 dp[i][j] = 2 + self.l_pal_sub_rec(s, dp, i + 1, j - 1)
         
         else:
