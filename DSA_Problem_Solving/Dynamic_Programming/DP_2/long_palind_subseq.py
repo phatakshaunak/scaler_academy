@@ -66,7 +66,7 @@ class Solution:
 
         rev = ''.join([A[i] for i in range(len(A) - 1, -1, -1)])
 
-        # Apply LCS algorithm on the given string and it's reverse
+        # Apply LCS algorithm on the given string and it's reverse (Method won't work on longest palindromic substring)
         return self.lcs_bottom_space(A, rev)
     
     def lcs_bottom_space(self, s1, s2):
