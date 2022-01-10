@@ -89,6 +89,7 @@ class Solution:
         
         # return l3
 
+        # Prefix maximum arrays for the three terms (As above, can be optimized by updating three variables)
         p1 = [float('-inf')] * (len(A) + 1)
         p2 = [float('-inf')] * (len(A) + 1)
         p3 = [float('-inf')] * (len(A) + 1)
