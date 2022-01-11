@@ -149,3 +149,5 @@ class Solution:
 					dp[j] = dp[j - A[i - 1]] + dp[j]
 		
 		return dp[-1] % int(1e6 + 7)
+
+        # TC O(N * len(A)), SC O(N)
