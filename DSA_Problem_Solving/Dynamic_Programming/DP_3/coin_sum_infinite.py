@@ -79,7 +79,7 @@ class Solution:
 
 		# dp = [[-1 for i in range(B + 1)] for j in range(len(A))]
 
-		# return self.ways_recursive(B, 0, dp, A) % int(1e6 + 7)
+		# return self.ways_recursive(B, 0, dp, A)
 
 		# TC O(B * len(A))
 		# SC O(B * len(A))
@@ -105,7 +105,7 @@ class Solution:
 			
 			dp[idx][N] = w1 + w2
 		
-		return dp[idx][N]
+		return dp[idx][N] % int(1e6 + 7)
 	
 	def coin_inf_tab(self, A, N):
     
