@@ -64,16 +64,38 @@ class Solution:
     # @return an integer
     def solve(self, A):
 
-        # rev = ''.join([A[i] for i in range(len(A) - 1, -1, -1)])
-
-        # Apply LCS algorithm on the given string and it's reverse (Method won't work on longest palindromic substring)
-        # return self.lcs_bottom_space(A, rev)
-
-        n = len(A)
-
-        dp = [[-1 for i in range(n)] for j in range(n)]
-
-        return self.l_pal_sub_rec(A, dp, 0, n - 1)
+        return self.long_pal_sub_tab(A)
+    
+    def long_pal_sub_tab(self, s):
+    
+        n = len(s)
+        dp = [[0 for i in range(n)] for j in range(n)]
+        
+        # We build the answer by calculating the answers for substrings starting at length 1 to len(s)
+        # Iterate through a loop from 1 to N
+        for i in range(1, n + 1):
+            
+            # There are multiple starting positions, 0 to N - i
+            for st in range(0, n - i + 1):
+                
+                # Get end index using start and length
+                e = i - 1 + st
+                
+                # If one length, add one to the answer (diagonal)
+                if st == e:
+                    dp[st][e] = 1
+                
+                # For a length two string, we can write a separate case to correctly fill the answer
+                # Or simply use the recurrence relation of going to st + 1, e - 1 since invalid cells are
+                # filled with zero
+                elif s[st] == s[e]:
+                    dp[st][e] = 2 + dp[st + 1][e - 1]
+                
+                # When characters are not equal
+                else:
+                    dp[st][e] = max(dp[st + 1][e], dp[st][e - 1])
+        
+        return dp[0][n - 1]
 
     def l_pal_sub_rec(self, s, dp, i, j):
         
@@ -85,7 +107,8 @@ class Solution:
         if i == j:
             return 1
         
-        if s[i] == s[j] and dp[i][j] == -1:
+        if s[i] == s[j]:
+            if dp[i][j] == -1:
                 dp[i][j] = 2 + self.l_pal_sub_rec(s, dp, i + 1, j - 1)
         
         else:
@@ -94,6 +117,7 @@ class Solution:
         
         return dp[i][j]
 
+    # Applying LCS on the string and its reverse, we can get the answer
     def lcs_bottom_space(self, s1, s2):
         
         # Per recurrence relation only two arrays are needed to compute the answer
