@@ -94,3 +94,6 @@ class Solution:
                     dp[i][j] = dp[i][j] + dp[i - 1][k]
 
         return dp[N][B] % int(1e9 + 7)
+
+        # TC O(10*N*S) --> O(N * S) where N are digits and S is the sum
+        # SC O(N * S)
