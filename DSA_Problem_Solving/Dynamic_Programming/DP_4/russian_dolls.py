@@ -83,7 +83,8 @@ class Solution:
         # A = sorted(A, key = lambda pair: [pair[0], -pair[1]])
 
         # Another way is to sort one dimension 
-        #and simply check if the left height dimensions are smaller than current height
+        #and simply check if the left height dimensions are smaller than current height during the LIS process on 
+        # width
         
         A.sort()
         ans = 1
