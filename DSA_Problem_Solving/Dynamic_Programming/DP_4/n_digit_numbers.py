@@ -107,6 +107,7 @@ class Solution:
             
             for j in range(1, B + 1):
                 
+                # Since dp2's value comes from all values from the row above it
                 dp2[j] = 0
                 # Iterate over 0-9 places of minimum from last column to j
                 # Start 10 places until current column from previous row
