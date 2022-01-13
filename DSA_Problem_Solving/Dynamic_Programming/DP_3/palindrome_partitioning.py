@@ -60,9 +60,9 @@ Explanation 2:
  Return 1 since the palindrome partitioning ["aa","b"] could be produced using 1 cut.'''
 
 class Solution:
-	# @param A : string
-	# @return an integer
-	def minCut(self, A):
+    # @param A : string
+    # @return an integer
+    def minCut(self, A):
 
         # First get a 2D array filled for whether a substring is a palindrome
         dp = self.pal_substrings(A)
@@ -86,7 +86,7 @@ class Solution:
                 if dp[i][j]:
                     # Update ans with value until previous index, i.e. i - 1
 
-                    # Check if given substring is already a palindrome
+                    # Check if given prefix substring is already a palindrome
                     if dp[0][j]:
                         ans = 0
                     
