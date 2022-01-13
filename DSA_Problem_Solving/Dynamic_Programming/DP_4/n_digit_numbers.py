@@ -74,7 +74,7 @@ class Solution:
 	# @return an integer
 	def solve(self, A, B):
 
-        return self.tabular(A, B)
+        return self.tabular_space(A, B)
     
     def tabular(self, N, B):
 
@@ -94,6 +94,33 @@ class Solution:
                     dp[i][j] = dp[i][j] + dp[i - 1][k]
 
         return dp[N][B] % int(1e9 + 7)
+    
+    # TC O(N * S), SC O(S) where N are digits and S is the sum
+    def tabular_space(self, N, B):
+        
+        dp1 = [0 for i in range(B + 1)]
+        dp2 = [0 for i in range(B + 1)]
+
+        dp1[0] = 1
+        ans = 0
+        for i in range(1, N + 1):
+            
+            for j in range(1, B + 1):
+                
+                dp2[j] = 0
+                # Iterate over 0-9 places of minimum from last column to j
+                # Start 10 places until current column from previous row
+                col = max(0, j - 9)
+
+                for k in range(col, j + 1):
+
+                    dp2[j] = dp2[j] + dp1[k]
+            
+            ans = dp2[-1]
+            dp1, dp2 = dp2, dp1
+            dp2[0] = 0
+            
+        return ans % int(1e9 + 7)
 
         # TC O(10*N*S) --> O(N * S) where N are digits and S is the sum
         # SC O(N * S)
