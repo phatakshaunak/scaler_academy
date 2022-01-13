@@ -82,7 +82,9 @@ class Solution:
 
         # A = sorted(A, key = lambda pair: [pair[0], -pair[1]])
 
-        # Another way is to sort and simply check if the left height dimensions are smaller than current height
+        # Another way is to sort one dimension 
+        #and simply check if the left height dimensions are smaller than current height
+        
         A.sort()
         ans = 1
 
@@ -102,3 +104,5 @@ class Solution:
             ans = max(ans, dp[i])
         
         return ans
+    
+    # TC O(N^2), SC O(N)
