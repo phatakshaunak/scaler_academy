@@ -80,8 +80,10 @@ class Solution:
         # Sort in increasing order by height and decreasing order by width if there is a tie in height
         # Then apply LIS for the width and return maximum value
 
-        A = sorted(A, key = lambda pair: [pair[0], -pair[1]])
+        # A = sorted(A, key = lambda pair: [pair[0], -pair[1]])
 
+        # Another way is to sort and simply check if the left height dimensions are smaller than current height
+        A.sort()
         ans = 1
 
         dp = [0 for i in range(len(A))]
@@ -93,7 +95,7 @@ class Solution:
 
             for j in range(i):
 
-                if A[j][1] < A[i][1]:
+                if A[j][1] < A[i][1] and A[i][0] > A[j][0]:
                     curr = max(curr, 1 + dp[j])
             
             dp[i] = curr
