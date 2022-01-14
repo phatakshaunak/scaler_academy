@@ -90,7 +90,7 @@ class Solution:
                 
                 e = l + s - 1
                 
-                # Simple multiplication for three matrices
+                # Simple multiplication for two matrices, (It however can also be handled by the logic in the else clause below)
                 if l == 2:
                     dp[s][e] = arr[s - 1] * arr[s] * arr[e]
                 
