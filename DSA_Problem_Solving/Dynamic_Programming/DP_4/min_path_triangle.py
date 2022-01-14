@@ -96,12 +96,12 @@ class Solution:
                     tmp = float('inf')
                     
                     if dp1[j] != None:
-                        tmp = min(tmp, arr[i][j] + dp1[j])
+                        tmp = min(tmp, dp1[j])
                     
                     if dp1[j-1] != None:
-                        tmp = min(tmp, arr[i][j] + dp1[j - 1])
+                        tmp = min(tmp, dp1[j - 1])
                     
-                    dp2[j] = tmp
+                    dp2[j] = tmp + arr[i][j]
             
                 if i == len(arr) - 1:
                     ans = min(ans, dp2[j])
@@ -131,13 +131,13 @@ class Solution:
 
                     if dp[i - 1][j] != None:
                         
-                        tmp = min(tmp, a[i][j] + dp[i - 1][j])
+                        tmp = min(tmp, dp[i - 1][j])
 
                     if dp[i - 1][j - 1] != None:
 
-                        tmp = min(tmp, a[i][j] + dp[i - 1][j - 1])
+                        tmp = min(tmp, dp[i - 1][j - 1])
 
-                    dp[i][j] = tmp
+                    dp[i][j] = tmp + a[i][j]
                 
                 if i == len(a) - 1:
                     ans = min(ans, dp[i][j])
