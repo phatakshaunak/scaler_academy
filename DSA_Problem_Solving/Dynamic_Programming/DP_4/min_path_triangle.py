@@ -72,12 +72,49 @@ class Solution:
     # @return an integer
     def minimumTotal(self, A):
 
-        return self.min_path_t(A)
+        return self.min_path_space(A)
     
+    def min_path_space(self, arr):
+    
+        if len(arr) == 1:
+            return min(arr[0])
+        
+        dp1 = [None for i in range(len(arr[-1]))]
+        dp2 = dp1.copy()
+        
+        dp1[0] = arr[0][0]
+        ans = float('inf')
+
+        for i in range(1, len(arr)):
+            
+            for j in range(len(arr[i])):
+                
+                if j == 0:
+                    dp2[j] = arr[i][j] + dp1[j]
+                
+                else:
+                    tmp = float('inf')
+                    
+                    if dp1[j] != None:
+                        tmp = min(tmp, arr[i][j] + dp1[j])
+                    
+                    if dp1[j-1] != None:
+                        tmp = min(tmp, arr[i][j] + dp1[j - 1])
+                    
+                    dp2[j] = tmp
+            
+                if i == len(arr) - 1:
+                    ans = min(ans, dp2[j])
+            
+            dp1, dp2 = dp2, dp1
+        
+        return ans
+            
     def min_path_t(self, a):
     
         if len(a) == 1:
             return min(a[0])
+            
         dp = [[None for i in range(len(a[-1]))] for j in range(len(a))]
         
         dp[0][0] = a[0][0]
