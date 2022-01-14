@@ -84,6 +84,8 @@ class Solution:
         dp = [[0 for i in range(n)] for j in range(n)]
         
         # Iterate through possible subarray lengths (single matrix, double matrix and so on)
+        # Cost for a single matrix is zero
+        
         for l in range(2, n):
             
             for s in range(1, n - l + 1):
@@ -97,7 +99,7 @@ class Solution:
                 else:
                     ans = float('inf')
 
-                    # Get minimum possible value for all cuts
+                    # Get minimum possible value across for all cuts
                     for k in range(s, e):
                         
                         # First two terms come from previous computation, final term is the cost of multiplying the two matrices obtained from the dp table
