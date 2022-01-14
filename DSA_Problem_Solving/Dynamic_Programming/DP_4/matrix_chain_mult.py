@@ -80,25 +80,35 @@ class Solution:
     
         n = len(arr)
         
+        # Number of matrices will be n - 1, the first matrix starts from dp[1, 1]
         dp = [[0 for i in range(n)] for j in range(n)]
         
+        # Iterate through possible subarray lengths (single matrix, double matrix and so on)
         for l in range(2, n):
             
             for s in range(1, n - l + 1):
                 
                 e = l + s - 1
                 
+                # Simple multiplication for three matrices
                 if l == 2:
                     dp[s][e] = arr[s - 1] * arr[s] * arr[e]
                 
                 else:
                     ans = float('inf')
+
+                    # Get minimum possible value for all cuts
                     for k in range(s, e):
                         
+                        # First two terms come from previous computation, final term is the cost of multiplying the two matrices obtained from the dp table
                         cost = dp[s][k] + dp[k + 1][e] + arr[s - 1] * arr[k] * arr[e]
                         
                         ans = min(ans, cost)
                     
+                    # Update minimum cost
                     dp[s][e] = ans
         
+        # Answer will be stored at the end of the first row as first row/column is padding
         return dp[1][n - 1]
+
+        # TC O(N^3), SC O(N^2)
