@@ -74,7 +74,7 @@ class Solution:
         
         # return 1 if flag[0] else 0
 
-        return self.modified_lcs_tabular(A)
+        return self.modified_lcs_tabular_space(A)
     
     def modified_lcs_recursive(self, s1, s2, i, j, dp, flag):
 
@@ -102,6 +102,8 @@ class Solution:
         
         return dp[i][j]
 
+    # TC O(n^2), SC O(n^2)
+
     def modified_lcs_tabular(self, st):
 
         n = len(st)
@@ -125,3 +127,35 @@ class Solution:
                     return 1
         
         return 0
+    
+    # TC O(n^2), SC O(n^2)
+
+    def modified_lcs_tabular_space(self, st):
+
+        n = len(st)
+
+        dp1, dp2 = [0 for i in range(n + 1)], [0 for i in range(n + 1)]
+
+        dp1[0] = 1
+
+        for i in range(1, n + 1):
+
+            for j in range(1, n + 1):
+
+                if st[i - 1] == st[j - 1] and i != j:
+
+                    dp2[j] = 1 + dp1[j - 1]
+                
+                else:
+                    dp2[j] = max(dp1[j], dp2[j - 1])
+
+                if dp2[j] >= 2:
+                    return 1
+            
+            dp1, dp2 = dp2, dp1
+
+            dp1[0], dp2[0] = 0, 0
+        
+        return 0
+    
+    # TC O(n^2), SC O(n)
