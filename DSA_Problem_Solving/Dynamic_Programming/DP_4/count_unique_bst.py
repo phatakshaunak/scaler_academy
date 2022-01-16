@@ -122,4 +122,4 @@ class Solution:
         
         ans = (num // den) // (N + 1)
 
-        return ans
+        return an

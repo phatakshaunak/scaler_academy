@@ -193,18 +193,13 @@ class Solution:
             for j in range(1, n2 + 1):
                 
                 # If both alphabets and match
-                if s[i - 1].isalpha() and p[j - 1].isalpha():
-                    
-                    if  s[i - 1] == p[j - 1]:
-                        dp2[j] = dp1[j - 1]
-                    
-                    else:
-                        dp2[j] = False
-                
-                # If pattern char is a ?
-                elif p[j - 1] == '?':
+
+                if s[i - 1] == p[j - 1] or p[j - 1] == '?':
                     dp2[j] = dp1[j - 1]
                 
+                elif s[i - 1] != p[j - 1] and p[j - 1] not in ('*', '?'):
+                    dp2[j] = False
+
                 # Else, current pattern char is a *
                 else:
                     dp2[j] = dp2[j - 1] or dp1[j]
