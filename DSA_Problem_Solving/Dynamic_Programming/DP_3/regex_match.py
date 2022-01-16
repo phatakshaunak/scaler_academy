@@ -109,8 +109,8 @@ class Solution:
                     dp[i][j] = False
 
                 # If we get a *
-                elif p[j - 1] == '*':
-
+                # elif p[j - 1] == '*':
+                else:
                     # If previous character in pattern matches current string char or is a ., 
                     # Consider answer for multiple matches from previous row and if char* matches nothing
                     if p[j - 2] == s[i - 1] or p[j - 2] == '.':
