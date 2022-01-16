@@ -98,7 +98,7 @@ class Solution:
             return self.regex_recursive(A, B, i, j + 1, dp)
         
 #         print(i, j)
-        if A[i] == B[j]:
+        if A[i] == B[j] or B[j] == '?':
 #             print(i, j)
             if dp[i][j] == -1:
 
@@ -108,11 +108,6 @@ class Solution:
             
             if dp[i][j] == -1:
                 dp[i][j] = False
-        
-        elif B[j] == '?':
-
-            if dp[i][j] == -1:
-                dp[i][j] = self.regex_recursive(A, B, i + 1, j + 1, dp)
         
         else:
             # Matching *
