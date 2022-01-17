@@ -127,3 +127,5 @@ class Solution:
                 nsr[j], nsl[j] = 0, 0
         
         return ans
+
+        # TC O(N*M), SC O(M)
