@@ -144,10 +144,13 @@ class Solution:
 
             top = q.popleft()
 
-            if top == V:
-                return 1
+            # if top == V:
+            #     return 1
             
             for n in adj[top]:
+
+                if n == V:
+                    return 1
 
                 if visited[n] == 0:
                     visited[n] = 1
