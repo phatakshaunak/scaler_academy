@@ -92,7 +92,8 @@ class Solution:
     # @param B : list of list of integers
     # @return an integer
     def solve(self, A, B):
-
+        
+        return self.adj_list(A, B)
         graph = {}
 
         for e in B:
@@ -122,5 +123,34 @@ class Solution:
                     if n not in visited:
                         visited.add(n)
                         q.append(n)
+        
+        return 0
+    
+    def adj_list(self, V, E):
+
+        adj = [[] for i in range(V + 1)]
+
+        visited = [0 for i in range(V + 1)]
+
+        for e in E:
+
+            x, y = e
+
+            adj[x].append(y)
+        
+        q = deque([1])
+
+        while q:
+
+            top = q.popleft()
+
+            if top == V:
+                return 1
+            
+            for n in adj[top]:
+
+                if visited[n] == 0:
+                    visited[n] = 1
+                    q.append(n)
         
         return 0
