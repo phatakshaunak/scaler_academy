@@ -94,37 +94,37 @@ class Solution:
     def solve(self, A, B):
         
         return self.adj_list(A, B)
-        graph = {}
+        # graph = {}
 
-        for e in B:
+        # for e in B:
 
-            x, y = e
+        #     x, y = e
 
-            if x not in graph:
-                graph[x] = [y]
+        #     if x not in graph:
+        #         graph[x] = [y]
             
-            else:
-                graph[x].append(y)
+        #     else:
+        #         graph[x].append(y)
         
-        visited = set()
+        # visited = set()
 
-        q = deque([1])
+        # q = deque([1])
 
-        while q:
+        # while q:
 
-            top = q.popleft()
+        #     top = q.popleft()
 
-            if top == A:
-                return 1
+        #     if top == A:
+        #         return 1
             
-            if top in graph:
-                for n in graph[top]:
+        #     if top in graph:
+        #         for n in graph[top]:
 
-                    if n not in visited:
-                        visited.add(n)
-                        q.append(n)
+        #             if n not in visited:
+        #                 visited.add(n)
+        #                 q.append(n)
         
-        return 0
+        # return 0
     
     def adj_list(self, V, E):
 
