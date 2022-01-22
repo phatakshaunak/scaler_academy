@@ -132,9 +132,11 @@ class Solution:
                 
                 rotted += tmp
         
+        # If all fresh oranges have been rotted, i.e all initially rotten orange cells cover the entire matrix
         if rotted == one_cnt:
             return ans
         
+        # Rotten orange cells cannot access some fresh orange cells, not connected
         return -1
     
     def check(self, x, y, A):
