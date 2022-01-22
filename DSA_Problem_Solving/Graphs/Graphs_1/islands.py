@@ -85,6 +85,9 @@ Explanation 2:
  There 5 island in total.'''
 
 from collections import deque
+import sys
+sys.setrecursionlimit(int(1e6))
+
 class Solution:
     # @param A : list of list of integers
     # @return an integer
@@ -107,9 +110,11 @@ class Solution:
 
                     isl += 1
 
-                    q.append((i, j))
+                    # q.append((i, j))
 
-                    self.bfs(vis, q, drc, n, m, A)
+                    # self.bfs(vis, q, drc, n, m, A)
+                    
+                    self.dfs(i, j, vis, drc, n, m, A)
         
         return isl
 
@@ -130,6 +135,18 @@ class Solution:
                     q.append((c_x, c_y))
 
                     vis[c_x][c_y] = 1
+    
+    def dfs(self, x, y, vis, drc, r, c, M):
+        
+        vis[x][y] = 1
+
+        for d in drc:
+
+            c_x, c_y = x + d[0], y + d[1]
+
+            if self.check(c_x, c_y, vis, r, c, M):
+
+                self.dfs(c_x, c_y, vis, drc, r, c, M)
     
     def check(self, x, y, vis, r, c, M):
 
