@@ -86,7 +86,6 @@ Explanation 1:
 Explanation 2:
 
  There is NO valid path in this case'''
-
 from collections import deque
 class Solution:
     # @param A : integer
@@ -102,11 +101,7 @@ class Solution:
         
         n, m = B + 1, A + 1
         
-#         drc = [[1, 0], [0, 1], [-1, 0], [0, -1]]
-        
         drc = [[1, 0], [0, 1], [-1, 0], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]]
-        
-        vis = [[0 for i in range(m)] for j in range(n)]
         
         src, dest = (B, 0), (0, A)
         
@@ -116,25 +111,22 @@ class Solution:
             
             x, y = q.popleft()
             
-            vis[x][y] = 1
-            
             for d in drc:
                 
                 c_x, c_y = x + d[0], y + d[1]
                 
-                if self.check(c_x, c_y, n, m, vis, M, E, F, A, B, D):
+                if self.check(c_x, c_y, n, m, M, E, F, A, B, D) and M[c_x][c_y] == 1:
+                    
+                    q.append((c_x, c_y))
+                    
+                    M[c_x][c_y] = 0
                 
-                    if vis[c_x][c_y] == 0 and M[c_x][c_y] == 1:
-                    
-                        q.append((c_x, c_y))
-                        vis[c_x][c_y] = 1
-                    
-                        if c_x == 0 and c_y == A:
-                            return 'YES'
+                    if c_x == 0 and c_y == A:
+                        return 'YES'
             
         return 'NO'
                 
-    def check(self, x, y, n, m, vis, M, E, F, A, B, D):
+    def check(self, x, y, n, m, M, E, F, A, B, D):
         
         if x >= 0 and y >= 0 and x < n and y < m :
                 
@@ -144,18 +136,77 @@ class Solution:
 
                 r_x = B - r_x
                 
-                if (r_x, r_y) == (B, 0) or (r_x, r_y) == (0, A):
-                    
-                    return False
-
                 dist = ((x - r_x) * (x - r_x)) + ((y - r_y) * (y - r_y))
 
-                if dist <= (D * D):
+                if (r_x, r_y) == (B, 0) or (r_x, r_y) == (0, A) or dist <= (D * D):
                     M[x][y] = 0
                     return False
         
             return True
         
         return False
-#         return x >= 0 and y >= 0 and x < n and y < m 
-        #and M[x][y] == 1 and vis[x][y] == 0
+        
+# from collections import deque
+# class Solution:
+#     # @param A : integer
+#     # @param B : integer
+#     # @param C : integer
+#     # @param D : integer
+#     # @param E : list of integers
+#     # @param F : list of integers
+#     # @return a strings
+#     def solve(self, A, B, C, D, E, F):
+        
+#         M = [[1 for i in range(A + 1)] for j in range(B + 1)]
+        
+#         n, m = B + 1, A + 1
+        
+# #         drc = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+        
+#         drc = [[1, 0], [0, 1], [-1, 0], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]]
+        
+#         vis = [[0 for i in range(m)] for j in range(n)]
+        
+#         src, dest = (B, 0), (0, A)
+        
+#         q = deque([(src)])
+        
+#         while q:
+            
+#             x, y = q.popleft()
+            
+#             vis[x][y] = 1
+            
+#             for d in drc:
+                
+#                 c_x, c_y = x + d[0], y + d[1]
+                
+#                 if self.check(c_x, c_y, n, m, vis, M, E, F, A, B, D) and vis[c_x][c_y] == 0:
+                    
+#                     q.append((c_x, c_y))
+#                     vis[c_x][c_y] = 1
+                
+#                     if c_x == 0 and c_y == A:
+#                         return 'YES'
+            
+#         return 'NO'
+                
+#     def check(self, x, y, n, m, vis, M, E, F, A, B, D):
+        
+#         if x >= 0 and y >= 0 and x < n and y < m :
+                
+#             for r in range(len(E)):
+
+#                 r_y, r_x = E[r], F[r]
+
+#                 r_x = B - r_x
+                
+#                 dist = ((x - r_x) * (x - r_x)) + ((y - r_y) * (y - r_y))
+
+#                 if (r_x, r_y) == (B, 0) or (r_x, r_y) == (0, A) or dist <= (D * D):
+#                     M[x][y] = 0
+#                     return False
+        
+#             return True
+        
+#         return False
