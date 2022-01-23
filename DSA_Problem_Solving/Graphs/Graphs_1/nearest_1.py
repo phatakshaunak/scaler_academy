@@ -119,8 +119,15 @@ class Solution:
 
                     if A[c_x][c_y] == 0:
                         
+                        # Add to queue to continue bfs
                         q.append((c_x, c_y, dist + 1))
+
+                        # Increment distance by 1
                         ans[c_x][c_y] = dist + 1
+
+                        # Mark visited cell
                         A[c_x][c_y] = 1
         
         return ans
+    
+    # Approach involves a multi source BFS from all cells containing 1 and incrementing answer for each new visited cell as the distance
