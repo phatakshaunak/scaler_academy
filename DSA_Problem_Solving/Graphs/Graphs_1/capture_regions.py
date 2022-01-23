@@ -129,12 +129,7 @@ class Solution:
 
                 if A[i][j] == 'O':
                     A[i][j] = 'X'
-        
-        # Convert -1s back to O as these cannot be converted to X
-        for i in range(n):
-
-            for j in range(m):
-
+                
                 if A[i][j] == -1:
                     A[i][j] = 'O'
         
@@ -143,5 +138,3 @@ class Solution:
     def check(self, x, y, r, c, arr):
 
         return x >= 0 and x < r and y >= 0 and y < c and arr[x][y] == 'O'
-        
-        
