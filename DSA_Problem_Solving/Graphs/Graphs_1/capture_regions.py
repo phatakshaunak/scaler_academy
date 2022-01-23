@@ -90,6 +90,9 @@ class Solution:
         # Initialize a deque
         q = deque()
 
+        # Initialize directions to traverse
+        drc = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+
         for i in range(n):
 
             for j in range(m):
@@ -98,28 +101,11 @@ class Solution:
 
                     # Mark as obstacles
                     A[i][j] = -1
-
                     q.append((i, j))
-        
-        drc = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 
-        # BFS from all boundary Os and mark as obstacles all Os connected to them
-        while q:
+                    # Do a BFS from A[i][j] and mark all connected "Os" as -1
 
-            x, y = q.popleft()
-
-            for d in drc:
-
-                c_x, c_y = x + d[0], y + d[1]
-
-                # Check if indices valid and we are at an 'O'
-                if self.check(c_x, c_y, n, m, A):
-                    
-                    # Add to the queue
-                    q.append((c_x, c_y))
-
-                    # Mark as obstacle
-                    A[c_x][c_y] = -1
+                    self.bfs(q, A, drc)
 
         # For all remaining O's flip to X. Then run loop and change -1 to X
 
@@ -134,6 +120,26 @@ class Solution:
                     A[i][j] = 'O'
         
         return A
+    
+    def bfs(self, queue, arr, drc):
+
+        # BFS from all boundary Os and mark as obstacles all Os connected to them
+        while queue:
+
+            x, y = queue.popleft()
+
+            for d in drc:
+
+                c_x, c_y = x + d[0], y + d[1]
+
+                # Check if indices valid and we are at an 'O'
+                if self.check(c_x, c_y, len(arr), len(arr[0]), arr):
+                    
+                    # Add to the queue
+                    queue.append((c_x, c_y))
+
+                    # Mark as obstacle
+                    arr[c_x][c_y] = -1
         
     def check(self, x, y, r, c, arr):
 
