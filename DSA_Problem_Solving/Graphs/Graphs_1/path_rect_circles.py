@@ -86,6 +86,7 @@ Explanation 1:
 Explanation 2:
 
  There is NO valid path in this case'''
+
 from collections import deque
 class Solution:
     # @param A : integer
@@ -138,6 +139,7 @@ class Solution:
                 
                 dist = ((x - r_x) * (x - r_x)) + ((y - r_y) * (y - r_y))
 
+                # If the centre of a circle is a source/destination or if distance implies within or on circle
                 if (r_x, r_y) == (B, 0) or (r_x, r_y) == (0, A) or dist <= (D * D):
                     M[x][y] = 0
                     return False
