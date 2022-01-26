@@ -99,10 +99,12 @@ class Solution:
             if col[i] == -1:
                 col[i] = 0
                 q.append(i)
-                ans = self.bfs_bipartite(adj, col, q)
+
+                self.bfs_bipartite(adj, col, q)
                 
-                if not ans:
-                    return 0
+                # This is a check if a graph is not bipartite. Not applicable here
+                # if not ans:
+                #     return 0
         
         # Here count elements in both sets as country is bipartite
         zero, one = 0, 0
@@ -122,7 +124,8 @@ class Solution:
 
         return ans
         '''
-        Check if graph is bipartite. If yes, count elements in both color sets and multiply to get maximum possible roads possible, subtract given edges from this amount to get the answer
+        As the tree is bipartite, it can be two-colored. Run the 2-color algorithm and divide into two sets.
+        Then, count elements in both color sets and multiply to get maximum possible roads possible, subtract given edges from this amount to get the answer
         '''
     def bfs_bipartite(self, adj, col, q):
 
@@ -135,7 +138,8 @@ class Solution:
                     col[nb] = col[top] ^ 1
                     q.append(nb)
                 
-                elif col[nb] == col[top]:
-                    return False
+                # This condition checks if graph is bipartite or not, not valid as given graph is already bipartite
+                # elif col[nb] == col[top]:
+                #     return False
         
-        return True
+        # return
