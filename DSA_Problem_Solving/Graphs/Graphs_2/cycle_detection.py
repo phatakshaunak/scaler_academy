@@ -143,7 +143,7 @@ class Solution:
                 
                 if ans:
                     return True
-            # Check if dfs call also has a 1 for nb, i.e. it was already visited and a cycle is present
+            # Check if dfs call also has a 1 for nb, i.e. it was already visited in the same dfs call and is being visited again, i.e. a cycle is present
             elif dfs[nb] == 1:
                 return True
             
