@@ -127,4 +127,10 @@ class Solution:
                 if in_[nb] == 0:
                     heapq.heappush(min_heap, nb)
         
+        # If graph is cyclic, len(ans) would not be equal to A, in that case return empty list
+        if len(ans) != A:
+
+            while ans: ans.pop()
+            return ans
+        
         return ans
