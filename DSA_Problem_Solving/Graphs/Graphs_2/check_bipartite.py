@@ -84,6 +84,7 @@ It is impossible to break the graph down to make two different subsets for bipar
 
 import sys
 sys.setrecursionlimit(int(1e6))
+from collections import deque
 
 class Solution:
     # @param A : integer
@@ -101,21 +102,50 @@ class Solution:
             adj[x].append(y)
             adj[y].append(x)
 
-        # Iterate all vertices to cover all connected components. Assign each start node a color of 0
+        q = deque()
+        
         for i in range(A):
 
             if col[i] == -1:
                 col[i] = 0
-                ans = self.dfs_2color(i, adj, col)
+                q.append(i)
+                ans = self.bfs_2color(adj, col, q)
 
-                # If ans gets a false, return False
-                if ans == False:
+                if not ans:
                     return 0
-                    
-                # If ans gets a true, loop through all vertices and return True if loop is complete as another connected component may not satisfy 2-coloring
-
+        
         return 1
+        # # Iterate all vertices to cover all connected components. Assign each start node a color of 0
+        # for i in range(A):
+
+        #     if col[i] == -1:
+        #         col[i] = 0
+        #         ans = self.dfs_2color(i, adj, col)
+
+        #         # If ans gets a false, return False
+        #         if ans == False:
+        #             return 0
+                    
+        #         # If ans gets a true, loop through all vertices and return True if loop is complete as another connected component may not satisfy 2-coloring
+
+        # return 1
     
+    def bfs_2color(self, adj, col, q):
+
+        while q:
+            top = q.pop()
+
+            for nb in adj[top]:
+
+                if col[nb] == -1:
+                    col[nb] = col[top] ^ 1
+                    q.append(nb)
+                
+                elif col[nb] != -1 and col[nb] == col[top]:
+                    return False
+        
+        return True
+
     def dfs_2color(self, node, adj, col):
 
         for nb in adj[node]:
