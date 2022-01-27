@@ -129,6 +129,9 @@ class Solution:
                 adj[v].append(u)
             
             else:
+
+                # For weight 2, a dummy node needs to be added between u and v. Start numbering it from A and incrementing for each new occurence of weight 2
+                
                 adj[u].append(dummy)
                 adj[dummy].append(u)
                 adj[v].append(dummy)
@@ -136,6 +139,7 @@ class Solution:
 
                 dummy += 1
         
+        # From here, do normal BFS as graph is equal weighted or can be considered unweighted
         q = deque()
 
         q.append((C, 0))
