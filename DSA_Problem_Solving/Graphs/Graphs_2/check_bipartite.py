@@ -141,7 +141,8 @@ class Solution:
                     col[nb] = col[top] ^ 1
                     q.append(nb)
                 
-                elif col[nb] != -1 and col[nb] == col[top]:
+                # elif col[nb] != -1 and col[nb] == col[top]:
+                elif col[nb] == col[top]:
                     return False
         
         return True
@@ -163,5 +164,5 @@ class Solution:
                 if not ans:
                     return False
         
-        # If nothing is returned, return True as 2 colors are possible
+        # If nothing is returned, return True as 2 colors are possible in the current dfs call
         return True
