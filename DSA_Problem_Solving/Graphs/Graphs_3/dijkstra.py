@@ -120,7 +120,6 @@ class Solution:
             
             adj[v].append([u, w])
         
-#         print(adj)
         heap = []
 
         # Initialize distance array with -1
@@ -132,10 +131,10 @@ class Solution:
         # Maintain a visited array similar to a BFS/DFS traversal
         vis = [0 for i in range(A)]
 
-        # Maintain a path array to get shortest path
+        # Maintain a path array to store shortest path
         path = [None for i in range(A)]
 
-        # Push distance first for heapifying along with source node and path from to heap
+        # Push distance first for heapifying along with source node and 'path from' to the heap
         heappush(heap, (0, C, -1))
 
         # Iterate until heap is non empty
@@ -144,7 +143,7 @@ class Solution:
             # Pop node
             d, node, p_from = heappop(heap)
 
-            # Add its unvisited neighbors to the heap
+            # Add its unvisited neighbors to the heap similar to adding neighbors to queue during normal bfs
             for nb in adj[node]:
 
                 v, w = nb
@@ -154,7 +153,7 @@ class Solution:
                     # Push the neighbor as a tuple of distance from source, node name and the node name it came from
                     heappush(heap, (d + w, v, node))
             
-            # Here update distance if node has not been visited and then update visit array and path array
+            # Here update shortest distance if node has not been visited and then update visit array and path array
             if vis[node] != 1:
                 vis[node] = 1
                 ans[node] = d
@@ -177,3 +176,5 @@ class Solution:
 
         #         print('Shortest path from source for node', i, ' is: ', '-'.join(path_))
         return ans
+    
+    # TC: O(2E) ~ O(E) for adding to min heap ; log(V) for each heappush and pop operation and V considerations --- O(ElogE + V), SC: O(V + E)
