@@ -62,24 +62,37 @@ class Solution:
 
         N = len(A)
 
-        # Goal is to relax each intermediate edge (outer loop does that, inner two loops consider all matrix elements as edges)
+        # Update -1's to float('inf')
+        for r in range(N):
 
-        # For self edges, the value will be zero, a separate case could have been written but can be handled by this code
+            for c in range(N):
+
+                if A[r][c] == -1:
+                    A[r][c] = float('inf')
+
+        # Relax each intermediate edge (outer loop does that, inner two loops consider all matrix elements as edges)
 
         for rl in range(N):
 
             for r in range(N):
 
                 for c in range(N):
-
-                    curr = A[r][c] if A[r][c] != -1 else float('inf')
-
-                    i1 = A[r][rl] if A[r][rl] != -1 else float('inf')
-
-                    i2= A[rl][c] if A[rl][c] != -1 else float('inf')
                     
-                    ans = min(curr, i1 + i2)
+                    # Avoiding diagonals or when row or column are equal to the node being relaxed
+                    if r != c and r != rl and c != rl:
 
-                    A[r][c] = ans if ans != float('inf') else -1
+                        if A[r][c] > A[r][rl] + A[rl][c]:
+                            A[r][c] = A[r][rl] + A[rl][c]
+
+                        # Fails if min is used: https://www.scaler.com/help_requests/56056/
+                        # A[r][c] = min(A[r][c], A[r][rl] + A[rl][c])
+        
+        # Update float('inf') to -1
+        for r in range(N):
+
+            for c in range(N):
+
+                if A[r][c] == float('inf'):
+                    A[r][c] = -1
 
         return A
