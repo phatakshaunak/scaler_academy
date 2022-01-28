@@ -84,7 +84,7 @@ class Solution:
                         if A[r][c] > A[r][rl] + A[rl][c]:
                             A[r][c] = A[r][rl] + A[rl][c]
 
-                        # Fails if min is used: https://www.scaler.com/help_requests/56056/
+                        # Gives TLE if min is used: https://www.scaler.com/help_requests/56056/
                         # A[r][c] = min(A[r][c], A[r][rl] + A[rl][c])
         
         # Update float('inf') to -1
