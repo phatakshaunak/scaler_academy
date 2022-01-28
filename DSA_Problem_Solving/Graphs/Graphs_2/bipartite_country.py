@@ -125,7 +125,7 @@ class Solution:
         return ans
         '''
         As the tree is bipartite, it can be two-colored. Run the 2-color algorithm and divide into two sets.
-        Then, count elements in both color sets and multiply to get maximum possible roads possible, subtract given edges from this amount to get the answer
+        Then, count elements in both color sets and multiply to get maximum roads possible, subtract given edges from this amount to get the answer
         '''
     def bfs_bipartite(self, adj, col, q):
 
