@@ -116,21 +116,21 @@ class Solution:
             
         # return self.prims(A, adj)
     
-    def find_path_compression(self, node, parent):
+    def find(self, node, parent):
 
         if node == parent[node]:
             return node
         
-        parent[node] = self.find_path_compression(parent[node], parent)
+        parent[node] = self.find(parent[node], parent)
 
         # Path compression, return the found parent for all intermediate nodes
         return parent[node]
     
     def union(self, u, v, parent, height):
 
-        u = self.find_path_compression(u, parent)
+        u = self.find(u, parent)
 
-        v = self.find_path_compression(v, parent)
+        v = self.find(v, parent)
 
         if u == v:
             # They both belong to the same disjoint set, no need to do a union
