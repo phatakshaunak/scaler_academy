@@ -83,16 +83,16 @@ class Solution:
     # @return an integer
     def solve(self, A, B):
 
-        # Adjacency list creation
-        adj = [[] for i in range(A + 1)]
+        # Adjacency list creation needed for Prims not for Kruskal's
+        # adj = [[] for i in range(A + 1)]
 
-        for e in B:
+        # for e in B:
 
-            u, v, w = e
+        #     u, v, w = e
 
-            # Add edges and weights
-            adj[u].append((v, w))
-            adj[v].append((u, w))
+        #     # Add edges and weights
+        #     adj[u].append((v, w))
+        #     adj[v].append((u, w))
 
         # To run Kruskal's Algorithm, create an initialized disjoint set with a parent array element pointing to itself and height array with each element of height 1
         parent = [i for i in range(A + 1)]
