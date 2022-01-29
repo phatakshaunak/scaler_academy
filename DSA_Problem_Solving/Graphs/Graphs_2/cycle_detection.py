@@ -85,6 +85,8 @@ Explanation 2:
 
 import sys
 sys.setrecursionlimit(int(1e6))
+from collections import deque
+from heapq import heappush, heappop, heapify
 
 class Solution:
     # @param A : integer
@@ -92,24 +94,26 @@ class Solution:
     # @return an integer
     def solve(self, A, B):
 
-        adj = [[] for i in range(A + 1)]
+        return self.bfs_kahns(A, B)
 
-        for e in B:
+        # adj = [[] for i in range(A + 1)]
 
-            adj[e[0]].append(e[1])
+        # for e in B:
+
+        #     adj[e[0]].append(e[1])
         
-        visited = [0 for i in range(A + 1)]
-        dfs_call = [0 for i in range(A + 1)]
+        # visited = [0 for i in range(A + 1)]
+        # dfs_call = [0 for i in range(A + 1)]
 
-        for v in range(1, A + 1):
+        # for v in range(1, A + 1):
             
-            if visited[v] != 1:
-                # ans = self.cyclic_dfs_directed_1(v, adj, visited, dfs_call)
-                ans = self.cyclic_dfs_directed(v, adj, visited)
-                if ans:
-                    return 1
+        #     if visited[v] != 1:
+        #         # ans = self.cyclic_dfs_directed_1(v, adj, visited, dfs_call)
+        #         ans = self.cyclic_dfs_directed(v, adj, visited)
+        #         if ans:
+        #             return 1
         
-        return 0
+        # return 0
 
     def cyclic_dfs_directed(self, node, adj, vis):
     
@@ -151,6 +155,43 @@ class Solution:
         dfs[node] = 0
         
         return False
+    
+    def bfs_kahns(self, N, edges):
+
+        adj = [[] for i in range(N + 1)]
+        in_ = [0 for i in range(N + 1)]
+        mh = []
+
+        for e in edges:
+
+            u, v = e
+
+            in_[v] += 1
+
+            adj[u].append(v)
+        
+        for i in range(1, N + 1):
+
+            if in_[i] == 0:
+                mh.append(i)
+        
+        heapify(mh)
+        ans = 0
+
+        while mh:
+            top = heappop(mh)
+            ans += 1
+            for nb in adj[top]:
+
+                in_[nb] -= 1
+
+                if in_[nb] == 0:
+                    heappush(mh, nb)
+        
+        if ans != N:
+            return 1
+        
+        return 0
     
 # Undirected graph cycle
 
