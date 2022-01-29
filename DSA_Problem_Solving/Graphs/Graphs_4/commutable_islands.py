@@ -94,7 +94,7 @@ class Solution:
         #     adj[u].append((v, w))
         #     adj[v].append((u, w))
 
-        # To run Kruskal's Algorithm, create an initialized disjoint set with a parent array element pointing to itself and height array with each element of height 1
+        # To run Kruskal's Algorithm, initialize A disjoint sets with a parent array element pointing to the element itself and height array with each element of height 1
         parent = [i for i in range(A + 1)]
 
         height = [1 for i in range(A + 1)]
