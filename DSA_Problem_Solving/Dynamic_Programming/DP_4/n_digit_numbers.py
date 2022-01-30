@@ -68,13 +68,45 @@ Explanation 2:
 
  Only valid number is 3'''
 
+import sys
+sys.setrecursionlimit(int(1e6))
 class Solution:
 	# @param A : integer
 	# @param B : integer
 	# @return an integer
 	def solve(self, A, B):
 
-        return self.tabular_space(A, B)
+        # return self.tabular_space(A, B)
+        dp = [[-1 for i in range(B + 1)] for j in range(A + 1)]
+            
+        ans = self.recursive(A, B, A, B, dp)
+        return ans % int(1e9 + 7)
+    
+    def recursive(self, i, j, A, B, dp):
+        
+        if i == 0 and j == 0:
+            return 1
+        
+        if i == 0:
+            return 0
+        
+        if dp[i][j] == -1:
+            tmp = 0
+            for k in range(10):
+
+                    if i == A and k == 0:
+                        # First digit cannot be zero
+                        continue
+
+                    else:
+
+                        if j - k >= 0:
+                            
+                            tmp += self.recursive(i - 1, j-k, A, B, dp)
+
+            dp[i][j] = tmp
+        
+        return dp[i][j]
     
     def tabular(self, N, B):
 
