@@ -77,11 +77,48 @@ class Solution:
 	def solve(self, A, B):
 
         # return self.tabular_space(A, B)
-        dp = [[-1 for i in range(B + 1)] for j in range(A + 1)]
+        # dp = [[-1 for i in range(B + 1)] for j in range(A + 1)]
             
-        ans = self.recursive(A, B, A, B, dp)
-        return ans % int(1e9 + 7)
+        # ans = self.recursive(A, B, A, B, dp)
+        # return ans % int(1e9 + 7)
+        return self.tabular_practice(A, B) % int(1e9 + 7)
+
+    def tabular_practice(self, N, S):
+        
+        dp = [[0 for i in range(S + 1)] for j in range(N + 1)]
+        
+        dp[0][0] = 1
+        
+        for i in range(1, N + 1):
+            for j in range(1, S + 1):
+                
+                for k in range(10):
+                    if j - k >= 0:
+                        dp[i][j] += dp[i - 1][j - k]
+        
+        return dp[N][S]
     
+    def tabular_practice_space(self, N, S):
+        
+        # dp = [[0 for i in range(S + 1)] for j in range(N + 1)]
+        
+        # dp[0][0] = 1
+        dp1, dp2 = [0 for i in range(S + 1)], [0 for i in range(S + 1)]
+
+        dp1[0] = 1
+
+        for i in range(1, N + 1):
+            for j in range(1, S + 1):
+                
+                for k in range(10):
+                    if j - k >= 0:
+                        dp2[j] += dp1[j - k]
+            
+            dp1, dp2 = dp2, dp1
+            dp1[0] = 0
+        
+        return dp1[-1]
+
     def recursive(self, i, j, A, B, dp):
         
         if i == 0 and j == 0:
@@ -94,11 +131,11 @@ class Solution:
             tmp = 0
             for k in range(10):
 
-                    if i == A and k == 0:
-                        # First digit cannot be zero
-                        continue
+                    # if i == A and k == 0:
+                    #     # First digit cannot be zero
+                    #     continue
 
-                    else:
+                    if not(i == A and k == 0):
 
                         if j - k >= 0:
                             
