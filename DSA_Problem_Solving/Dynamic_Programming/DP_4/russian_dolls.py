@@ -1,77 +1,3 @@
-'''Q4. Russian Doll Envelopes
-Solved
-character backgroundcharacter
-Stuck somewhere?
-Ask for help from a TA & get it resolved
-Get help from TA
-Problem Description
-
-Given a matrix of integers A of size N x 2 describing dimensions of N envelopes, where A[i][0] denotes the height of the ith envelope and A[i][1] denotes the width of the ith envelope.
-
-One envelope can fit into another if and only if both the width and height of one envelope is greater than the width and height of the other envelope.
-
-Find the maximum number of envelopes you can put one inside other.
-
-
-
-Problem Constraints
-
-1 <= N <= 1000
-1 <= A[i][0], A[i][1] <= 109
-
-
-
-Input Format
-
-The only argument given is the integer matrix A.
-
-
-
-Output Format
-
-Return an integer denoting the maximum number of envelopes you can put one inside other.
-
-
-
-Example Input
-
-Input 1:
-
- A = [ 
-         [5, 4]
-         [6, 4]
-         [6, 7]
-         [2, 3]  
-     ]
-Input 2:
-
- A = [     '
-         [8, 9]
-         [8, 18]    
-     ]
-
-
-Example Output
-
-Output 1:
-
- 3
-Output 2:
-
- 1
-
-
-Example Explanation
-
-Explanation 1:
-
- Step 1: put [2, 3] inside [5, 4]
- Step 2: put [5, 4] inside [6, 7]
- 3 envelopes can be put one inside other.
-Explanation 2:
-
- No envelopes can be put inside any other so answer is 1.'''
-
 class Solution:
     # @param A : list of list of integers
     # @return an integer
@@ -86,24 +12,131 @@ class Solution:
         #and simply check if the left height dimensions are smaller than current height during the LIS process on 
         # width
         
-        A.sort()
-        ans = 1
+        # A.sort()
+        # ans = 1
 
-        dp = [0 for i in range(len(A))]
-        dp[0] = 1
+        # dp = [1 for i in range(len(A))]
+        # # dp[0] = 1
 
-        for i in range(1, len(A)):
+        # for i in range(1, len(A)):
 
-            curr = 1
+        #     curr = 1
 
-            for j in range(i):
+        #     for j in range(i):
 
-                if A[j][1] < A[i][1] and A[i][0] > A[j][0]:
-                    curr = max(curr, 1 + dp[j])
+        #         if A[j][1] < A[i][1] and A[i][0] > A[j][0]:
+        #             curr = max(curr, 1 + dp[j])
             
-            dp[i] = curr
-            ans = max(ans, dp[i])
+        #     dp[i] = curr
+        #     ans = max(ans, dp[i])
+        
+        # return ans
+
+        return self.rus_dolls_custom_sort(A)
+
+    def rus_dolls(self, A):
+
+        A.sort(key = lambda x: x[0])
+        
+        n = len(A)
+        
+        dp = [1 for i in range(n)]
+        
+        ans = 1
+        
+        for i in range(1, n):
+            
+            for j in range(i):
+                
+                if (A[j][1] < A[i][1]) and (A[i][0] != A[j][0]):
+                    
+                    if dp[i] < 1 + dp[j]:
+                        dp[i] = 1 + dp[j]
+
+            if ans < dp[i]:
+                ans = dp[i]
         
         return ans
     
+    def rus_dolls_custom_sort(self, A):
+        
+        n = len(A)
+
+        dp = [1 for i in range(n)]
+        
+        ans = 1
+        
+        self.merge_sort(A, 0, n - 1)
+
+        for i in range(1, n):
+
+            for j in range(i):
+
+                if A[j][1] < A[i][1]:
+                    
+                    if dp[i] < 1 + dp[j]:
+                        dp[i] = 1 + dp[j]
+            
+            if ans < dp[i]:
+                ans = dp[i]
+        
+        return ans
+    
+    def merge_sort(self, A, i, j):
+    
+        if i == j:
+            return
+
+        mid = i + (j - i) // 2
+
+        self.merge_sort(A, i, mid)
+
+        self.merge_sort(A, mid + 1, j)
+
+        self.custom_merge(A, i, j)
+
+    def custom_merge(self, A, i, j):
+        
+        tmp = [0 for i in range(j - i + 1)]
+        
+        mid = i + (j - i) // 2
+        
+        x, y = i, mid + 1
+        
+        z = 0
+        while x <= mid and y <= j:
+            
+            if A[x][0] < A[y][0]:
+                tmp[z] = A[x]
+                x += 1
+            
+            elif A[x][0] > A[y][0]:
+                tmp[z] = A[y]
+                y += 1
+            
+            else:
+                if A[x][1] >= A[y][1]:
+                    tmp[z] = A[x]
+                    x += 1
+                
+                else:
+                    tmp[z] = A[y]
+                    y += 1
+            
+            z += 1
+        
+        while x <= mid:
+            tmp[z] = A[x]
+            x += 1
+            z += 1
+        
+        while y <= j:
+            tmp[z] = A[y]
+            y += 1
+            z += 1
+        
+        for idx in range(i, j + 1):
+            
+            A[idx] = tmp[idx - i]
+        
     # TC O(N^2), SC O(N)
