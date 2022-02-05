@@ -115,6 +115,8 @@ class Solution:
                 y += 1
             
             else:
+
+                # Equality assuming a duplicate value may be present (both h and w are the same)
                 if A[x][1] >= A[y][1]:
                     tmp[z] = A[x]
                     x += 1
