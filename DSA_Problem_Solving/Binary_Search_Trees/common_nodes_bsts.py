@@ -114,30 +114,85 @@ class Solution:
     # @return an integer
     def solve(self, A, B):
 
-        arr1, arr2 = [], []
+        return self.space(A, B)
 
-        self.traverse(A, arr1)
-        self.traverse(B, arr2)
+        # arr1, arr2 = [], []
+
+        # self.traverse(A, arr1)
+        # self.traverse(B, arr2)
+
+        # ans = 0
+        # m = int(1e9+7)
+        # i, j = 0, 0
+
+        # while i < len(arr1) and j < len(arr2):
+
+        #     if arr1[i] == arr2[j]:
+        #         ans = (ans % m + arr1[i] % m) % m
+        #         i += 1
+        #         j += 1
+            
+        #     elif arr1[i] > arr2[j]:
+        #         j += 1
+            
+        #     else:
+        #         i += 1
+        
+        # return ans
+    
+    def space(self, root1, root2):
 
         ans = 0
-        m = int(1e9+7)
-        i, j = 0, 0
+        m = int(1e9 + 7)
+        s1, s2 = [], []
 
-        while i < len(arr1) and j < len(arr2):
+        c1, c2 = root1, root2
+        flag = True
 
-            if arr1[i] == arr2[j]:
-                ans = (ans % m + arr1[i] % m) % m
-                i += 1
-                j += 1
+        while flag:
             
-            elif arr1[i] > arr2[j]:
-                j += 1
+            # Iterating as left as possible to get elements in sorted in order
+            if c1:
+                s1.append(c1)
+                c1 = c1.left
             
+            # Iterating as left as possible to get elements in sorted in order
+            elif c2:
+                s2.append(c2)
+                c2 = c2.left
+
+            # Both current nodes are null here, starting point of comparing nodes with three cases, if they are equal or either is greater than the other.
+            elif s1 and s2:
+
+                c1, c2 = s1[-1], s2[-1]
+
+                if c1.val == c2.val:
+                    ans = (ans % m + c1.val % m) % m
+
+                    s1.pop()
+                    s2.pop()
+                    c1 = c1.right
+                    c2 = c2.right
+                
+                elif c1.val < c2.val:
+                    # Get next element in c1's tree, make c2 None to avoid traversing further in c2's tree
+                    s1.pop()
+                    c1 = c1.right
+                    c2 = None
+                
+                elif c1.val > c2.val:
+                    # Get next element in c2's tree, make c1 None to avoid traversing further in c1's tree
+                    s2.pop()
+                    c2 = c2.right
+                    c1 = None
+            
+            # Exhausted either or both the trees
             else:
-                i += 1
+                
+                flag = False
         
         return ans
-    
+
     def traverse(self, root, ans):
         if not root:
             return
