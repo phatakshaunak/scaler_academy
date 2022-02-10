@@ -197,6 +197,5 @@ class Solution:
         if not root:
             return
         self.traverse(root.left, ans)
-        if root:
-            ans.append(root.val)
+        ans.append(root.val)
         self.traverse(root.right, ans)
