@@ -94,20 +94,26 @@ class Solution:
     # @param C : integer
     # @return an integer
     def solve(self, A, B, C):
+        
+        ans = [0]
 
-        if not A:
-            return 0
+        self.helper(A, B, C, ans)
+
+        return ans[0]
+
+        # if not A:
+            # return 0
         
-        if A.val < B:
+        # if A.val < B:
             # Move right as all left values are < B
-            return self.solve(A.right, B, C)
+            # return self.solve(A.right, B, C)
         
-        if A.val > C:
+        # if A.val > C:
             # Move left as all right values are out of range > C
-            return self.solve(A.left, B, C)
+            # return self.solve(A.left, B, C)
         
         # Go in both directions and add 1 as node is in the given range
-        return 1 + self.solve(A.left, B, C) + self.solve(A.right, B, C)
+        # return 1 + self.solve(A.left, B, C) + self.solve(A.right, B, C)
     
         # def traverse(ans, root, l, r):
         #     if not root:
@@ -123,3 +129,22 @@ class Solution:
         # traverse(ans, A, B, C)
 
         # return ans[0]
+            
+    def helper(self, root, s, h, ans):
+
+        if not root:
+            return
+        
+        if root.val < s:
+            # Discard left subtree
+            self.helper(root.right, s, h, ans)
+        
+        elif root.val > h:
+            # Discard right subtree
+            self.helper(root.left, s, h, ans)
+        
+        else:
+            # Explore both subtrees
+            ans[0] += 1
+            self.helper(root.left, s, h, ans)
+            self.helper(root.right, s, h, ans)
