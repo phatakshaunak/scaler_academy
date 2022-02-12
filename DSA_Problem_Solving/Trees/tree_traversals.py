@@ -143,32 +143,32 @@ class Solution:
     
     def morris_inorder(self, root, ans):
     
-    curr = root
-    
-    while curr:
-        
-        if curr.left:
-            # First find predecessor
-            pred = self.find_inpred(curr)
-            # Check if it is not already linked
-            if not pred.right:
-                # Create the link and move left
-                pred.right = curr
-                curr = curr.left
+        curr = root
+
+        while curr:
+            
+            if curr.left:
+                # First find predecessor
+                pred = self.find_inpred(curr)
+                # Check if it is not already linked
+                if not pred.right:
+                    # Create the link and move left
+                    pred.right = curr
+                    curr = curr.left
+                else:
+                    #print root, cut the link and go right
+                    pred.right = None
+                    ans.append(curr.val)
+                    curr = curr.right
             else:
-                #print root, cut the link and go right
-                pred.right = None
+                # Print data and go right
                 ans.append(curr.val)
                 curr = curr.right
-        else:
-            # Print data and go right
-            ans.append(curr.val)
-            curr = curr.right
 
-        # TC: O(3N) --> O(N) (Visit each node at most thrice, once during traversal when inorder predecessor is not linked to root, second when we go to the inorder predecessors right and third when we again try to find the inorder predecessor)
-        # SC: O(1) no recursion or iteration stack space is being used
-    
-    return ans
+            # TC: O(3N) --> O(N) (Visit each node at most thrice, once during traversal when inorder predecessor is not linked to root, second when we go to the inorder predecessors right and third when we again try to find the inorder predecessor)
+            # SC: O(1) no recursion or iteration stack space is being used
+
+        return ans
 
     def find_inpred(self, root):
         tmp = root.left
