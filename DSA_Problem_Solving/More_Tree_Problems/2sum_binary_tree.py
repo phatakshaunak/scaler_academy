@@ -79,48 +79,70 @@ Explanation 2:
 #		self.left = None
 #		self.right = None
 
+# Definition for a  binary tree node
+# class TreeNode:
+#	def __init__(self, x):
+#		self.val = x
+#		self.left = None
+#		self.right = None
+
 class Solution:
 	# @param A : root node of tree
 	# @param B : integer
 	# @return an integer
+
 	def t2Sum(self, A, B):
-
-        # return 1 if self.traverse1(A, set(), B) else 0
-
-        arr = []
-
-        self.traverse(A, arr)
         
-        # In order returns sorted array, follow 2 pointer apprach
-        i, j = 0, len(arr) - 1
+        st1, st2 = [], []
 
-        while i < j:
+        self.pushleft(A, st1)
 
-            if arr[i] + arr[j] == B:
+        self.pushright(A, st2)
+
+        left, right = self.popleft(st1), self.popright(st2)
+
+        while left < right:
+            
+            curr = left + right
+
+            if curr == B:
                 return 1
             
-            elif arr[i] + arr[j] > B:
-                j -= 1
+            elif curr > B:
+
+                # Move behind, i.e popright
+                right = self.popright(st2)
             
             else:
-                i += 1
+                
+                # Move forward
+                left = self.popleft(st1)
         
         return 0
-        # # Do the 2 sum hash map approach
-        # hm = {}
 
-        # for i in range(len(arr)):
+        # arr = []
 
-        #     if B - arr[i] in hm:
+        # self.traverse(A, arr)
+
+        # i, j = 0, len(arr) - 1
+
+        # while i < j:
+
+        #     curr = arr[i] + arr[j]
+
+        #     if curr == B:
         #         return 1
             
-        #     if arr[i] not in hm:
-        #         hm[arr[i]] = 1
+        #     elif curr > B:
+        #         j -= 1
+            
+        #     else:
+        #         i += 1
         
         # return 0
     
     def traverse(self, root, arr):
-        
+
         if not root:
             return
         
@@ -128,14 +150,28 @@ class Solution:
         arr.append(root.val)
         self.traverse(root.right, arr)
 
-    def traverse1(self, root, set_, target):
+    def pushleft(self, root, st):
 
-        if not root:
-            return False
-        
-        if target - root.val in set_:
-            return True
-        
-        set_.add(root.val)
+        while root:
+            st.append(root)
+            root = root.left
 
-        return self.traverse1(root.left, set_, target) or self.traverse1(root.right, set_, target)
+    def pushright(self, root, st):
+
+        while root:
+            st.append(root)
+            root = root.right
+
+    def popleft(self, st):
+
+        top = st.pop()
+        self.pushleft(top.right, st)
+        return top.val
+
+    def popright(self, st):
+
+        top = st.pop()
+        self.pushright(top.left, st)
+        return top.val
+    
+    # https://leetcode.com/problems/two-sum-iv-input-is-a-bst/discuss/1420711/C%2B%2BJavaPython-3-solutions%3A-HashSet-Stack-Python-yield-Solutions-O(H)-space
