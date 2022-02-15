@@ -79,8 +79,11 @@ class Solution:
     # @return a list of integers
     def solve(self, A):
         
-        # We will maintain larger length only in the max (left) heap. Hence push any value to it and then push its top to the right heap to ensure left and right half validity
-        # If the left heap's length is less than the right, in this case push min heap's top to the left (max) heap
+        # We will maintain larger length only in the max (left) heap. Hence push any value to it and then push its top to the right heap to ensure left and right half validity, i.e. left half's top > right half's top.
+        # If while doing this, left heap's length is less than the right, in this case push min heap's top to the left (max) heap
+
+        # Reference: https://leetcode.com/problems/find-median-from-data-stream/discuss/1330808/Python-2-heaps-solution-explained
+        # Followups: https://leetcode.com/problems/find-median-from-data-stream/discuss/354195/C%2B%2B-112-ms-99-solution-w-follow-up
 
         lh, rh = [], []
 
