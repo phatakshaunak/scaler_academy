@@ -78,6 +78,48 @@ class Solution:
     # @param A : list of integers
     # @return a list of integers
     def solve(self, A):
+        
+        # We will maintain larger length only in the max (left) heap. Hence push any value to it and then push its top to the right heap to ensure left and right half validity
+        # If the left heap's length is less than the right, in this case push min heap's top to the left (max) heap
+
+        lh, rh = [], []
+
+        ans = []
+
+        for val in A:
+
+            heappush(lh, -1 * val)
+            heappush(rh, -1 * heappop(lh))
+
+            if len(lh) < len(rh):
+
+                heappush(lh, -1 * heappop(rh))
+            
+            ans.append(-1 * lh[0])
+        
+        return ans
+
+        #     # Another approach
+        #     if not lh or -1 * lh[0] > val:
+        #         heappush(lh, -1 * val)
+        #     else:
+        #         heappush(rh, val)
+            
+        #     # Rebalance lengths
+        #     if len(lh) > len(rh) + 1:
+        #         heappush(rh, -1 * heappop(lh))
+            
+        #     if len(rh) > len(lh) + 1:
+        #         heappush(lh, -1 * heappop(rh))
+            
+        #     # Ans will be in the larger heap, if equal lengths, choose the value in the max (left heap)
+        #     if (len(lh) > len(rh)) or (len(lh) == len(rh)): ans.append(-1 * lh[0])
+
+        #     else: ans.append(rh[0])
+
+        # return ans
+
+        ################################################################################################ Previous code ################################################################################################
 
         # Define two heaps for the left half (max) and right half (min)
         l, r = [], []

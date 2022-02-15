@@ -80,7 +80,8 @@ class Solution:
         for i in range(n):
 
             # No overlap
-            if not(tmp.end >= intervals[i].start and intervals[i].end >= tmp.start):
+            # if not(tmp.end >= intervals[i].start and intervals[i].end >= tmp.start):
+            if tmp.end < intervals[i].start or intervals[i].end < tmp.start:
 
                 if intervals[i].start < tmp.start:
                     ans.append(intervals[i])
