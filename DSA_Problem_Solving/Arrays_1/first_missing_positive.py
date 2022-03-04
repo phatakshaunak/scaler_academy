@@ -74,6 +74,7 @@ class Solution:
         
         for i in range(n):
             
+            # Numbers that do not matter in finding the first missing positive value
             if A[i] <= 0 or A[i] > n:
                 A[i] = n + 1
         
@@ -81,6 +82,7 @@ class Solution:
             
             if 1 <= abs(A[i]) <= n:
                 
+                # If the array was sorted, A[i] would be located at A[i] - 1, thus mark A[i] - 1 with a negative sign as visited if not negative
                 idx = abs(A[i]) - 1
                 
                 if A[idx] > 0:
@@ -88,9 +90,10 @@ class Solution:
         
         for i in range(n):
             
+            # The first non-negative element indicates the missing value
             if A[i] > 0:
                 return i + 1
-        
+        # If all negative, n + 1 is the next number to be missing
         return n + 1
 
         # for i in range(n):
