@@ -115,5 +115,50 @@ class Solution:
             right = right.next
         
         return 1
+
+class Solution:
+    # @param A : head node of linked list
+    # @return an integer
+    def lPalin(self, A):
+
+        s, e = A, A
+        prev = None
         
+        while e and e.next:
+            prev = s
+            s = s.next
+            e = e.next.next
+        
+        # If LL is of odd length, move s forward from the middle node
+        if e:
+            s = s.next
+        
+        # Single element in LL
+        if not prev:
+            return 1
+
+        prev.next = None
+
+        # A is left half to be reversed, s is the right half
+        curr = A
+        prev = None
+        
+        while curr:
+            tmp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = tmp
+        
+        l, r = prev, s
+        
+#         return l, r
+        while l and r:
+            if l.val != r.val:
+                return 0
+            l, r = l.next, r.next
+        
+        if not l and not r:
+            return 1
+        
+        return 0
         
