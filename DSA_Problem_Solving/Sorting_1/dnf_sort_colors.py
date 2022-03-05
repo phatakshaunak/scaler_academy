@@ -24,9 +24,17 @@ class Solution:
                 low += 1
             
             # If a one is encountered at mid, do nothing
-
+            elif A[mid] == 1:
+                mid += 1
+                
             # If a two is encountered at mid, swap with high and decrement high
-            if A[mid] == 2:
+            else:
                 A[mid], A[high] = A[high], A[mid]
-                high += 1
+                high -= 1
+        
+#         print(A)
+#         print()
+#         print('low pointer', low)
+#         print('mid pointer', mid)
+#         print('high pointer', high)
         
