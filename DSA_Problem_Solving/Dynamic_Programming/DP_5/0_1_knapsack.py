@@ -82,48 +82,83 @@ class Solution:
     # @param C : integer
     # @return an integer
     def solve(self, A, B, C):
-
-        # n = len(A)
-
-        # dp = [[0 for i in range(C + 1)] for j in range(n + 1)]
-
-        # for i in range(1, n + 1):
-
-        #     for j in range(1, C + 1):
-
-        #         # Pick
-        #         if j - B[i - 1] >= 0:
-
-        #             dp[i][j] = max(dp[i - 1][j - B[i - 1]] + A[i - 1], dp[i - 1][j])
-                
-        #         else:
-        #             # Don't pick
-        #             dp[i][j] = dp[i - 1][j]
         
-        # return dp[n][C]
-        return self.space(A, B, C)
+        return self.knapsack_01_space(A, B, C)
 
-    def space(self, V, W, w):
+    def knapsack_01_recursive(self, A, B, C, i, j, dp):
 
-        n = len(V)
+        if i == len(A):
+            return 0
 
-        dp1 = [0 for i in range(w + 1)]
+        if dp[i][j] == -1:
 
-        dp2 = [0 for i in range(w + 1)]
+            pick = float('-inf')
+            skip = self.knapsack_01(A, B, C, i + 1, j, dp)
 
-        for i in range(1, n + 1):
+            if j - B[i] >= 0:
+                pick = A[i] + self.knapsack_01(A, B, C, i + 1, j - B[i], dp)
 
-            for j in range(1, w + 1):
+            dp[i][j] = max(skip, pick)
 
-                if j - W[i - 1] >= 0:
-
-                    dp2[j] = max(dp1[j - W[i - 1]] + V[i - 1], dp1[j])
+        return dp[i][j]
+    
+    def knapsack_01_space(self, A, B, C):
+        
+        dp1, dp2 = [0 for i in range(C + 1)], [0 for i in range(C + 1)]
+        
+        ans = 0
+        
+        for i in range(len(A)):
+            
+            for j in range(1, C + 1):
+                
+                if j - B[i] >= 0:
+                    dp2[j] = max(dp1[j], A[i] + dp1[j - B[i]])
                 
                 else:
                     dp2[j] = dp1[j]
-            
+                
             ans = dp2[-1]
-
+            
             dp1, dp2 = dp2, dp1
         
         return ans
+    
+    def knap_sack_01_tabular(self, A, B, C):
+        
+        n = len(A)
+        dp = [[0 for i in range(C + 1)] for j in range(n)]
+        
+        for i in range(n):
+            
+            for j in range(1, C + 1):
+                
+                if j - B[i] >= 0:
+                    
+                    dp[i][j] = max(dp[i - 1][j], A[i] + dp[i - 1][j - B[i]])
+                
+                else:
+                    dp[i][j] = dp[i - 1][j]
+        
+        # Check what elements were picked
+        i, j = len(dp) - 1, len(dp[0]) - 1
+        
+        ans = []
+        
+        while i > 0 and j > 0:
+            
+            if dp[i][j] == dp[i - 1][j]:
+                i -= 1
+            
+            else:
+                ans.append(i)
+                j = j - B[i]
+                i -= 1
+        
+        ans.reverse()
+        
+        print('values', [A[i] for i in ans])
+        print('weights', [B[i] for i in ans])
+        
+        # Final value
+        return dp[-1][-1]
