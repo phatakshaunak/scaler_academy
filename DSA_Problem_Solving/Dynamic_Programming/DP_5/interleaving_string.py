@@ -114,6 +114,8 @@ class Solution:
                     if not dp[i][j] and s2[j - 1] == s3[k]:
                         dp[i][j] = dp[i][j] or dp[i][j - 1]
 
+            # Can't return early as done in the recursive approach
+            
                 # elif s1[i - 1] == s3[k] and s2[j - 1] == s3[k]:
                 #     dp[i][j] = dp[i - 1][j] or dp[i][j - 1]
                 
