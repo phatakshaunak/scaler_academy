@@ -93,13 +93,16 @@ class Solution:
 
                 k = j + i - 1
 
+                # Empty strings will make a valid interleaving
                 if i == 0 and j == 0:
                     dp[i][j] = 1
                 
+                # Check only with s2
                 elif i == 0:
                     if s2[j - 1] == s3[k]:
                         dp[i][j] = dp[i][j - 1]
                 
+                # Check only with s1
                 elif j == 0:
                     if s1[i - 1] == s3[k]:
                         dp[i][j] = dp[i - 1][j]
@@ -124,6 +127,7 @@ class Solution:
         #     print(row)
             
         return dp[n][m]
+
 
     def rec_memo(self, s1, s2, s3, i, j, k, dp):
         
