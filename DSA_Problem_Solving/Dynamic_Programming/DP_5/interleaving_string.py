@@ -105,7 +105,8 @@ class Solution:
             if s1[i] == s3[k]:
                 dp[i][j] = dp[i][j] or self.rec_memo(s1, s2, s3, i + 1, j, k + 1, dp)
             
-            if s2[j] == s3[k]:
+            # Check with s2 only if previous call returned False as we need to check only if an interleaving is possible and not the count
+            if s2[j] == s3[k] and not dp[i][j]:
                 dp[i][j] = dp[i][j] or self.rec_memo(s1, s2, s3, i, j + 1, k + 1, dp)
         
         return dp[i][j]
