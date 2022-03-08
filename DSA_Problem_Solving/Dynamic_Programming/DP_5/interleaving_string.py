@@ -66,19 +66,64 @@ Explanation 2:
  It is not possible to get C by interleaving A and B.'''
 
 class Solution:
-	# @param A : string
-	# @param B : string
-	# @param C : string
-	# @return an integer
-	def isInterleave(self, A, B, C):
+    # @param A : string
+    # @param B : string
+    # @param C : string
+    # @return an integer
+    def isInterleave(self, A, B, C):
         
         # Sanity Check
         if len(A) + len(B) != len(C):
             return 0
         
-        dp = [[-1 for i in range(len(B))] for j in range(len(A))]
+        return self.tabular(A, B, C)
+        # dp = [[-1 for i in range(len(B))] for j in range(len(A))]
 
-        return 1 if self.rec_memo(A, B, C, 0, 0, 0, dp) else 0
+        # return 1 if self.rec_memo(A, B, C, 0, 0, 0, dp) else 0
+
+    def tabular(self, s1, s2, s3):
+
+        n, m = len(s1), len(s2)
+
+        dp = [[0 for j in range(m + 1)] for i in range(n + 1)]
+
+        for i in range(n + 1):
+
+            for j in range(m + 1):
+
+                k = j + i - 1
+
+                if i == 0 and j == 0:
+                    dp[i][j] = 1
+                
+                elif i == 0:
+                    if s2[j - 1] == s3[k]:
+                        dp[i][j] = dp[i][j - 1]
+                
+                elif j == 0:
+                    if s1[i - 1] == s3[k]:
+                        dp[i][j] = dp[i - 1][j]
+
+                else:
+                    if s1[i - 1] == s3[k]:
+                        dp[i][j] = dp[i][j] or dp[i - 1][j]
+                    
+                    if not dp[i][j] and s2[j - 1] == s3[k]:
+                        dp[i][j] = dp[i][j] or dp[i][j - 1]
+
+                # elif s1[i - 1] == s3[k] and s2[j - 1] == s3[k]:
+                #     dp[i][j] = dp[i - 1][j] or dp[i][j - 1]
+                
+                # elif s1[i - 1] == s3[k] and s2[j - 1] != s3[k]:
+                #     dp[i][j] = dp[i - 1][j]
+                
+                # elif s1[i - 1] != s3[k] and s2[j - 1] == s3[k]:
+                #     dp[i][j] = dp[i][j - 1]
+                
+        # for row in dp:
+        #     print(row)
+            
+        return dp[n][m]
 
     def rec_memo(self, s1, s2, s3, i, j, k, dp):
         
@@ -105,7 +150,7 @@ class Solution:
             if s1[i] == s3[k]:
                 dp[i][j] = dp[i][j] or self.rec_memo(s1, s2, s3, i + 1, j, k + 1, dp)
             
-            # Check with s2 only if previous call returned False as we need to check only if an interleaving is possible and not the count
+            # Go for this call only if previous call returned False (may not work in a tabular approach)
             if s2[j] == s3[k] and not dp[i][j]:
                 dp[i][j] = dp[i][j] or self.rec_memo(s1, s2, s3, i, j + 1, k + 1, dp)
         
