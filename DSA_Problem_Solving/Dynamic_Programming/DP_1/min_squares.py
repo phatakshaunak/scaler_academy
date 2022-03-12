@@ -65,10 +65,37 @@ Your input
 Output
 1'''
 
+import sys
+sys.setrecursionlimit(int(1e6))
+
 class Solution:
-	# @param A : integer
-	# @return an integer
-	def countMinSquares(self, A):
+    # @param A : integer
+    # @return an integer
+    def countMinSquares(self, A):
+
+        return self.tabular(A)
+        # dp = [-1 for i in range(A + 1)]
+
+        # return self.recursive(A, dp)
+
+    def recursive(self, i, dp):
+
+        if i == 0:
+            return 0
+
+        if dp[i] == -1:
+            
+            dp[i] = float('inf')
+
+            j = 1
+
+            while j * j <= i:
+                dp[i] = min(dp[i], 1 + self.recursive(i - j * j, dp))
+                j += 1
+        
+        return dp[i]
+    
+    def tabular(self, A):
         
         # Initially, the answer can be assumed to be a sum of 1s i times
         dp = [i for i in range(A + 1)]
@@ -83,7 +110,7 @@ class Solution:
         This is a NN^0.5 time complexity and O(N) space for the tabulation
         '''
 
-        for i in range(2, A + 1):
+        for i in range(1, A + 1):
 
             # curr = float('inf')
             j = 1
