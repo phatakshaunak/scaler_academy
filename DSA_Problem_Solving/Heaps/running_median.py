@@ -73,7 +73,7 @@ Explanation 2:
  [5, 17, 100]     17
  [5, 17, 100, 11] 11'''
 
-import heapq
+from heapq import heappush, heappop
 class Solution:
     # @param A : list of integers
     # @return a list of integers

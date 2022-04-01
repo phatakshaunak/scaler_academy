@@ -79,30 +79,54 @@ Explanation 2:
  1 2 [3 4 2 7 1 3] 6 | 7
  1 2 3 [4 2 7 1 3 6] | 7'''
 
- from collections import deque
-
+from collections import deque
+from heapq import heapify, heappush, heappop
 class Solution:
-    # @param A : tuple of integers
-    # @param B : integer
-    # @return a list of integers
-    def slidingMaximum(self, A, B):
+	# @param A : tuple of integers
+	# @param B : integer
+	# @return a list of integers
+	def slidingMaximum(self, A, B):
         
+        # Max heap NlogN solution
+
+        # if B > len(A):
+        #     return [max(A)]
+
+        # Initialize a max heap of the window size
+        # tmp = [[-1 * A[i], i] for i in range(B)]
+        # heapify(tmp)
+        # ans = []
+
+        # if tmp:
+        #     ans.append(-1 * tmp[0][0])
+    
+        # for i in range(B, len(A)):
+
+            # Remove out of window range elements
+            # while tmp and tmp[0][1] < i - B + 1:
+        #         heappop(tmp)
+            
+        #     heappush(tmp, [-1 * A[i], i])
+
+        #     ans.append(-1 * tmp[0][0])
+        
+        # return ans
+
         q = deque()
+        n = len(A)
         ans = []
-        for i in range(len(A)):
+
+        for i in range(n):
 
             while q and A[q[-1]] <= A[i]:
                 q.pop()
             
             q.append(i)
-            
-            # Remove out of window range indices
-            while q and q[0] <= (i - B): 
+
+            if q[0] < i - B + 1:
                 q.popleft()
             
-            # Add to answer if at or above window size
             if i >= B - 1:
-                # print(i, q)
                 ans.append(A[q[0]])
-        
+            
         return ans
