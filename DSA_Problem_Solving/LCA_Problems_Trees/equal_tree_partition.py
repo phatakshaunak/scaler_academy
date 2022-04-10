@@ -76,6 +76,8 @@ Explanation 2:
 
  The given Tree cannot be partitioned.'''
 
+import sys
+sys.setrecursionlimit(int(1e6))
 # Definition for a  binary tree node
 # class TreeNode:
 #    def __init__(self, x):
@@ -92,7 +94,9 @@ class Solution:
 
         sum_ = self.getSum(A) # O(N) 
 
-        ans = self.post_helper(A, flag, sum_) # O(N) checking traversing to each node only once
+        # ans = self.post_helper(A, flag, sum_) # O(N) checking traversing to each node only once
+
+        tmp = self.postorder(A, flag, sum_)
 
         return 1 if flag[0] else 0
 
@@ -124,6 +128,22 @@ class Solution:
             return 0
 
         return root.val + self.getSum(root.left) + self.getSum(root.right)
+
+    def postorder(self, root, flag, total):
+
+        if not root:
+            return 0
+        
+        lt = self.postorder(root.left, flag, total)
+        rt = self.postorder(root.right, flag, total)
+
+        rooted_sum = lt + rt + root.val
+
+        # Check whether current rooted tree is twice the total, i.e two split trees have same sum
+        if 2 * rooted_sum == total and not flag[0]:
+            flag[0] = True
+        
+        return rooted_sum
 
     def post_helper(self, root, flag, sum_):
 
