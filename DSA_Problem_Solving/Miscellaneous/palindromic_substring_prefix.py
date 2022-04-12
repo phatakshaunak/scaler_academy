@@ -66,48 +66,50 @@ class Solution:
    A better way would be to only update the cell at ans1[e]
    Later null cells in ans1 should be filled with the closest non null value on their left.'''
 
-'''The below approach follows an expand around the center idea and then updates the final prefix array
-   with the same idea as mentioned above. With this idea, time complexity drops to O(N^2) and space becomes O(1) as well
-   The logic for finding longest substring in prefixes is not totally correct in the below solution'''
+'''The below approach follows an expand around the center idea (considering odd (1 character) and even (2 characters)) palindromes
+   and then updates the final prefix array with the same idea as mentioned above. With this idea, time complexity drops to 
+   O(N^2) and space becomes O(1) as well if output array is not considered.
+   For populating the largest palindromic substring, we need to fill up a[i] with the max(a[i], largest value seen on the left)
+   This is needed as we are not updating subsequent answers and not all ending indices will constitute a valid palindrome
+   '''   
 
+def expand_center(st, start, end, cnt):
+    
+    ans = float('-inf')
+    idx = [-1, -1]
+    while start >= 0 and end < len(st) and st[start] == st[end]:
+        
+        l = end - start + 1
+        
+        if l > ans:
+            cnt[end] = max(cnt[end], l)
+            ans = l
+            idx = [start, end]
+        
+        start -= 1
+        end += 1
+    
+    if ans == float('-inf'):
+        return 0, -1, -1
+    
+    return ans, idx[0], idx[1]
+        
 def pal_prefix(s):
     
-    ans = [float('-inf') for i in range(len(s))]
-    curr = 0
-    inds = [-1, -1]
-    for i in range(len(s)):
-        
-        low, high = i - 1, i + 1
-        
-        while low >= 0 and s[low] == s[i]:
-            low -= 1
-        
-        while high < len(s) and s[high] == s[i]:
-            high += 1
-        
-        while low >= 0 and high < len(s) and s[high] == s[low]:
-            low -= 1
-            high += 1
-        
-        low += 1
-        high -= 1
-        
-        if (high - low + 1) > curr:
-            curr = high - low + 1
-            inds[0], inds[1] = low, high
-            ans[high] = curr
+    n = len(s)
+    ans = [float('-inf') for i in range(n)]
     
-    to_fill = ans[0]
-    
-    for i in range(1, len(s)):
+    for i in range(n):
         
-        if ans[i] == float('-inf'):
-            ans[i] = to_fill
-        
-        else:
-            to_fill = ans[i]
+        l1, s_o, e_o = expand_center(s, i, i, ans)
+        l2, s_e, e_e = expand_center(s, i, i + 1, ans)
     
-    print(inds)
+    max_seen = ans[0]
+    
+    for i in range(1, n):
+        ans[i] = max(max_seen, ans[i])
+        max_seen = ans[i]
+    
     print(ans)
 
 '''Following is the DP solution which runs in O(N^2) time and space and correctly calculates all prefix lengths
